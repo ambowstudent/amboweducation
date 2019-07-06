@@ -11,9 +11,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class StudentCourseGrade implements Serializable{
 
-  private long id;
-  private long sId;
-  private long crId;
+  private Integer id;
+  private Integer sId;
+  private Integer crId;
   private double grade;
+
+  private Student student;
+  private Course course;
 
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Permission implements Serializable{
 
-  private long id;
+  private Integer id;
   private String name;
   private String description;
 

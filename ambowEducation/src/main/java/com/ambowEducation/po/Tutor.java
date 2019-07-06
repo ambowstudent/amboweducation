@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Data
@@ -11,10 +12,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Tutor implements Serializable{
 
-  private long id;
+  private Integer id;
   private String empNo;
   private String name;
   private String sex;
-  private long workingSeniority;
+  private Integer workingSeniority;
 
+  private List<Position> positions;
+  private List<Clazz> clazzs;
 }

@@ -10,8 +10,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ReduceHours implements Serializable{
 
-  private long id;
+  private Integer id;
   private String name;
-  private long classHour;
+  private Integer classHour;
 
 }

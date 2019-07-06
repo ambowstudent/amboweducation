@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -11,12 +14,14 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Position implements Serializable{
 
-  private long id;
+  private Integer id;
   private String position;
-  private double salary;
+  private BigDecimal salary;
   private String companyName;
   private String location;
   private String detail;
-  private java.sql.Date createtime;
+  private Date createtime;
 
+  private Tutor tutor;
+  private List<Student> students;
 }
