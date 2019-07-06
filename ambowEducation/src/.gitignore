@@ -1,9 +1,2 @@
 ambowEducation.iml
 .idea
-*/target
-*.iml
-/.idea
-target/
-.project
-.settings/
-.classpath
