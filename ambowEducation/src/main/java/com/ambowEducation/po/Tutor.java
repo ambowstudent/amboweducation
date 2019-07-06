@@ -1,11 +1,20 @@
 package com.ambowEducation.po;
 
-public class Tutor {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
-	private Integer id;
-	private String emp_no;
-	private String name;
-	private String sex;
-	private Integer working_seniority;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Tutor implements Serializable{
+
+  private long id;
+  private String empNo;
+  private String name;
+  private String sex;
+  private long workingSeniority;
 
 }

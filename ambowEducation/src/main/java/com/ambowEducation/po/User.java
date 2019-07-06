@@ -1,14 +1,19 @@
 package com.ambowEducation.po;
 
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
-public class User {
-	private Integer id;
 
-	private String username;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class User implements Serializable{
 
-	private String password;
-
-	private Date createtime;
+  private long id;
+  private String username;
+  private String password;
+  private java.sql.Date createtime;
 
 }

@@ -1,9 +1,18 @@
 package com.ambowEducation.po;
 
-public class Classroom {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
-	private Integer id;
-	private String room_number;
-	private Integer room_capacity;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Classroom implements Serializable{
+
+  private long id;
+  private String roomNumber;
+  private long roomCapacity;
 
 }

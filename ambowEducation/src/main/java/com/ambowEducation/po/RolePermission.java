@@ -1,10 +1,19 @@
 package com.ambowEducation.po;
 
-public class RolePermission {
-	
-	private Integer id;
-	  private Integer permission_id;
-	  private Integer role_id;
-	  private String remark;
-	  
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
+
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class RolePermission implements Serializable{
+
+  private long id;
+  private long permissionId;
+  private long roleId;
+  private String remark;
+
 }

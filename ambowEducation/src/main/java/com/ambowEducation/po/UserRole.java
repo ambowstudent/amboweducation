@@ -1,10 +1,19 @@
 package com.ambowEducation.po;
 
-public class UserRole {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
-	private Integer id;
-	private Integer user_id;
-	private Integer role_id;
-	private String remark;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserRole implements Serializable{
+
+  private long id;
+  private long userId;
+  private long roleId;
+  private String remark;
 
 }
