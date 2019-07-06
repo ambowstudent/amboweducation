@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaobobo.dao.ClassroomMapper">
+  <resultMap id="BaseResultMap" type="com.xiaobobo.po.Classroom">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="room_number" jdbcType="VARCHAR" property="room_number" />
+    <result column="room_capacity" jdbcType="INTEGER" property="room_capacity" />
+  </resultMap>
+  
+</mapper>
