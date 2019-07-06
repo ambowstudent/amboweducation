@@ -1,4 +1,4 @@
-package com.ambowEducation.student.po;
+package com.ambowEducation.po;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
