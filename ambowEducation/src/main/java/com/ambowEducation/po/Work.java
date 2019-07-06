@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 
 @Data
@@ -11,10 +12,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Work implements Serializable{
 
-  private long id;
-  private long sId;
+  private Integer id;
+  private Integer sId;
   private String companyName;
-  private double salary;
+  private BigDecimal salary;
   private String type;
+
+  private Student student;
 
 }

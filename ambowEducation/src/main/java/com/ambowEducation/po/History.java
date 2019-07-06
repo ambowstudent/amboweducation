@@ -11,11 +11,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class History implements Serializable{
 
-  private long id;
-  private long tuId;
+  private Integer id;
+  private Integer tuId;
   private String tuName;
-  private long sId;
+  private Integer sId;
   private String sName;
   private String reason;
 
+  private Student student;
 }

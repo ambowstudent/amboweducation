@@ -11,8 +11,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Classroom implements Serializable{
 
-  private long id;
+  private Integer id;
   private String roomNumber;
-  private long roomCapacity;
+  private Integer roomCapacity;
 
+  private Clazz clazz;
 }

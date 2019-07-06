@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Data
@@ -11,7 +12,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ClassType implements Serializable{
 
-  private long id;
+  private Integer id;
   private String name;
+
+  private List<Clazz> clazzs;
+  private List<Course> courses;
 
 }
