@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xiaobobo.dao.RolePermissionMapper">
-  <resultMap id="BaseResultMap" type="com.xiaobobo.po.RolePermission">
+<mapper namespace="com.ambowEducation.dao">
+  <resultMap id="BaseResultMap" type="RolePermission">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="permission_id" jdbcType="INTEGER" property="permission_id" />
     <result column="role_id" jdbcType="INTEGER" property="role_id" />

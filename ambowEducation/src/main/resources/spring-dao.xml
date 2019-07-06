@@ -6,12 +6,12 @@
 
     <context:property-placeholder location="classpath:*.properties"/>
 
-    <bean  id="dataSource"  class="com.alibaba.druid.pool.DruidDataSource">
-        <property name="url" value="${jdbc.url}"/>
+    <bean id="dataSource"  class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="username" value="${jdbc.userName}"/>
         <property name="password" value="${jdbc.password}"/>
         <property name="initialSize" value="${jdbc.initialSize}"/>
+        <property name="url" value="${jdbc.url}"/>
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
