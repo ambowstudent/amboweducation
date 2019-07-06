@@ -1,9 +1,17 @@
-package com.ambowEducation.po;
+package com.ambowEducation.student.po;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
-public class ReduceHours {
 
-	private Integer id;
-	private String name;
-	private Integer class_hour;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ReduceHours implements Serializable{
+
+  private long id;
+  private String name;
+  private long classHour;
 
 }

@@ -1,12 +1,21 @@
 package com.ambowEducation.po;
 
-public class TechnicalTeacher {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
-	private Integer id;
-	private String emp_no;
-	private String name;
-	private String sex;
-	private String skills;
-	private Integer working_seniority;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class TechnicalTeacher implements Serializable{
+
+  private long id;
+  private String empNo;
+  private String name;
+  private String sex;
+  private String skills;
+  private long workingSeniority;
 
 }

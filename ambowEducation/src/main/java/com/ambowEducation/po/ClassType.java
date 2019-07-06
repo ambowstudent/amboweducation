@@ -1,10 +1,17 @@
 package com.ambowEducation.po;
 
-public class ClassType {
-    
-	private Integer id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
-    private String name;
 
-    
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ClassType implements Serializable{
+
+  private long id;
+  private String name;
+
 }

@@ -1,9 +1,18 @@
 package com.ambowEducation.po;
 
-public class ClasstypeCourse {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
-	private Integer id;
-	private Integer ct_id;
-	private Integer cr_id;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ClasstypeCourse implements Serializable{
+
+  private long id;
+  private long ctId;
+  private long crId;
 
 }

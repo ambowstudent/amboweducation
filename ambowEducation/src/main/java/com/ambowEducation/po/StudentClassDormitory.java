@@ -1,13 +1,22 @@
 package com.ambowEducation.po;
 
-public class StudentClassDormitory {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
-	private Integer id;
-	private Integer s_id;
-	private String s_name;
-	private Integer c_id;
-	private String c_name;
-	private Integer d_id;
-	private String d_number;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class StudentClassDormitory implements Serializable{
+
+  private long id;
+  private long sId;
+  private String sName;
+  private long cId;
+  private String cName;
+  private long dId;
+  private String dNumber;
 
 }

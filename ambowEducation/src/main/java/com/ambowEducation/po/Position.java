@@ -1,15 +1,22 @@
 package com.ambowEducation.po;
 
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
-public class Position {
 
-	private Integer id;
-	private String position;
-	private double salary;
-	private String company_name;
-	private String location;
-	private String detail;
-	private Date createtime;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Position implements Serializable{
+
+  private long id;
+  private String position;
+  private double salary;
+  private String companyName;
+  private String location;
+  private String detail;
+  private java.sql.Date createtime;
 
 }
