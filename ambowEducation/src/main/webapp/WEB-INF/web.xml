@@ -3,6 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+  <!--注解开发-->
+  <context-param>
+    <param-name>contextClass</param-name>
+    <param-value>
+      org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+    </param-value>
+  </context-param>
   <!--配置前端控制器,这里将spring跟springbootmvc配置到了一起-->
   <servlet>
     <servlet-name>springmvc</servlet-name>
@@ -10,6 +17,12 @@
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:spring*.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>contextClass</param-name>
+      <param-value>
+        org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+      </param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
