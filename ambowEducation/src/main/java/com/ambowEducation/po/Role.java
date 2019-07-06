@@ -1,6 +1,6 @@
-package com.ambowEducation.student.po;
+package com.ambowEducation.po;
 
-public class Permission {
+public class Role {
 	
 	private Integer id;
 

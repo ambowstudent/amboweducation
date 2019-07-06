@@ -1,4 +1,4 @@
-package com.ambowEducation.student.po;
+package com.ambowEducation.po;
 
 import java.util.Date;
 

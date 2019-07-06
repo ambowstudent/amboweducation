@@ -1,4 +1,4 @@
-package com.ambowEducation.student.po;
+package com.ambowEducation.po;
 
 public class Tutor {
 
