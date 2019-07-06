@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ambowEducation.dao">
+<mapper namespace="com.ambowEducation.dao.StudentMapper">
   <resultMap id="BaseResultMap" type="Student">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="s_no" jdbcType="VARCHAR" property="s_no" />

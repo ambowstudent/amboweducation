@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Data
@@ -16,5 +17,5 @@ public class Course implements Serializable{
     private String name;
 
     private StudentCourseGrade grade;
-    private ClassType cType;
+    private List<ClassType> cTypes;
 }
