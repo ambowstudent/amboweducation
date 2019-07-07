@@ -25,5 +25,6 @@ public class TechnicalTeacher implements Serializable{
 //  工作年限
   private Integer workingSeniority;
 
+//  班级
   private List<Clazz> clazzs;
 }

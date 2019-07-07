@@ -25,9 +25,14 @@ public class Clazz implements Serializable{
 //  班级名称
   private String name;
 
+//  学生
   private List<Student> students;
+//  班级类型
   private ClassType cType;
+//  技术教师
   private TechnicalTeacher teacher;
+//  学业导师
   private Tutor tutor;
+//  班级教室
   private Classroom classroom;
 }

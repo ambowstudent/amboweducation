@@ -24,5 +24,6 @@ public class History implements Serializable{
 //  扣分说明
   private String reason;
 
+//  学生
   private Student student;
 }
