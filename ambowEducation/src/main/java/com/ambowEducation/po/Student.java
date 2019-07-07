@@ -37,4 +37,7 @@ public class Student implements Serializable{
   private List<Work> works;
   private List<History> historys;
   private List<Position> positions;
+  private Dormitory dormitory;
+  private ClassType classType;
+
 }

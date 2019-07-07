@@ -6,4 +6,5 @@
     <result column="number" jdbcType="VARCHAR" property="number" />
   </resultMap>
 
+
 </mapper>
