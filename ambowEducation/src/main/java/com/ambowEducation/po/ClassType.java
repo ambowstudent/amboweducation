@@ -12,7 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 public class ClassType implements Serializable{
 
+//  班级id（与业务无关）
   private Integer id;
+//  班级名称
   private String name;
 
   private List<Clazz> clazzs;

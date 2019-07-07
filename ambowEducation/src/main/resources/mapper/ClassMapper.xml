@@ -3,10 +3,10 @@
 <mapper namespace="com.ambowEducation.dao.ClassMapper">
   <resultMap id="BaseResultMap" type="Clazz">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="ct_id" jdbcType="INTEGER" property="ct_id" />
-    <result column="te_id" jdbcType="INTEGER" property="te_id" />
-    <result column="tu_id" jdbcType="INTEGER" property="tu_id" />
-    <result column="room_id" jdbcType="INTEGER" property="room_id" />
+    <result column="ct_id" jdbcType="INTEGER" property="ctId" />
+    <result column="te_id" jdbcType="INTEGER" property="teId" />
+    <result column="tu_id" jdbcType="INTEGER" property="tuId" />
+    <result column="room_id" jdbcType="INTEGER" property="roomId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   

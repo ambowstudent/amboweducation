@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="ReduceHours">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="class_hour" jdbcType="INTEGER" property="class_hour" />
+    <result column="class_hour" jdbcType="INTEGER" property="classHour" />
   </resultMap>
 
 </mapper>

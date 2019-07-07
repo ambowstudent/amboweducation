@@ -12,8 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 public class Role implements Serializable{
 
+//  User Id
   private Integer id;
+//  角色名称
   private String name;
+//  描述
   private String description;
 
   private List<Permission> permissions;

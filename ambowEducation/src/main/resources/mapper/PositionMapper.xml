@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="position" jdbcType="VARCHAR" property="position" />
     <result column="salary" jdbcType="DECIMAL" property="salary" />
-    <result column="company_name" jdbcType="VARCHAR" property="company_name" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
     <result column="location" jdbcType="VARCHAR" property="location" />
     <result column="detail" jdbcType="VARCHAR" property="detail" />
     <result column="createtime" jdbcType="DATE" property="createtime" />

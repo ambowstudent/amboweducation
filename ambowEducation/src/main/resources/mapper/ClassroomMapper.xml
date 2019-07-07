@@ -3,8 +3,8 @@
 <mapper namespace="com.ambowEducation.dao.ClassroomMapper">
   <resultMap id="BaseResultMap" type="Classroom">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="room_number" jdbcType="VARCHAR" property="room_number" />
-    <result column="room_capacity" jdbcType="INTEGER" property="room_capacity" />
+    <result column="room_number" jdbcType="VARCHAR" property="roomNumber" />
+    <result column="room_capacity" jdbcType="INTEGER" property="roomCapacity" />
   </resultMap>
   
 </mapper>

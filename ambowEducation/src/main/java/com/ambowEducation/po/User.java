@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class User implements Serializable{
 
+//  User Id
   private Integer id;
   private String username;
   private String password;

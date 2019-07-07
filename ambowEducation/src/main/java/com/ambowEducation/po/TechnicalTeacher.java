@@ -12,11 +12,17 @@ import java.util.List;
 @NoArgsConstructor
 public class TechnicalTeacher implements Serializable{
 
+//  老师id（与业务无关）
   private Integer id;
+//  员工编号
   private String empNo;
+//  老师姓名
   private String name;
+//  老师性别
   private String sex;
+//  擅长的技术
   private String skills;
+//  工作年限
   private Integer workingSeniority;
 
   private List<Clazz> clazzs;

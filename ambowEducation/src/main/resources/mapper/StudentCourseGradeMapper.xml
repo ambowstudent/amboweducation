@@ -3,8 +3,8 @@
 <mapper namespace="com.ambowEducation.dao.StudentCourseGradeMapper">
   <resultMap id="BaseResultMap" type="StudentCourseGrade">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="s_id" jdbcType="INTEGER" property="s_id" />
-    <result column="cr_id" jdbcType="INTEGER" property="cr_id" />
+    <result column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="cr_id" jdbcType="INTEGER" property="crId" />
     <result column="grade" jdbcType="REAL" property="grade" />
   </resultMap>
 </mapper>

@@ -3,8 +3,8 @@
 <mapper namespace="com.ambowEducation.dao.WorkMapper">
   <resultMap id="BaseResultMap" type="Work">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="s_id" jdbcType="INTEGER" property="s_id" />
-    <result column="company_name" jdbcType="VARCHAR" property="company_name" />
+    <result column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
     <result column="salary" jdbcType="DECIMAL" property="salary" />
   </resultMap>
 
