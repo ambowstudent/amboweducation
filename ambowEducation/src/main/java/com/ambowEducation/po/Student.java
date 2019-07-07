@@ -41,7 +41,7 @@ public class Student implements Serializable{
 //  首次就业薪资
   private BigDecimal firstSalary;
 //  就业追踪
-  private String employmentTracking;
+  private Integer workId;
 //  照片(文件)
   private String photo;
 //  简历(文件)
