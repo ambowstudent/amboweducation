@@ -11,8 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Dormitory implements Serializable{
-    private Integer id;
 
+//    宿舍id
+    private Integer id;
+//    25#1#604
     private String number;
 
     private List<Student> students;

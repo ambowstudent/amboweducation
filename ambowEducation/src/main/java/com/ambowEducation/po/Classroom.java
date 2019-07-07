@@ -11,8 +11,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Classroom implements Serializable{
 
+//  教室id（与业务无关）
   private Integer id;
+//  教师门牌号
   private String roomNumber;
+//  容量
   private Integer roomCapacity;
 
   private Clazz clazz;

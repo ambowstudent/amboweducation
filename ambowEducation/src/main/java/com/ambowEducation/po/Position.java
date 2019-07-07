@@ -14,12 +14,19 @@ import java.util.List;
 @NoArgsConstructor
 public class Position implements Serializable{
 
+//  职位id
   private Integer id;
+//  职位名称
   private String position;
+//  工资
   private BigDecimal salary;
+//  公司名称
   private String companyName;
+//  位置
   private String location;
+//  详细信息
   private String detail;
+//  发布时间
   private Date createtime;
 
   private Tutor tutor;

@@ -12,10 +12,15 @@ import java.util.List;
 @NoArgsConstructor
 public class Tutor implements Serializable{
 
+//  导师id（与业务无关）
   private Integer id;
+//  员工编号
   private String empNo;
+//  员工姓名
   private String name;
+//  员工性别
   private String sex;
+//  工作年限
   private Integer workingSeniority;
 
   private List<Position> positions;
