@@ -10,8 +10,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ReduceHours implements Serializable{
 
+//  学时ID
   private Integer id;
+//  扣分声明
   private String name;
+//  扣分项所占学时
   private Integer classHour;
 
 }
