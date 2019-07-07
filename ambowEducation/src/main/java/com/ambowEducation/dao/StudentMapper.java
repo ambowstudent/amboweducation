@@ -46,5 +46,5 @@ public interface StudentMapper {
     public List<Student> findAll();
 
     //查询单个学生信息
-    public List<Student> findById(int sid);
+    public List<Student> findBySno(String sno);
 }
