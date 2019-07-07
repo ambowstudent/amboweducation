@@ -19,5 +19,6 @@ public class Role implements Serializable{
 //  描述
   private String description;
 
+//  权限
   private List<Permission> permissions;
 }

@@ -1,5 +1,34 @@
 package com.ambowEducation.dao;
 
 
+import com.ambowEducation.po.Dormitory;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
+
 public interface DormitoryMapper {
+
+//    查询所有宿舍
+    @Select("select * from t_dormitory")
+    public List<Dormitory> selectList();
+
+//    根据ID查询单个宿舍
+    @Select("select * from t_dormitory where id = #{id }")
+    public Dormitory select(int did);
+
+//    添加宿舍
+    @Insert("insert into t_dormitory values(null,#{number })")
+    public int insert(Dormitory dormitory);
+
+//    修改宿舍
+    @Update("update t_dormitory set number = #{number} where id = #{id }")
+    public int update(Dormitory dormitory);
+
+//    删除宿舍
+    @Delete("delete from t_dormitory where id = #{arg0 }")
+    public int delete(int did);
+
 }

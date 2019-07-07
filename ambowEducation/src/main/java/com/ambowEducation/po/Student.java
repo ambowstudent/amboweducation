@@ -48,9 +48,14 @@ public class Student implements Serializable{
   private String resume;
   private Integer classHour;
 
+//  班级
   private Clazz clazz;
+//  分数
   private List<StudentCourseGrade> grades;
+//  就业跟踪
   private List<Work> works;
+//  扣学分记录历史
   private List<History> historys;
+//  职位信息
   private List<Position> positions;
 }

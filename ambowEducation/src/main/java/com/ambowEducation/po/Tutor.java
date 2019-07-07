@@ -23,6 +23,8 @@ public class Tutor implements Serializable{
 //  工作年限
   private Integer workingSeniority;
 
+//  职位信息
   private List<Position> positions;
+//  班级
   private List<Clazz> clazzs;
 }

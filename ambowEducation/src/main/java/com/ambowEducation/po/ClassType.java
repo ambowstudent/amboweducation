@@ -17,7 +17,9 @@ public class ClassType implements Serializable{
 //  班级名称
   private String name;
 
+//  班级
   private List<Clazz> clazzs;
+//  课程
   private List<Course> courses;
 
 }
