@@ -11,9 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Course implements Serializable{
-	
-    private Integer id;
 
+//    课程id
+    private Integer id;
+//    课程名称
     private String name;
 
     private StudentCourseGrade grade;
