@@ -21,4 +21,19 @@
     <result column="class_hour" jdbcType="INTEGER" property="class_hour" />
   </resultMap>
 
+
+  <insert id="insertStudents" parameterType="java.util.ArrayList">
+    insert into t_student(s_no,name,sex,school,grade,native_place,birthday,phone,id_number)
+    values
+    <foreach collection="list" item="student" index="index" separator=",">
+
+      (#{student.sNo},#{student.name},#{student.sex},#{student.school},#{student.grade},
+      #{student.nativePlace},#{student.birthday},#{student.phone},#{student.idNumber})
+
+    </foreach>
+
+
+  </insert>
+
+
 </mapper>
