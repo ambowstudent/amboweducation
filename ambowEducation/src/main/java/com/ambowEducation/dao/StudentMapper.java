@@ -7,17 +7,8 @@ import com.ambowEducation.dto.StudentFirstWorkDto;
 import com.ambowEducation.dto.StudentHoursDto;
 import com.ambowEducation.po.Student;
 import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import java.util.List;
-
-import com.ambowEducation.po.Student;
-
-import java.util.List;
-
-import com.ambowEducation.po.Student;
-
 import java.util.List;
 
 public interface StudentMapper {
@@ -47,4 +38,12 @@ public interface StudentMapper {
 
     //查询单个学生信息
     public List<Student> findBySno(String sno);
+
+    //查询学业导师带的学生
+    @Select("select s.* from " +
+            "t_student s,t_student_class_dormitory scd,t_tutor tu,t_clazz c " +
+            "where s.id=scd.s_id and scd.c_id=c.id and c.tu_id=tu.id and tu.emp_no=#{tuNo}")
+    public List<Student> findByTuEmpNo(String tuNo);
+
+
 }

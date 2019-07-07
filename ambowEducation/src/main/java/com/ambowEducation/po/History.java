@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.util.Date;
 
 
 @Data
@@ -23,7 +24,9 @@ public class History implements Serializable{
   private String sName;
 //  扣分说明
   private String reason;
-
 //  学生
   private Student student;
+//  修改时间
+  private Date editTime;//修改时间
+
 }
