@@ -16,6 +16,5 @@ public class Course implements Serializable{
 
     private String name;
 
-    private StudentCourseGrade grade;
     private List<ClassType> cTypes;
 }
