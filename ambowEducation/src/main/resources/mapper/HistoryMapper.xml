@@ -3,10 +3,10 @@
 <mapper namespace="com.ambowEducation.dao.HistoryMapper">
   <resultMap id="BaseResultMap" type="History">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="tu_id" jdbcType="INTEGER" property="tu_id" />
-    <result column="tu_name" jdbcType="VARCHAR" property="tu_name" />
-    <result column="s_id" jdbcType="INTEGER" property="s_id" />
-    <result column="s_name" jdbcType="VARCHAR" property="s_name" />
+    <result column="tu_id" jdbcType="INTEGER" property="tuId" />
+    <result column="tu_name" jdbcType="VARCHAR" property="tuName" />
+    <result column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="s_name" jdbcType="VARCHAR" property="sName" />
     <result column="reason" jdbcType="VARCHAR" property="reason" />
   </resultMap>
 

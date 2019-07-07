@@ -3,10 +3,10 @@
 <mapper namespace="com.ambowEducation.dao.TutorMapper">
   <resultMap id="BaseResultMap" type="Tutor">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="emp_no" jdbcType="VARCHAR" property="emp_no" />
+    <result column="emp_no" jdbcType="VARCHAR" property="empNo" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="working_seniority" jdbcType="INTEGER" property="working_seniority" />
+    <result column="working_seniority" jdbcType="INTEGER" property="workingSeniority" />
   </resultMap>
 
 </mapper>
