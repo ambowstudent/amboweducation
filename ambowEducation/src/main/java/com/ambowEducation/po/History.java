@@ -27,6 +27,8 @@ public class History implements Serializable{
 //  学生
   private Student student;
 //  修改时间
-  private Date editTime;//修改时间
+  private Date editTime;
+//  奖扣 具体
+  private String detail;
 
 }
