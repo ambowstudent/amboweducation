@@ -30,5 +30,4 @@ public class History implements Serializable{
   private Date editTime;
 //  奖扣 具体
   private String detail;
-
 }
