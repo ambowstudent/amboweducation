@@ -3,10 +3,12 @@ package com.ambowEducation.configuration;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Data
-@Configuration
-public class RedisConfiguration {
+//@Configuration
+@PropertySource("classpath:redis.properties")
+public class RedisConfig {
 
     @Value("redis.port")
     private Integer port;

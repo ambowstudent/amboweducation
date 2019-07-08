@@ -5,6 +5,7 @@ import com.ambowEducation.po.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface UserMapper {
     /**
@@ -30,4 +31,10 @@ public interface UserMapper {
      */
     @Select("select * from t_user where username=#{username} and password=#{password}")
     User findByNameAndPassword(@Param("username") String username,@Param("password")String password);
+    /**
+     * 根据用户名修改密码
+     */
+    @Update("update t_user set password=#{password} where username=#{username}")
+    void updatePasswordByUsername(@Param("username") String username,@Param("password") String password);
+
 }
