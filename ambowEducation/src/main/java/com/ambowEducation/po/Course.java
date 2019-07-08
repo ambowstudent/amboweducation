@@ -17,8 +17,5 @@ public class Course implements Serializable{
 //    课程名称
     private String name;
 
-//    分数
-    private StudentCourseGrade grade;
-//    班级类型
-    private List<ClassType> cTypes;
+    private List<Clazz> clazzs;
 }
