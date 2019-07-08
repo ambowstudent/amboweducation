@@ -7,4 +7,6 @@
     <result column="cr_id" jdbcType="INTEGER" property="crId" />
     <result column="grade" jdbcType="REAL" property="grade" />
   </resultMap>
+
 </mapper>
+

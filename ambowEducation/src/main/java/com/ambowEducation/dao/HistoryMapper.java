@@ -17,4 +17,5 @@ public interface HistoryMapper {
 
     //学生看自己的历史（可以通过原因模糊查询）
     public List<History> findMyHistory(String key, int sno);
+
 }

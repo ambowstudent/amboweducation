@@ -9,4 +9,5 @@
     <result column="working_seniority" jdbcType="INTEGER" property="workingSeniority" />
   </resultMap>
 
+  
 </mapper>

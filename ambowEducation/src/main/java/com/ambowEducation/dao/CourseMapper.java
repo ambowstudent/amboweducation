@@ -31,4 +31,5 @@ public interface CourseMapper {
     @Delete("delete from t_course where id = #{arg0 }")
     public int delete(int cid);
 
+
 }

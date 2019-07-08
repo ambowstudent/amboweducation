@@ -31,4 +31,5 @@ public interface ClassMapper {
     @Delete("delete from t_clazz where id = #{arg0}")
     public int deleteClazz(int ClazzId);
 
+
 }

@@ -31,4 +31,5 @@ public interface ReduceHoursMapper {
     @Delete("delete from t_reduce_hour where id = #{arg0}")
     public int delete(int rhid);
 
+
 }

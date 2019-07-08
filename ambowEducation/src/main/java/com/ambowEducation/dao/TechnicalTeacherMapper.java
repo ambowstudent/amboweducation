@@ -31,4 +31,5 @@ public interface TechnicalTeacherMapper {
     @Delete("delete from  t_technical_teacher where id = #{arg0 }")
     public int deleteTechnicalTeacher(int technicalTeacherId);
 
+
 }

@@ -36,4 +36,5 @@ public interface ClassTypeMapper {
     @Delete("delete from t_class_type where id = #{arg0 }")
     public int delete(int cTypeId);
 
+
 }

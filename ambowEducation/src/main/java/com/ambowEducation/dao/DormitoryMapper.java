@@ -43,4 +43,5 @@ public interface DormitoryMapper {
     @Delete("delete from t_dormitory where id = #{arg0 }")
     public int delete(int did);
 
+
 }

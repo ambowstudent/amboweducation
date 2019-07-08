@@ -6,4 +6,4 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
-</mapper>
+</mapper> 

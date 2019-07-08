@@ -9,5 +9,5 @@
     <result column="room_id" jdbcType="INTEGER" property="roomId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
-  
+
 </mapper>

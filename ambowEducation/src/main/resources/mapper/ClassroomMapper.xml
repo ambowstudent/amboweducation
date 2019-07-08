@@ -6,5 +6,5 @@
     <result column="room_number" jdbcType="VARCHAR" property="roomNumber" />
     <result column="room_capacity" jdbcType="INTEGER" property="roomCapacity" />
   </resultMap>
-  
+
 </mapper>

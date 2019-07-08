@@ -7,4 +7,5 @@
     <result column="class_hour" jdbcType="INTEGER" property="classHour" />
   </resultMap>
 
+
 </mapper>

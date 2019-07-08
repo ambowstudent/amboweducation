@@ -42,4 +42,5 @@
   <select id="findMyHistory" resultMap="BaseResultMap">
     SELECT s.*, h.detail,h.reason,scd.c_name cname FROM t_history h LEFT JOIN t_student s ON s.id=h.s_id LEFT JOIN t_student_class_dormitory scd ON s.id=scd .s_id WHERE h.reason LIKE "%"#{arg0}"%" and s.id=#{arg1}
   </select>
+
 </mapper>
