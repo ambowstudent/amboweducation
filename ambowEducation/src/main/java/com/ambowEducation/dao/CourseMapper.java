@@ -29,6 +29,9 @@ public interface CourseMapper {
     @Delete("delete from t_course where id = #{arg0 }")
     public int delete(int cid);
 
+
+
+    //以下两个与成绩表关联
     /**
      * 根据课程id，查询课程信息
      */
