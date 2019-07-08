@@ -9,6 +9,7 @@
     <result column="location" jdbcType="VARCHAR" property="location" />
     <result column="detail" jdbcType="VARCHAR" property="detail" />
     <result column="createtime" jdbcType="DATE" property="createtime" />
+    <result column="tu_empno" jdbcType="DATE" property="tuEmpNo" />
   </resultMap>
 
 </mapper>

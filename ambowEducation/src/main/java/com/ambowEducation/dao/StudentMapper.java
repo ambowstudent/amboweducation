@@ -46,4 +46,9 @@ public interface StudentMapper {
     public List<Student> findByTuEmpNo(String tuNo);
 
 
+    //通过学生id查询学生
+    @Select("select * from t_student where id=#{id}")
+    public Student queryById(Integer id);
+
+
 }
