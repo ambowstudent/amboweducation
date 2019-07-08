@@ -1,6 +1,7 @@
 package com.ambowEducation.dao;
 
 
+import com.ambowEducation.dto.StudentClassDormitory;
 import com.ambowEducation.po.Dormitory;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -43,5 +44,6 @@ public interface DormitoryMapper {
     @Delete("delete from t_dormitory where id = #{arg0 }")
     public int delete(int did);
 
-
+    //批量添加宿舍和班级
+    public int insStudentDormiitoryAndClazz(List<StudentClassDormitory> list);
 }
