@@ -24,7 +24,7 @@ public interface WorkMapper {
     @Select("select COUNT(DISTINCT s_id) from t_work ;")
     public int selectSIdCount();
 
-    //根据 s_no，公司名，工作类型进行模糊查询
+    //根据 s_id，公司名，工作类型进行模糊查询
     @Select("select * from t_work where concat(s_id,company_name,type) like concat('%' ,'','%')")
     public List<Work> selectListByKey(String keyWord);
 
