@@ -35,7 +35,7 @@ public interface StudentCourseGradeMapper {
             "from t_course t_c left join t_student_course_grade t_scg on t_c.id=t_scg.cr_id  where t_scg.s_id=#{studentId} and t_scg.cr_id=#{courseId}")
     StudentCourseGrade findOneStudentOneGrade(@Param("studentId") int studentId,@Param("courseId") int courseId);
     /**
-     *老师根据课程名的模糊查询某个学生的成绩,使用xml查询
+     *学生根据课程名的模糊查询某个学生的成绩,使用xml查询
      */
 
     List<StudentCourseGrade> findLikeCourseNameAndStudentId(@Param("courseName")String courseName,@Param("studentId") int studentId);
@@ -44,7 +44,8 @@ public interface StudentCourseGradeMapper {
      */
     List<StudentCourseGrade> findAllLikeCourseName(@Param("courseName") String courseName);
     /**
-     * 老师根据学生学号，姓名，班级，学校，课程名
+     * 老师根据学生学号，姓名，学校，课程名
      */
-    List<StudentCourseGrade> findAllByManyCondition(@Param("sNo") String sNo,@Param("name")String name,@Param("clazzName") String clazzName,@Param("school")String school,@Param("courseName")String courseName);
+    List<StudentCourseGrade> findAllByManyCondition(@Param("sNo") String sNo,@Param("studentName")String studentName,@Param("school")String school,@Param("courseName")String courseName);
 }
+
