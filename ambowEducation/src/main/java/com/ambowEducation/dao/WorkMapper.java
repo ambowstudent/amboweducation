@@ -17,15 +17,15 @@ public interface WorkMapper {
     public int selectAllCount();
 
 //    查询各个工作类型对应是数量
-    @Select("select type , count(*) from t_work group by type, type;")
+    @Select("select type , count(*) as num from t_work group by type, type;")
     public List<Map> selectEveryTypeCount();
 
 //    查询有多少个学生S_ID
     @Select("select COUNT(DISTINCT s_id) from t_work ;")
     public int selectSIdCount();
 
-    //根据 s_id，公司名，工作类型进行模糊查询
-    @Select("select * from t_work where concat(s_id,company_name,type) like concat('%' ,'','%')")
+    //根据 s_no，公司名，工作类型进行模糊查询
+    @Select("select * from t_work where concat(s_id,company_name,type) like concat('%' ,#{arg0 },'%')")
     public List<Work> selectListByKey(String keyWord);
 
     //根据 s_no 查询
