@@ -21,7 +21,9 @@ public class StudentCourseGrade implements Serializable{
 //  成绩
   private double grade;
 
+//  学生
   private Student student;
+//  课程
   private Course course;
 
 }

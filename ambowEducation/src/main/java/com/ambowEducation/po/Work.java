@@ -23,6 +23,7 @@ public class Work implements Serializable{
 //  工作类型（做什么样的工作）
   private String type;
 
+//  学生
   private Student student;
 
 }

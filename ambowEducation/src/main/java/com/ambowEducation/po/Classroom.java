@@ -18,5 +18,6 @@ public class Classroom implements Serializable{
 //  容量
   private Integer roomCapacity;
 
+//  班级
   private Clazz clazz;
 }

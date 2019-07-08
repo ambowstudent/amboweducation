@@ -1,18 +1,18 @@
 package com.ambowEducation.dao;
 
 
+
 import com.ambowEducation.dto.StudentBaseInfoDto;
 import com.ambowEducation.dto.StudentFirstWorkDto;
 import com.ambowEducation.dto.StudentHoursDto;
 import com.ambowEducation.po.Student;
 import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
 import java.util.List;
 
 public interface StudentMapper {
+
 
 
     public int insertStudents(List<StudentBaseInfoDto> list);//批量增加学生信息
@@ -32,5 +32,23 @@ public interface StudentMapper {
 
     @Delete("delete from t_student where s_no=#{sNo}")
     public int deleteStudentBySNO(String sNo);//通过学生的学号来删除一条学生信息
+
+    //查询学生所有信息
+    public List<Student> findAll();
+
+    //查询单个学生信息
+    public List<Student> findBySno(String sno);
+
+    //查询学业导师带的学生
+    @Select("select s.* from " +
+            "t_student s,t_student_class_dormitory scd,t_tutor tu,t_clazz c " +
+            "where s.id=scd.s_id and scd.c_id=c.id and c.tu_id=tu.id and tu.emp_no=#{tuNo}")
+    public List<Student> findByTuEmpNo(String tuNo);
+
+
+    //通过学生id查询学生
+    @Select("select * from t_student where id=#{id}")
+    public Student queryById(Integer id);
+
 
 }
