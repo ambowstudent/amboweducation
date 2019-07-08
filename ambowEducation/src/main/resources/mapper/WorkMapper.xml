@@ -8,5 +8,4 @@
     <result column="salary" jdbcType="DECIMAL" property="salary" />
   </resultMap>
 
-
 </mapper>

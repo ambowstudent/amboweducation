@@ -2,10 +2,7 @@ package com.ambowEducation.dao;
 
 
 import com.ambowEducation.po.Course;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -31,5 +28,18 @@ public interface CourseMapper {
     @Delete("delete from t_course where id = #{arg0 }")
     public int delete(int cid);
 
+
+
+    //以下两个与成绩表关联
+    /**
+     * 根据课程id，查询课程信息
+     */
+    @Select("select * from t_course where id=#{courseId}")
+    Course findByCourseId(@Param("courseId") int courseId);
+    /**
+     * 查询所有课程
+     */
+    @Select("select * from t_course")
+    List<Course> findAllCourse();
 
 }

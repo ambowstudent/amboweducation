@@ -11,5 +11,4 @@
     <result column="createtime" jdbcType="DATE" property="createtime" />
   </resultMap>
 
-
 </mapper>

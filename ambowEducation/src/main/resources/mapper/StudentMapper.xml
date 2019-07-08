@@ -29,7 +29,6 @@
   </association>
   </resultMap>
 
-
   <select id="findAll" resultMap="BaseResultMap">
     SELECT s.*, scd.d_number dnumber,scd.c_name cname FROM t_student s,t_student_class_dormitory scd WHERE s.id = scd.s_id
   </select>

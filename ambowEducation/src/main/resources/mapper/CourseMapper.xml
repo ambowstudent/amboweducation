@@ -4,5 +4,5 @@
   <resultMap id="BaseResultMap" type="Course">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-  </resultMap> 
+  </resultMap>
 </mapper>
