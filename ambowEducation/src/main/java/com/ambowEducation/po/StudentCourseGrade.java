@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
-import java.util.List;
 
 
 @Data
@@ -21,7 +20,9 @@ public class StudentCourseGrade implements Serializable{
 //  成绩
   private double grade;
 
+//  学生
   private Student student;
+//  课程
   private Course course;
 
 }

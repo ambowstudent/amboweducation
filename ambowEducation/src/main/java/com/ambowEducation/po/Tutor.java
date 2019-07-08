@@ -19,10 +19,12 @@ public class Tutor implements Serializable{
 //  员工姓名
   private String name;
 //  员工性别
-  private String sex;
+  private Integer sex;
 //  工作年限
   private Integer workingSeniority;
 
+//  职位信息
   private List<Position> positions;
+//  班级
   private List<Clazz> clazzs;
 }

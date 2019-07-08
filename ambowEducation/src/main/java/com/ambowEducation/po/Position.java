@@ -29,6 +29,10 @@ public class Position implements Serializable{
 //  发布时间
   private Date createtime;
 
+  private String tuEmpNo;
+
+//  学业导师
   private Tutor tutor;
+//  学生
   private List<Student> students;
 }

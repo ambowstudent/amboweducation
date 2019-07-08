@@ -19,11 +19,12 @@ public class TechnicalTeacher implements Serializable{
 //  老师姓名
   private String name;
 //  老师性别
-  private String sex;
+  private Integer sex;
 //  擅长的技术
   private String skills;
 //  工作年限
   private Integer workingSeniority;
 
+//  班级
   private List<Clazz> clazzs;
 }

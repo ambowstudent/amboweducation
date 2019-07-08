@@ -15,9 +15,13 @@ public class User implements Serializable{
 
 //  User Id
   private Integer id;
+//  用户名
   private String username;
+//  密码
   private String password;
+//  创建时间
   private Date createtime;
 
+//  角色
   private List<Role> roles;
 }

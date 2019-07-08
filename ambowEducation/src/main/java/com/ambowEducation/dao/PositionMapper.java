@@ -1,5 +1,46 @@
 package com.ambowEducation.dao;
 
 
+import com.ambowEducation.po.Position;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
+
 public interface PositionMapper {
+    //发布招聘信息
+    @Insert("insert into t_position values(default, #{position},#{salary},#{companyName},#{location},#{detail},#{createtime},#{tuEmpNo})")
+    public int insPosition(Position p);
+
+
+    //删除招聘信息
+    @Delete("delete from t_position where id=#{id}")
+    public int deletePosition(Integer id);
+
+    //修改招聘信息，记录修改时间并更新到createtime字段中
+    @Update("update t_position set position=#{position},salary=#{salary},company_name=#{companyName}," +
+            "location=#{location},detail=#{detail},createtime=#{createtime} where id=#{id}")
+    public int updatePosition(Position p);
+
+    //通过ID查询某条招聘信息
+    @Select("select * from t_position where id=#{id}")
+    public Position queryPositionById(Integer id);
+
+    //查询某个班主任所发布的职位
+    @Select("select * from t_position where tu_empno=#{tuEmpNo}")
+    public List<Position> queryPositionsByTuEmpNo(String tuEmpNo);
+
+
+    //查询所有的职位
+    @Select("select * from t_position")
+    public List<Position> queryPositions();
+
+    //模糊查询
+    @Select("select * from t_position where CONCAT(position,location,company_name) like concat('%',#{key},'%')")
+    public List<Position> queryPositionsByKey(String key);
+
+
+
 }

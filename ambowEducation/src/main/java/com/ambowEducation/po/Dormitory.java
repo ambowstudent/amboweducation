@@ -17,5 +17,6 @@ public class Dormitory implements Serializable{
 //    25#1#604
     private String number;
 
+//    学生
     private List<Student> students;
 }
