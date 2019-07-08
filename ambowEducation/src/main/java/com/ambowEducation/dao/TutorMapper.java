@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface TutorMapper {
 
+
 //    查询所有学业导师
     @Select("select * from t_tutor")
     public List<Tutor> selectTutorList();

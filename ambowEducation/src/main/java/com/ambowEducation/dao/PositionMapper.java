@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface PositionMapper {
     //发布招聘信息
-    @Insert("insert into t_position values(default, #{position},#{salary},#{companyName},#{location},#{detail},#{createtime},#{tuEmpNo})")
+    @Insert("insert into t_position values(default, #{position},#{salary},#{companyName},#{location},#{detail},#{createtime})")
     public int insPosition(Position p);
 
 
@@ -28,10 +28,9 @@ public interface PositionMapper {
     @Select("select * from t_position where id=#{id}")
     public Position queryPositionById(Integer id);
 
-    //查询某个班主任所发布的职位
+    //查询某个班主任所发布的职位(班主任查看自己所发布的职位)
     @Select("select * from t_position where tu_empno=#{tuEmpNo}")
     public List<Position> queryPositionsByTuEmpNo(String tuEmpNo);
-
 
     //查询所有的职位
     @Select("select * from t_position")

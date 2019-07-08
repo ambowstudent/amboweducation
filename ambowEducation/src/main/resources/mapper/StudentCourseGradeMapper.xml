@@ -38,4 +38,24 @@
             <result column="sgrade" property="grade"></result>
         </association>
     </resultMap>
+
+    <select id="findAllByManyCondition" resultMap="findAllLikeCourseNameMap">
+        select scg.id id,scg.grade grade, c.id ci,c.name cname,s.id sid,s.s_no sno,s.name sname,s.school school,s.grade sgrade
+        from    t_student s  left join t_student_course_grade scg on
+        s.id=scg.s_id left join  t_course c  on c.id=scg.cr_id
+        <where>
+            <if test="sNo!=null and sNo!='' ">
+                s.s_no=#{sNo}
+            </if>
+            <if test="studentName!=null and studentName!='' ">
+                and s.name =#{studentName}
+            </if>
+            <if test="school!=null and school!='' ">
+                and school=#{school}
+            </if>
+            <if test="courseName!=null and courseName!='' ">
+                and c.name=#{courseName}
+            </if>
+        </where>
+    </select>
 </mapper>

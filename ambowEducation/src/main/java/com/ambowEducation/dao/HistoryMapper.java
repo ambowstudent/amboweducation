@@ -3,6 +3,7 @@ package com.ambowEducation.dao;
 
 import com.ambowEducation.po.History;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ public interface HistoryMapper {
 
     //学生看自己的历史（可以通过原因模糊查询）
     public List<History> findMyHistory(String key, int sno);
+
 }
