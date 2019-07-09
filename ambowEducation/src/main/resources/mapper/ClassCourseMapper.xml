@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ambowEducation.dao.ClassCourseMapper">
+
+    <insert id="insertClassCourse">
+        insert into t_class_course(c_id,cr_id)
+        values
+        <foreach collection="crIds" item="item" separator=",">
+            (#{cId},#{item})
+        </foreach>
+    </insert>
+
+</mapper>

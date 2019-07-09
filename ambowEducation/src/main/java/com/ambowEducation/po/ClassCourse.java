@@ -13,5 +13,8 @@ import java.util.List;
 public class ClassCourse {
     private Integer id;
     private Integer cId;
+    private Integer crId;
     private List<Integer> crIds;
+
+    private List<Course> courses;
 }
