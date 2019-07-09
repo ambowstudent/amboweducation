@@ -9,6 +9,9 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+/**
+ * 数据库中添加字段， 招聘已完成
+ */
 public interface PositionMapper {
     //发布招聘信息
     @Insert("insert into t_position values(default, #{position},#{salary},#{companyName},#{location},#{detail},#{createtime})")
@@ -38,6 +41,9 @@ public interface PositionMapper {
     //模糊查询
     @Select("select * from t_position where CONCAT(position,location,company_name) like concat('%',#{key},'%')")
     public List<Position> queryPositionsByKey(String key);
+
+    @Select("select status from t_position where id=#{pId}")
+    public int queryPositionStatusById(Integer pId);
 
 
 

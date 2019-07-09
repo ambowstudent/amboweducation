@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface ClassMapper {
 
+
 //    查询所有班级
     @Select("select * from t_clazz")
     public List<Clazz> selectClazzList();

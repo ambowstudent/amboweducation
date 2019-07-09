@@ -3,6 +3,7 @@ package com.ambowEducation.dao;
 
 
 import com.ambowEducation.dto.StudentBaseInfoDto;
+import com.ambowEducation.dto.StudentClassDto;
 import com.ambowEducation.dto.StudentFirstWorkDto;
 import com.ambowEducation.dto.StudentHoursDto;
 import com.ambowEducation.po.Student;
@@ -37,6 +38,14 @@ public interface StudentMapper {
 
     @Delete("delete from t_student where s_no=#{sNo}")
     public int deleteStudentBySNO(String sNo);//通过学生的学号来删除一条学生信息
+
+    //更新学生的班级
+    @Update("update t_student set c_id=#{cId} where s_no=#{sNo}")
+    public int updateStudentClassBySno(@Param("sNo") String sNo,
+                                       @Param("cId") Integer cId);
+
+    //批量插入学生的班级
+    public int updateAllStudentClassBySno(@Param("list") List<StudentClassDto> list);
 
     //查询学生所有信息
     public List<Student> findAll();

@@ -1,12 +1,13 @@
 package com.ambowEducation.dao;
 
+/**
+ * 档案号，人名，宿舍号
+ */
 
 import com.ambowEducation.dto.StudentClassDormitory;
+import com.ambowEducation.dto.StudentDormitoryDto;
 import com.ambowEducation.po.Dormitory;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -14,8 +15,6 @@ public interface DormitoryMapper {
     //调整学生宿舍
     @Update("update t_student_class_dormitory set s_id=#{arg0},s_name=#{arg1},d_id=#{arg2},d_number=#{arg3} where id=#{arg4}")
     public int changeStudentDormitory(int sid, String sname, int did, String dnumber, int id);
-
-
 
 //    查询所有宿舍
     @Select("select * from t_dormitory")
@@ -38,5 +37,14 @@ public interface DormitoryMapper {
     public int delete(int did);
 
     //批量添加宿舍和班级
-    public int insStudentDormiitoryAndClazz(List<StudentClassDormitory> list);
+    //public int insStudentDormiitoryAndClazz(List<StudentClassDormitory> list);
+
+    //批量添加宿舍
+    public int insertStudentDormitory(List<StudentDormitoryDto> list);
+
+    //学生换宿舍
+    @Update("update t_student_dormitory set d_number=#{dNumber} where s_no=#{sNo}")
+    public int updateDormitoryBySNo(@Param("sNo") String sNo,
+                                    @Param("dNumber") String dNumber);
+
 }

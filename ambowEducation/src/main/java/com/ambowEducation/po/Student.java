@@ -46,6 +46,10 @@ public class Student implements Serializable{
   private String resume;
   private Integer classHour;
 
+  //班级id
+  private Integer cId;
+
+
 //  班级
   private Clazz clazz;
 //  分数
@@ -57,6 +61,4 @@ public class Student implements Serializable{
 //  职位信息
   private List<Position> positions;
   private Dormitory dormitory;
-  private ClassType classType;
-
 }
