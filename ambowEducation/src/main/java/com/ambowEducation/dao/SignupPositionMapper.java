@@ -1,6 +1,7 @@
 package com.ambowEducation.dao;
 
 import com.ambowEducation.po.SignupPosition;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -22,7 +23,8 @@ public interface SignupPositionMapper {
     public SignupPosition queryRecord(@Param("sId") Integer sId,
                                       @Param("pId") Integer pId);//查看学生是否已报名当前职位 如果已经报名 则提示不可重复报名
 
-
+    @Delete("delete from t_signup_position where p_id=#{p_id}")
+    public int deleteSignupInfo(Integer p_id);//职位被删除时，同时删除报名表中的信息
 
 
 
