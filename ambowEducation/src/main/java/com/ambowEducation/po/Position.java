@@ -26,10 +26,13 @@ public class Position implements Serializable{
   private String location;
 //  详细信息
   private String detail;
-//  发布时间
+//  发布时间/修改时间
   private Date createtime;
 
   private String tuEmpNo;
+
+  //状态 1-在招  0-不招了
+  private Integer status;
 
 //  学业导师
   private Tutor tutor;

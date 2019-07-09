@@ -3,6 +3,7 @@ package com.ambowEducation.dao;
 
 
 import com.ambowEducation.dto.StudentBaseInfoDto;
+import com.ambowEducation.dto.StudentClassDto;
 import com.ambowEducation.dto.StudentFirstWorkDto;
 import com.ambowEducation.dto.StudentHoursDto;
 import com.ambowEducation.po.Student;
@@ -38,6 +39,14 @@ public interface StudentMapper {
     @Delete("delete from t_student where s_no=#{sNo}")
     public int deleteStudentBySNO(String sNo);//通过学生的学号来删除一条学生信息
 
+    //更新学生的班级
+    @Update("update t_student set c_id=#{cId} where s_no=#{sNo}")
+    public int updateStudentClassBySno(@Param("sNo") String sNo,
+                                       @Param("cId") Integer cId);
+
+    //批量插入学生的班级
+    public int updateAllStudentClassBySno(@Param("list") List<StudentClassDto> list);
+
     //查询学生所有信息
     public List<Student> findAll();
 
@@ -55,6 +64,9 @@ public interface StudentMapper {
     @Select("select * from t_student where id=#{id}")
     public Student queryStudentById(Integer id);
 
+    //通过学生的状态进行查询(正常实训，已就业，未就业，退学)
+    @Select("select * from t_student where status=#{status}")
+    public List<Student> findStudentsByStatus(Integer status);
 
     /**
      * 文件上传，更新数据库的字段
@@ -63,7 +75,15 @@ public interface StudentMapper {
     public int updateStudentPhoto(@Param("photo") String photo,
                                   @Param("sNo") String sNo);//上传照片
 
+
     @Update("update t_student set resume=#{resume} where s_no=#{sNo}")
     public int updateStudentResume(@Param("resume") String resume,
                                   @Param("sNo") String sNo);//上传简历
+
+    @Select("select photo from t_student where s_no=#{sNo}")
+    public String queryPhotoUrlBySNo(String sNo);//查询照片的URL
+
+    @Select("select resume from t_student where s_no=#{sNo}")
+    public String queryResumeUrlBySNo(String sNo);//查询简历的url
+
 }

@@ -6,11 +6,20 @@
     <result column="number" jdbcType="VARCHAR" property="number" />
   </resultMap>
 
-  <insert id="insStudentDormiitoryAndClazz" parameterType="List">
+  <!--<insert id="insStudentDormiitoryAndClazz" parameterType="List">
     insert into t_student_class_dormitory values
     <foreach collection="list" item="item" index="index" separator=",">
       (default,#{item.sId},#{item.sName},#{item.cId},#{item.cName},null ,#{item.dNumber})
     </foreach>
+  </insert>-->
+
+  <insert id="insertStudentDormitory" parameterType="java.util.List">
+    insert into t_student_dormitory(s_no, s_name, school, d_number)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.sNo}, #{item.sName}, #{item.school}, #{item.dNumber})
+    </foreach>
   </insert>
+
 
 </mapper>

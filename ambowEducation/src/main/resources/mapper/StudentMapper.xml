@@ -45,9 +45,15 @@
       #{student.nativePlace},#{student.birthday},#{student.phone},#{student.idNumber})
 
     </foreach>
-
-
   </insert>
+
+  <update id="updateAllStudentClassBySno" parameterType="java.util.List">
+    <foreach collection="list" item="item" separator=";">
+      update t_student set
+      c_id=#{item.cId}
+      where s_no=#{item.sNo}
+    </foreach>
+  </update>
 
 
 </mapper>
