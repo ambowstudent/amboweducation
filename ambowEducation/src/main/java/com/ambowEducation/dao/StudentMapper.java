@@ -66,7 +66,15 @@ public interface StudentMapper {
     public int updateStudentPhoto(@Param("photo") String photo,
                                   @Param("sNo") String sNo);//上传照片
 
+
     @Update("update t_student set resume=#{resume} where s_no=#{sNo}")
     public int updateStudentResume(@Param("resume") String resume,
                                   @Param("sNo") String sNo);//上传简历
+
+    @Select("select photo from t_student where s_no=#{sNo}")
+    public String queryPhotoUrlBySNo(String sNo);//查询照片的URL
+
+    @Select("select resume from t_student where s_no=#{sNo}")
+    public String queryResumeUrlBySNo(String sNo);//查询简历的url
+
 }

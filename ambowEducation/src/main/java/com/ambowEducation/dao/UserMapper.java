@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Update;
 
 public interface UserMapper {
 
-
     /**
      * 添加user数据
      * @param user
