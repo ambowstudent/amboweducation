@@ -55,6 +55,9 @@ public interface StudentMapper {
     @Select("select * from t_student where id=#{id}")
     public Student queryStudentById(Integer id);
 
+    //通过学生的状态进行查询(正常实训，已就业，未就业，退学)
+    @Select("select * from t_student where status=#{status}")
+    public List<Student> findStudentsByStatus(Integer status);
 
     /**
      * 文件上传，更新数据库的字段
