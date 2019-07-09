@@ -5,6 +5,13 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="number" jdbcType="VARCHAR" property="number" />
   </resultMap>
- 
+
+  <insert id="insStudentDormiitoryAndClazz" parameterType="List">
+    insert into t_student_class_dormitory values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (default,#{item.sId},#{item.sName},#{item.cId},#{item.cName},null ,#{item.dNumber})
+    </foreach>
+
+  </insert>
 
 </mapper>
