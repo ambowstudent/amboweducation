@@ -32,4 +32,12 @@ public interface TutorMapper {
     @Delete("delete from t_tutor where id = #{arg0}")
     public int deleteTutor(int tutorId);
 
+//    获取最新添加的老师信息
+    @Select("select * FROM t_tutor ORDER BY id DESC LIMIT 0,1")
+    public Tutor selectLastestTutor();
+
+    //    查询老师编号是否存在
+    @Select("select * FROM t_tutor where emp_no = #{arg0 }")
+    public Tutor selectTutorByEmpNo(String emp_no);
+
 }

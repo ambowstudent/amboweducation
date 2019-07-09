@@ -31,5 +31,11 @@ public interface TechnicalTeacherMapper {
     @Delete("delete from  t_technical_teacher where id = #{arg0 }")
     public int deleteTechnicalTeacher(int technicalTeacherId);
 
+    //    获取最新添加的老师信息
+    @Select("select * FROM t_technical_teacher ORDER BY id DESC LIMIT 0,1")
+    public TechnicalTeacher selectLastestTeacher();
 
+//    查询老师编号是否存在
+    @Select("select * FROM t_technical_teacher where emp_no = #{arg0 }")
+    public TechnicalTeacher selectTeacherByEmpNo(String emp_no);
 }

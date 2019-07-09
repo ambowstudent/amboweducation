@@ -34,5 +34,8 @@ public interface ClassMapper {
     @Select("select s_id from t_student_class_dormitory where c_id=#{cId}")
     public List<Integer> queryStudentByClassId(Integer cId);
 
+//    根据班级名字查询，防止班级名重复
+    @Select("select * from t_clazz where name = #{arg0 }")
+    public Clazz selectByClassname(String classname);
 
 }
