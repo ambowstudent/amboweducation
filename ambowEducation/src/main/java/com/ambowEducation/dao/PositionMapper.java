@@ -14,7 +14,6 @@ public interface PositionMapper {
     @Insert("insert into t_position values(default, #{position},#{salary},#{companyName},#{location},#{detail},#{createtime})")
     public int insPosition(Position p);
 
-
     //删除招聘信息
     @Delete("delete from t_position where id=#{id}")
     public int deletePosition(Integer id);

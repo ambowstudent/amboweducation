@@ -29,7 +29,6 @@ public interface CourseMapper {
     public int delete(int cid);
 
 
-
     //以下两个与成绩表关联
     /**
      * 根据课程id，查询课程信息

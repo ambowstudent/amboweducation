@@ -30,5 +30,9 @@ public interface ClassMapper {
 //    删除班级
     @Delete("delete from t_clazz where id = #{arg0}")
     public int deleteClazz(int ClazzId);
+//    查询班级下面还有没有学生。
+    @Select("select s_id from t_student_class_dormitory where c_id=#{cId}")
+    public List<Integer> queryStudentByClassId(Integer cId);
+
 
 }

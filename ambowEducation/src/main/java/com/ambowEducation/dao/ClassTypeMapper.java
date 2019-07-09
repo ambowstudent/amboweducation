@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
-
+//班级类型
 public interface ClassTypeMapper {
 /*    //调整学生班级
     @Update("update t_student_class_dormitory set s_id=#{arg0},s_name=#{arg1},c_id=#{arg2},c_name=#{arg3} where id=#{arg4}")
