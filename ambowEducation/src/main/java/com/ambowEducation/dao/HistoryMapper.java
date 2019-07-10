@@ -13,9 +13,9 @@ public interface HistoryMapper {
     public int insHistory(History h);
 
     //查询全部也可模糊查询（学业导师看所有学生的历史）
-    public List<History> findAll(String key);
+    public List<History> findAll(int tuId, String key);
 
     //学生看自己的历史（可以通过原因模糊查询）
-    public List<History> findMyHistory(String key, int sno);
+    public List<History> findMyHistory(String key, String sno);
 
 }
