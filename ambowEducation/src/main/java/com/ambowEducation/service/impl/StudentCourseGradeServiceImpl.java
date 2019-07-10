@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class StudentCourseGradeServiceImpl implements StudentCourseGradeService {
 
@@ -42,5 +44,17 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
             throw new StudentGradeException(-3,"学生成绩添加失败");
         }
         System.out.println("学生成绩添加成功");
+    }
+
+    //学生查询自己的全部成绩
+    @Override
+    public List<StudentCourseGrade> findMyGrade(int studentId) {
+        return studentCourseGradeMapper.findOneStudentAllGrade(studentId);
+    }
+
+    //学生查询自己的某个成绩
+    @Override
+    public StudentCourseGrade findMyGradeForCourse(int sid, int courseId) {
+        return studentCourseGradeMapper.findOneStudentOneGrade(sid, courseId);
     }
 }
