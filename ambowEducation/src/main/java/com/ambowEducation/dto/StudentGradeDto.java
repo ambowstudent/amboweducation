@@ -13,7 +13,14 @@ import lombok.NoArgsConstructor;
 public class StudentGradeDto {
 
     private String stuNo;  //学生学号
-  //  private String stuName; //学生姓名
-    private Integer courseId; //课程id
+    private Integer crId;//课程id
     private Double grade; //学生成绩
+    private Integer sId; //学生id
+
+    private String school; //学校
+    private String stuName; //学生名字
+    private String courseName;//课程名字
+
+
+
 }

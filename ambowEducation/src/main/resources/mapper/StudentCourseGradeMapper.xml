@@ -57,7 +57,7 @@
                 and c.name=#{courseName}
             </if>
         </where>
-        order by id desc
+        order by sid asc
     </select>
 
 
