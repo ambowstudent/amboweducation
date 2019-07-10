@@ -12,12 +12,12 @@ public interface StudentCourseGradeMapper {
      * 添加成绩
      */
     @Insert("insert into t_student_course_grade values(default,#{sId},#{crId},#{grade})")
-    void  insertStudentGrade(StudentCourseGrade studentCourseGrade);
+    int  insertStudentGrade(StudentCourseGrade studentCourseGrade);
     /**
      * 修改成绩
      */
     @Update("update t_student_course_grade set grade=#{grade}  where s_id=#{sId} and cr_id=#{crId}")
-    void  updateStudentGrade(StudentCourseGrade studentCourseGrade);
+    int  updateStudentGrade(StudentCourseGrade studentCourseGrade);
     /**
      *学生查询自己的全部成绩
      */
@@ -46,5 +46,5 @@ public interface StudentCourseGradeMapper {
     /**
      * 老师根据学生学号，姓名，班级，学校，课程名
      */
-    List<StudentCourseGrade> findAllByManyCondition(@Param("sNo") String sNo,@Param("name")String name,@Param("clazzName") String clazzName,@Param("school")String school,@Param("courseName")String courseName);
+    List<StudentCourseGrade> findAllByManyCondition(@Param("sNo") String sNo,@Param("studentName")String studentName,@Param("clazzName") String clazzName,@Param("school")String school,@Param("courseName")String courseName);
 }

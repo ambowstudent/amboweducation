@@ -3,8 +3,8 @@ package com.ambowEducation.po;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
-import java.util.List;
 
 
 @Data
@@ -20,5 +20,4 @@ public class Course implements Serializable{
 //    分数
     private StudentCourseGrade grade;
 //    班级类型
-    private List<ClassType> cTypes;
 }

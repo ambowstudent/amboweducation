@@ -39,9 +39,9 @@
         </association>
     </resultMap>
 
-    <select id="findAllByManyCondition" resultMap="findAllLikeCourseNameMap">
-        select scg.id id,scg.grade grade, c.id ci,c.name cname,s.id sid,s.s_no sno,s.name sname,s.school school,s.grade sgrade
-        from    t_student s  left join t_student_course_grade scg on
+    <select id="findAllByManyCondition" resultMap="findAllByManyConditionMap">
+        select scg.id id,scg.grade grade, c.id cid,c.name cname,s.id sid,s.s_no sno,s.name sname,s.school school,s.grade sgrade,clz.id clazzid,clz.name claname
+        from t_clazz clz right join   t_student s on clz.id=s.c_id left join t_student_course_grade scg on
         s.id=scg.s_id left join  t_course c  on c.id=scg.cr_id
         <where>
             <if test="sNo!=null and sNo!='' ">
@@ -57,5 +57,27 @@
                 and c.name=#{courseName}
             </if>
         </where>
+        order by id desc
     </select>
+
+
+    <resultMap id="findAllByManyConditionMap" type="StudentCourseGrade">
+        <id column="id" property="id"></id>
+        <result column="grade" property="grade"></result>
+        <association property="course" javaType="Course">
+            <id column="cid" property="id"></id>
+            <result column="cname" property="name"></result>
+        </association>
+        <association property="student" javaType="Student">
+            <id column="sid" property="id"></id>
+            <result column="sno" property="sNo"></result>
+            <result column="sname" property="name"></result>
+            <result column="school" property="school"></result>
+            <result column="sgrade" property="grade"></result>
+            <association property="clazz" javaType="Clazz">
+                <id column="clazzid" property="id"></id>
+                <result column="claname" property="name"></result>
+            </association>
+        </association>
+    </resultMap>
 </mapper>
