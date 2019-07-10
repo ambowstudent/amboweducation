@@ -45,6 +45,9 @@ public interface PositionMapper {
     @Select("select status from t_position where id=#{pId}")
     public int queryPositionStatusById(Integer pId);
 
+    @Update("update t_position set status=1 where id=#{pId}")
+    public int updatePositionStatus(Integer pId);
+
 
 
 }

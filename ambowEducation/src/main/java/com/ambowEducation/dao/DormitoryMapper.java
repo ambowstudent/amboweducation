@@ -43,8 +43,8 @@ public interface DormitoryMapper {
     public int insertStudentDormitory(List<StudentDormitoryDto> list);
 
     //学生换宿舍
-    @Update("update t_student_dormitory set d_number=#{dNumber} where s_no=#{sNo}")
-    public int updateDormitoryBySNo(@Param("sNo") String sNo,
-                                    @Param("dNumber") String dNumber);
+    @Update("update t_student_dormitory set d_number=#{dNumber}, " +
+            "s_name=#{sName}, school=#{school} where s_no=#{sNo}")
+    public int updateDormitoryBySNo(StudentDormitoryDto dto);
 
 }

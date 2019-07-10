@@ -30,7 +30,7 @@ public interface WorkMapper {
 
     //根据 s_no 查询
     @Select("select * from t_work where s_id = #{arg0}")
-    public List<Work> selectListBySId(String s_id);
+    public List<Work> selectListBySId(Integer s_id);
 
 //    添加新的就业追踪
     @Insert("insert into t_work values(null,#{sId},#{companyName},#{salary},#{type})")
@@ -42,6 +42,6 @@ public interface WorkMapper {
 
 //    删除就业追踪
     @Delete("delete from t_work where id = #{arg0 }")
-    public int deleteWork(int workId);
+    public int deleteWork(Integer workId);
 
 }

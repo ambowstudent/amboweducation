@@ -2,10 +2,7 @@ package com.ambowEducation.dao;
 
 
 
-import com.ambowEducation.dto.StudentBaseInfoDto;
-import com.ambowEducation.dto.StudentClassDto;
-import com.ambowEducation.dto.StudentFirstWorkDto;
-import com.ambowEducation.dto.StudentHoursDto;
+import com.ambowEducation.dto.*;
 import com.ambowEducation.po.Student;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
@@ -19,10 +16,15 @@ public interface StudentMapper {
 
     public int insertStudents(List<StudentBaseInfoDto> list);//批量增加学生信息
 
-    @Update("update t_student set class_hour=class_hour+#{classHour} where s_no=#{sNo}")
+    @Update("update t_student set name=#{name}, school=#{school}, " +
+            "first_employment=#{firstEmployment}, first_salary=#{firstSalary}, " +
+            "status=#{status}  where s_no=#{sNo}")
+    public int updateStudentAllInfo(UpdateStudentInfoDto student);
+
+    @Update("update t_student set class_hour=class_hour+#{classHour} where id=#{sId}")
     public int updateStudentHoursAdd(StudentHoursDto student);//奖励学时
 
-    @Update("update t_student set class_hour=class_hour-#{classHour} where s_no=#{sNo}")
+    @Update("update t_student set class_hour=class_hour-#{classHour} where id=#{sId}")
     public int updateStudentHoursReduce(StudentHoursDto student);//扣学时
 
     @Update("update t_student set interview_history=#{interviewHistory},first_employment=#{firstEmployment}," +
@@ -38,6 +40,10 @@ public interface StudentMapper {
 
     @Delete("delete from t_student where s_no=#{sNo}")
     public int deleteStudentBySNO(String sNo);//通过学生的学号来删除一条学生信息
+
+    @Update("update t_student set status=-1 where s_no=#{sNo}")
+    public int changeStatus(String sNo);
+
 
     //更新学生的班级
     @Update("update t_student set c_id=#{cId} where s_no=#{sNo}")
@@ -55,9 +61,9 @@ public interface StudentMapper {
 
     //查询学业导师带的学生
     @Select("select s.* from " +
-            "t_student s,t_student_class_dormitory scd,t_tutor tu,t_clazz c " +
-            "where s.id=scd.s_id and scd.c_id=c.id and c.tu_id=tu.id and tu.emp_no=#{tuNo}")
-    public List<Student> findStudentsByTuEmpNo(String tuNo);
+            "t_student s,t_clazz c,t_tutor tu " +
+            "where s.c_id=c.id and c.tu_id=tu.id and tu.id=#{tuId} ")
+    public List<Student> findStudentsByTuId(Integer tuId);
 
 
     //通过学生id查询学生
