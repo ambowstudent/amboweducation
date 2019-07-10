@@ -51,7 +51,7 @@ public interface StudentMapper {
     public List<Student> findAll();
 
     //查询单个学生信息
-    public List<Student> findStudentBySno(String sno);
+    public Student findStudentBySno(String sno);
 
     //查询学业导师带的学生
     @Select("select s.* from " +
