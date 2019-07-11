@@ -108,5 +108,15 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
         return maps;
     }
 
+    @Override
+    public List<StudentCourseGrade> findMyGrade(int sId) {
+        return studentCourseGradeMapper.findOneStudentAllGrade(sId);
+    }
+
+    @Override
+    public StudentCourseGrade findMyGradeByKey(int sid, int cid) {
+        return studentCourseGradeMapper.findOneStudentOneGrade(sid, cid);
+    }
+
 
 }

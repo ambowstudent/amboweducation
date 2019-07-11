@@ -13,6 +13,7 @@ public interface SignupPositionService {
     public List<SignupPosition> findHasPositionByPid(int pid);
 
     //查看学生是否已报名当前职位 如果已经报名 则提示不可重复报名
-    public void IsHasPosition(int sid, int pid);
+    public void IsHasPosition(int sid, int pid) throws Exception;
+
 
 }

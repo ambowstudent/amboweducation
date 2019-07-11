@@ -29,12 +29,14 @@ public class SignupPositionServiceImpl implements SignupPositionService {
 
     //查看学生是否已报名当前职位 如果已经报名 则提示不可重复报名
     @Override
-    public void IsHasPosition(int sid, int pid) {
+    public void IsHasPosition(int sid, int pid) throws Exception{
         SignupPosition signupPosition = signupPositionMapper.queryRecord(sid, pid);
         if (signupPosition == null){
-            throw new SignupPositionException(0, "未报名");
-        }else{
-            throw new SignupPositionException(1, "已报名");
+            SignupPosition signupPosition1 = new SignupPosition();
+            signupPosition1.setPId(pid);
+            signupPosition1.setSId(sid);
+            signupPositionMapper.insertSignupPosition(signupPosition1);
+            throw new SignupPositionException(0, "报名成功");
         }
     }
 }
