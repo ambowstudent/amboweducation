@@ -6,19 +6,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Data
-//@Configuration
+@Configuration
 @PropertySource("classpath:redis.properties")
 public class RedisConfig {
 
-    @Value("redis.port")
+    @Value("${redis.port}")
     private Integer port;
 
-    @Value("redis.host")
+    @Value("${redis.host}")
     private String host;
 
-    @Value("redis.password")
+    @Value("${redis.password}")
     private String password;
 
-    @Value("redis.database")
+    @Value("${redis.database}")
     private Integer database;
 }

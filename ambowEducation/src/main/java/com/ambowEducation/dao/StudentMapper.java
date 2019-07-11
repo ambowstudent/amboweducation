@@ -60,7 +60,7 @@ public interface StudentMapper {
     public Student findStudentBySno(String sno);
 
     //查询单个学生信息（只查学生表）
-    @Select("select * from student where s_no=#{arg0}")
+    @Select("select * from t_student where s_no=#{arg0}")
     public Student findStudentBySnoOnlyStudent(String sno);
 
     //查询所有学生信息（只查学生表）

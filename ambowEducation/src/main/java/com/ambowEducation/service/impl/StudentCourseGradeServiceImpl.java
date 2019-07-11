@@ -30,13 +30,13 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
-    public void insertStudentCourse(StudentGradeDto studentGradeDto) {
-        if(studentGradeDto==null){
+    public void insertStudentCourse(StudentGradeDto studentGradeDto) throws Exception {
+        if(studentGradeDto==null||studentGradeDto.getStuNo()==null){
             //该对象不存在直接抛异常
             throw new StudentGradeException(-1,"对象不存在");
         }
         //根据学生学号查询学生的id
-        Student student = studentMapper.findStudentBySno(studentGradeDto.getStuNo());
+        Student student = studentMapper.findStudentBySnoOnlyStudent(studentGradeDto.getStuNo());
         if(student==null){
             throw new StudentGradeException(-2,"学生不存在");
         }
@@ -44,6 +44,7 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
         StudentCourseGrade studentCourseGrade=new StudentCourseGrade();
         try {
             PropertyUtils.copyProperties(studentCourseGrade,studentGradeDto);
+            studentCourseGrade.setSId(student.getId());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,13 +52,12 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
         if(i<1){
             throw new StudentGradeException(-3,"学生成绩添加失败");
         }
-        System.out.println("学生成绩添加成功");
     }
 
     @Override
     public Student findStudentByStudentNo(String stuNo) {
 
-        Student student = studentMapper.findStudentBySno(stuNo);
+        Student student = studentMapper.findStudentBySnoOnlyStudent(stuNo);
         if(student==null){
             throw new StudentGradeException(-2, "学生不存在");
         }
@@ -65,7 +65,7 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
     }
 
     @Override
-    public void modifyStudentCourseByStuId(StudentGradeDto studentGradeDto) {
+    public void modifyStudentCourseByStuId(StudentGradeDto studentGradeDto) throws Exception{
         if(studentGradeDto==null){
             throw new StudentGradeException(-1, "对象不存在");
         }
@@ -84,14 +84,27 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
     }
 
     @Override
-    public List<StudentCourseGrade> findAllByManyCondition(StudentGradeDto studentGradeDto) {
+    public List<StudentCourseGrade> findAllByManyCondition(StudentGradeDto studentGradeDto) throws Exception{
         List<StudentCourseGrade> studentCourseGrades = studentCourseGradeMapper.findAllByManyCondition(studentGradeDto.getStuNo(), studentGradeDto.getStuName(), studentGradeDto.getSchool(), studentGradeDto.getCourseName());
         return studentCourseGrades;
     }
 
     @Override
-    public List<Map<String,String>> findStudentWorkRateOfEmployment() {
-        return workMapper.selectEveryTypeCount();
+    public List<Map<String,Object>> findStudentWorkRateOfEmployment() throws Exception{
+
+        //查询出所有的类型的人数
+        List<Map<String, Object>> maps = workMapper.selectEveryTypeCount();
+
+        //求出总条数
+        int count = workMapper.selectAllCount();
+
+        for (Map map:
+             maps) {
+            long num = (long) map.get("num");
+            String pre=new Double(num)/count+"";
+            map.put("num", pre.substring(0, 4));
+        }
+        return maps;
     }
 
 

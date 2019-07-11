@@ -18,7 +18,7 @@ public interface WorkMapper {
 
 //    查询各个工作类型对应是数量
     @Select("select type , count(*) as num from t_work group by type")
-    public List<Map<String,String>> selectEveryTypeCount();
+    public List<Map<String,Object>> selectEveryTypeCount();
 
 //    查询有多少个学生S_ID
     @Select("select COUNT(DISTINCT s_id) from t_work ;")
