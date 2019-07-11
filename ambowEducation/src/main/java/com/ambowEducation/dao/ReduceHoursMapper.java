@@ -24,7 +24,7 @@ public interface ReduceHoursMapper {
     public ReduceHours selectByName(String name);
 
 //    添加扣学分情况
-    @Insert("insert into r_reduce_hours values(null,#{name},#{classHour})")
+    @Insert("insert into t_reduce_hours values(null,#{name},#{classHour})")
     public int insert(ReduceHours reduceHours);
 
 //    修改扣学分情况
@@ -32,7 +32,7 @@ public interface ReduceHoursMapper {
     public int update(ReduceHours reduceHours);
 
 //    删除扣学分情况
-    @Delete("delete from t_reduce_hour where id = #{arg0}")
+    @Delete("delete from t_reduce_hours where id = #{arg0}")
     public int delete(int rhid);
 
 }

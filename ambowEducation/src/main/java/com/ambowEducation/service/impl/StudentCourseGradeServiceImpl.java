@@ -66,7 +66,8 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
 
     @Override
     public void modifyStudentCourseByStuId(StudentGradeDto studentGradeDto) throws Exception{
-        if(studentGradeDto==null){
+        if(studentGradeDto==null&&studentGradeDto.getSId()==null
+        ){
             throw new StudentGradeException(-1, "对象不存在");
         }
         StudentCourseGrade courseGrade=new StudentCourseGrade();
