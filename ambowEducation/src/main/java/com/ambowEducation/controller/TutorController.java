@@ -10,6 +10,10 @@ import com.ambowEducation.po.Student;
 import com.ambowEducation.po.Work;
 import com.ambowEducation.service.TutorService;
 import com.ambowEducation.utils.JsonData;
+import com.ambowEducation.utils.PageUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,16 +28,16 @@ public class TutorController {
     @Autowired
     private TutorService service;
 
-
     /**
      * 学生管理
      */
 
     @GetMapping("/toStuIndex")//学生管理界面
-    public JsonData toStuIndex(@RequestParam("tu_id") Integer tuId){
+    public JsonData toStuIndex(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
+                                @RequestParam("tu_id") Integer tuId){
         try {
-            List<Student> students = service.queryAllStudent(tuId);
-            return JsonData.buildSuccess(students);
+            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
+            return JsonData.buildSuccess(new PageInfo<Student>(service.queryAllStudent(tuId)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         }catch (Exception e) {
@@ -54,11 +58,12 @@ public class TutorController {
     }*/
 
     @GetMapping("/getStuBySNo")//学业导师通过关键字进行查询
-    public JsonData getStuBySNo(@RequestParam("key") String key,
+    public JsonData getStuBySNo(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
+                                @RequestParam("key") String key,
                                 @RequestParam("tu_id") Integer tuId){
         try {
-            List<Student> list = service.queryStudentBysNo(key,tuId);
-            return JsonData.buildSuccess(list);
+            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
+            return JsonData.buildSuccess(new PageInfo<Student>(service.queryStudentBysNo(key,tuId)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -92,10 +97,11 @@ public class TutorController {
     }
 
     @GetMapping("/getWorkInfo")//获取就业信息
-    public JsonData getWorkInfo(@RequestParam("s_id") Integer id){
+    public JsonData getWorkInfo(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
+                                @RequestParam("s_id") Integer id){
         try {
-            List<Work> works = service.queryWorks(id);
-            return JsonData.buildSuccess(works);
+            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
+            return JsonData.buildSuccess(new PageInfo<Work>(service.queryWorks(id)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -121,10 +127,11 @@ public class TutorController {
      */
 
     @GetMapping("/toPositionIndex")//招聘信息管理首页
-    public JsonData toPositionIndex(@RequestParam("tu_empno") String tuEmpNo){
+    public JsonData toPositionIndex(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
+                                    @RequestParam("tu_empno") String tuEmpNo){
         try {
-            List<Position> positions = service.queryAllPositions(tuEmpNo);
-            return JsonData.buildSuccess(positions);
+            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
+            return JsonData.buildSuccess(new PageInfo<Position>(service.queryAllPositions(tuEmpNo)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -133,11 +140,13 @@ public class TutorController {
     }
 
     @GetMapping("/queryPositionByKey")
-    public JsonData queryPositionByKey(@RequestParam("key") String key,
-                                        @RequestParam("tu_empno") String tuEmpNo){
+    public JsonData queryPositionByKey(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
+                                       @RequestParam("key") String key,
+                                       @RequestParam("tu_empno") String tuEmpNo){
         try {
-            List<Position> positions = service.queryPositionsByKeyAndTuEmpNo(key,tuEmpNo);
-            return JsonData.buildSuccess(positions);
+            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
+            return JsonData.buildSuccess(
+                    new PageInfo<Position>(service.queryPositionsByKeyAndTuEmpNo(key,tuEmpNo)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -210,10 +219,11 @@ public class TutorController {
 
 
     @GetMapping("/getSignupStus")//获取报名的学生
-    public JsonData getSignupStus(@RequestParam("p_id") Integer id){
+    public JsonData getSignupStus(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
+                                  @RequestParam("p_id") Integer id){
         try {
-            List<Student> students = service.queryStudentSignup(id);
-            return JsonData.buildSuccess(students);
+            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
+            return JsonData.buildSuccess(new PageInfo<Student>(service.queryStudentSignup(id)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -226,10 +236,12 @@ public class TutorController {
      * 学时管理模块
      */
     @GetMapping("/toHoursIndex")//所有学生的学时信息
-    public JsonData toHoursIndex(@RequestParam("tu_id") Integer tuId){
+    public JsonData toHoursIndex(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
+                                 @RequestParam("tu_id") Integer tuId){
         try {
-            List<StudentsHoursInfoDto> dtos = service.queryStudentsHoursInfo(tuId);
-            return JsonData.buildSuccess(dtos);
+            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
+            return JsonData.buildSuccess(
+                    new PageInfo<StudentsHoursInfoDto>(service.queryStudentsHoursInfo(tuId)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -239,11 +251,13 @@ public class TutorController {
 
 
     @GetMapping("/queryStuHoursByKey")
-    public JsonData queryStuHoursByKey(@RequestParam("tu_id") Integer id,
-                                    @RequestParam("key") String key){
+    public JsonData queryStuHoursByKey(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
+                                       @RequestParam("tu_id") Integer id,
+                                       @RequestParam("key") String key){
         try {
-            List<StudentsHoursInfoDto> dtos = service.queryStudentsHoursInfoByKey(id,key);
-            return JsonData.buildSuccess(dtos);
+            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
+            return JsonData.buildSuccess(
+                    new PageInfo<StudentsHoursInfoDto>(service.queryStudentsHoursInfoByKey(id,key)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -267,25 +281,19 @@ public class TutorController {
 
 
     @GetMapping("/getHistory")
-    public JsonData getHistory(@RequestParam("tu_id")Integer id,
-                              @RequestParam("key") String key){
+    public JsonData getHistory(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
+                               @RequestParam("tu_id")Integer id,
+                               @RequestParam("key") String key){
         try {
-            List<HoursHistoryDto> dtos = service.queryHourHistory(id, key);
-            return JsonData.buildSuccess(dtos);
+            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
+            return JsonData.buildSuccess(
+                    new PageInfo<HoursHistoryDto>(service.queryHourHistory(id, key)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
             return JsonData.buildError(e);
         }
     }
-
-
-
-
-
-
-
-
 
 
 }
