@@ -19,6 +19,10 @@ public interface ReduceHoursMapper {
     @Select("select * from t_reduce_hours where id = #{arg0}")
     public ReduceHours select(int rhid);
 
+//    根据 扣学分内容 查询单个扣学分情况
+    @Select("select * from t_reduce_hours where name = #{arg0}")
+    public ReduceHours selectByName(String name);
+
 //    添加扣学分情况
     @Insert("insert into r_reduce_hours values(null,#{name},#{classHour})")
     public int insert(ReduceHours reduceHours);

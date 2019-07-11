@@ -21,11 +21,11 @@ public interface ClassMapper {
     public Clazz selectClazz(int ClazzId);
 
 //    添加班级
-    @Insert("insert into t_clazz values(null,#{ctId},#{teId},#{tuId},#{roomId},#{name})")
+    @Insert("insert into t_clazz values(null,#{teId},#{tuId},#{roomId},#{name})")
     public int insertClazz(Clazz c);
 
 //    修改班级
-    @Update("update t_clazz set ct_id=#{ctId},te_id=#{teId},tu_id=#{tuId},room_id=#{roomId},name=#{name} where id = #{id}")
+    @Update("update t_clazz set te_id=#{teId},tu_id=#{tuId},room_id=#{roomId},name=#{name} where id = #{id}")
     public int updateClazz(Clazz c);
 
 //    删除班级
@@ -39,4 +39,7 @@ public interface ClassMapper {
     @Select("select * from t_clazz where name = #{arg0 }")
     public Clazz selectByClassname(String classname);
 
+//    根据教室查询防止教室重复使用
+    @Select("select * from t_clazz where room_id = #{arg0 }")
+    public Clazz selectByRoomId(int roomId);
 }

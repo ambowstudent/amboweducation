@@ -16,6 +16,10 @@ public interface CourseMapper {
     @Select("select * from t_course where id = #{id }")
     public Course select(int cid);
 
+//    根据课程名查询课程
+    @Select("select * from t_course where name = #{name }")
+    public Course selectByName(String name);
+
 //    添加课程
     @Insert("insert into t_course values(null,#{name })")
     public int insert(Course course);
