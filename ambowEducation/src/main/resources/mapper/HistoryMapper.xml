@@ -8,9 +8,10 @@
     <result column="s_id" jdbcType="INTEGER" property="sId" />
     <result column="s_name" jdbcType="VARCHAR" property="sName" />
     <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
     <result column="edit_time" jdbcType="DATE" property="editTime" />
     <association property="student" javaType="Student">
-      <id column="id" jdbcType="INTEGER" property="id" />
+      <id column="sid" jdbcType="INTEGER" property="id" />
       <result column="s_no" jdbcType="VARCHAR" property="sNo" />
       <result column="name" jdbcType="VARCHAR" property="name" />
       <result column="sex" jdbcType="INTEGER" property="sex" />
@@ -38,9 +39,9 @@
     </association>
   </resultMap>
   <select id="findAll" resultMap="BaseResultMap">
-    SELECT s.*, h.*,scd.c_name cname FROM t_history h LEFT JOIN t_student s ON s.id=h.s_id LEFT JOIN t_student_class_dormitory scd ON s.id=scd .s_id WHERE CONCAT(s.s_no,s.`name`) LIKE "%"#{arg1}"%"and tu_id=#{arg0}
+    SELECT s.id sid,s.`name`,s.s_no,s.school,h.*,scd.c_name cname FROM t_history h LEFT JOIN t_student s ON s.id=h.s_id LEFT JOIN t_student_class_dormitory scd ON s.id=scd .s_id WHERE CONCAT(s.s_no,s.`name`) LIKE "%"#{arg1}"%"and tu_id=#{arg0}
   </select>
   <select id="findMyHistory" resultMap="BaseResultMap">
-    SELECT s.*, h.*,scd.c_name cname FROM t_history h LEFT JOIN t_student s ON s.id=h.s_id LEFT JOIN t_student_class_dormitory scd ON s.id=scd .s_id WHERE h.reason LIKE "%"#{arg0}"%" and s.s_no=#{arg1}
+    SELECT s.id sid,s.`name`,s.s_no,s.school,h.*,scd.c_name cname FROM t_history h LEFT JOIN t_student s ON s.id=h.s_id LEFT JOIN t_student_class_dormitory scd ON s.id=scd .s_id WHERE h.reason LIKE "%"#{arg0}"%" and s.s_no=#{arg1}
   </select>
 </mapper>
