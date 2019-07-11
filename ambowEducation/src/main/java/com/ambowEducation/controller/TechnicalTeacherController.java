@@ -20,10 +20,22 @@ public class TechnicalTeacherController {
     //添加成绩
     @PostMapping("/insert_grade")
     public JsonData insertStudentGrade(@RequestBody StudentGradeDto studentGradeDto){
-        System.out.println(studentGradeDto);
         try {
             studentCourseGradeService.insertStudentCourse(studentGradeDto);
             return JsonData.buildSuccess("学生成绩添加成功");
+        }catch (StudentGradeException e){
+            return JsonData.buildError(e.getMessage());
+        } catch (Exception e) {
+            return JsonData.buildError(e.getMessage());
+        }
+    }
+    //修改学生成绩
+    @PostMapping("/modify_grade")
+    public JsonData updateStudentGrade(@RequestBody StudentGradeDto studentGradeDto){
+
+        try {
+            studentCourseGradeService.modifyStudentCourseByStuId(studentGradeDto);
+            return JsonData.buildSuccess("学生成绩修改成功");
         }catch (StudentGradeException e){
             return JsonData.buildError(e.getMessage());
         } catch (Exception e) {
