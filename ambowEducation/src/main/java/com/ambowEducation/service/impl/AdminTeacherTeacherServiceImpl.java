@@ -89,7 +89,7 @@ public class AdminTeacherTeacherServiceImpl implements AdminTeacherService {
 
     @Override
     public List<TechnicalTeacher> selectTechnicalTeacher() {
-        return null;
+        return teacherMapper.selectTechnicalTeacherList();
     }
 
     /**

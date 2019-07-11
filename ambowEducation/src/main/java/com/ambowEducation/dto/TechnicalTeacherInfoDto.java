@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class TechnicalTeacherInfoDto {
 
-//    private Integer id; //技术教师ID
+    private Integer id; //技术教师ID
     private String empNo;   //技术教师编号
     private String name;    //技术教师姓名
     private Integer sex;     //技术教师性别
