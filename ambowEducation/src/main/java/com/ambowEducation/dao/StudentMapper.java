@@ -64,7 +64,7 @@ public interface StudentMapper {
     public Student findStudentBySnoOnlyStudent(String sno);
 
     //查询所有学生信息（只查学生表）
-    @Select("select * from student")
+    @Select("select * from t_student")
     public Student findAllOnlyStudent();
 
     //查询学业导师带的学生
