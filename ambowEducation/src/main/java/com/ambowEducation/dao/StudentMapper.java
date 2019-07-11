@@ -53,6 +53,14 @@ public interface StudentMapper {
     //查询单个学生信息
     public Student findStudentBySno(String sno);
 
+    //查询单个学生信息（只查学生表）
+    @Select("select * from student where s_no=#{arg0}")
+    public Student findStudentBySnoOnlyStudent(String sno);
+
+    //查询所有学生信息（只查学生表）
+    @Select("select * from student")
+    public Student findAllOnlyStudent();
+
     //查询学业导师带的学生
     @Select("select s.* from " +
             "t_student s,t_student_class_dormitory scd,t_tutor tu,t_clazz c " +
