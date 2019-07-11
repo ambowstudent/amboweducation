@@ -24,6 +24,12 @@ public interface DormitoryMapper {
     @Select("select * from t_dormitory where id = #{id }")
     public Dormitory select(int did);
 
+    //    根据s_no查询单个宿舍
+    @Select("select d_number from t_student_dormitory where s_no = #{sNo }")
+    public String selectBySNo(String sNo);
+
+
+
 //    添加宿舍
     @Insert("insert into t_dormitory values(null,#{number })")
     public int insert(Dormitory dormitory);

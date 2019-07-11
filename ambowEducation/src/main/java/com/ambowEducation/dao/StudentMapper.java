@@ -73,6 +73,12 @@ public interface StudentMapper {
             "where s.c_id=c.id and c.tu_id=tu.id and tu.id=#{tuId} ")
     public List<Student> findStudentsByTuId(Integer tuId);
 
+    @Select("select s.* from " +
+            "t_student s,t_clazz c,t_tutor tu " +
+            "where s.c_id=c.id and c.tu_id=tu.id and tu.id=#{tuId} " +
+            "and concat(s.s_no,s.name,c.name,s.school) like concat('%',#{key},'%')")
+    List<Student> queryStudentByKeyAndTuId(@Param("key") String key,
+                                           @Param("tuId") Integer tuId);
 
     //通过学生id查询学生
     @Select("select * from t_student where id=#{id}")
@@ -99,5 +105,6 @@ public interface StudentMapper {
 
     @Select("select resume from t_student where s_no=#{sNo}")
     public String queryResumeUrlBySNo(String sNo);//查询简历的url
+
 
 }

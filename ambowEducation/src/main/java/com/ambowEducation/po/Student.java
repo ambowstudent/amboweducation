@@ -45,6 +45,7 @@ public class Student implements Serializable{
 //  简历(文件)
   private String resume;
   private Integer classHour;
+  private Integer status;
 
   //班级id
   private Integer cId;

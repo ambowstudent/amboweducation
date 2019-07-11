@@ -2,10 +2,7 @@ package com.ambowEducation.dao;
 
 
 import com.ambowEducation.po.Position;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -14,7 +11,7 @@ import java.util.List;
  */
 public interface PositionMapper {
     //发布招聘信息
-    @Insert("insert into t_position values(default, #{position},#{salary},#{companyName},#{location},#{detail},#{createtime})")
+    @Insert("insert into t_position values(default, #{position},#{salary},#{companyName},#{location},#{detail},#{createtime},#{tuEmpNo},#{status})")
     public int insPosition(Position p);
 
     //删除招聘信息
@@ -49,5 +46,8 @@ public interface PositionMapper {
     public int updatePositionStatus(Integer pId);
 
 
-
+    @Select("select * from t_position where CONCAT(position,location,company_name) " +
+            "like concat('%',#{key},'%') and tu_empno=#{tuEmpNo}")
+    List<Position> queryPositionsByKeyAndTuEmpNo(@Param("key") String key,
+                                                 @Param("tuEmpNo") String tuEmpNo);
 }
