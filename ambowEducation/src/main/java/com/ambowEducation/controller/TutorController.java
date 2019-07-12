@@ -4,22 +4,17 @@ import com.ambowEducation.Exception.TutorException;
 import com.ambowEducation.dto.HoursHistoryDto;
 import com.ambowEducation.dto.StudentsHoursInfoDto;
 import com.ambowEducation.dto.UpdateStudentInfoDto;
-import com.ambowEducation.po.History;
-import com.ambowEducation.po.Position;
-import com.ambowEducation.po.Student;
-import com.ambowEducation.po.Work;
+import com.ambowEducation.po.*;
 import com.ambowEducation.service.TutorService;
 import com.ambowEducation.utils.JsonData;
 import com.ambowEducation.utils.PageUtil;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/tutor")
@@ -34,10 +29,12 @@ public class TutorController {
 
     @GetMapping("/toStuIndex")//学生管理界面
     public JsonData toStuIndex(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
-                                @RequestParam("tu_id") Integer tuId){
+                               HttpServletRequest request){
+        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
+        int id=tutor.getId();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
-            return JsonData.buildSuccess(new PageInfo<Student>(service.queryAllStudent(tuId)));
+            return JsonData.buildSuccess(new PageInfo<Student>(service.queryAllStudent(id)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         }catch (Exception e) {
@@ -60,10 +57,12 @@ public class TutorController {
     @GetMapping("/getStuBySNo")//学业导师通过关键字进行查询
     public JsonData getStuBySNo(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
                                 @RequestParam("key") String key,
-                                @RequestParam("tu_id") Integer tuId){
+                                HttpServletRequest request){
+        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
+        int id=tutor.getId();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
-            return JsonData.buildSuccess(new PageInfo<Student>(service.queryStudentBysNo(key,tuId)));
+            return JsonData.buildSuccess(new PageInfo<Student>(service.queryStudentBysNo(key,id)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -128,10 +127,12 @@ public class TutorController {
 
     @GetMapping("/toPositionIndex")//招聘信息管理首页
     public JsonData toPositionIndex(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
-                                    @RequestParam("tu_empno") String tuEmpNo){
+                                    HttpServletRequest request){
+        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
+        String empNo=tutor.getEmpNo();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
-            return JsonData.buildSuccess(new PageInfo<Position>(service.queryAllPositions(tuEmpNo)));
+            return JsonData.buildSuccess(new PageInfo<Position>(service.queryAllPositions(empNo)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -142,11 +143,13 @@ public class TutorController {
     @GetMapping("/queryPositionByKey")
     public JsonData queryPositionByKey(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
                                        @RequestParam("key") String key,
-                                       @RequestParam("tu_empno") String tuEmpNo){
+                                       HttpServletRequest request){
+        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
+        String empNo=tutor.getEmpNo();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(
-                    new PageInfo<Position>(service.queryPositionsByKeyAndTuEmpNo(key,tuEmpNo)));
+                    new PageInfo<Position>(service.queryPositionsByKeyAndTuEmpNo(key,empNo)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -155,8 +158,12 @@ public class TutorController {
     }
 
     @PostMapping("/addPosition")//添加职位
-    public JsonData addPosition(@RequestBody Position p){
+    public JsonData addPosition(@RequestBody Position p,
+                                HttpServletRequest request){
+        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
+        String empNo=tutor.getEmpNo();
         try {
+            p.setTuEmpNo(empNo);
             p.setCreatetime(new Date());
             p.setStatus(0);
             service.addPosition(p);
@@ -237,11 +244,13 @@ public class TutorController {
      */
     @GetMapping("/toHoursIndex")//所有学生的学时信息
     public JsonData toHoursIndex(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
-                                 @RequestParam("tu_id") Integer tuId){
+                                 HttpServletRequest request){
+        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
+        int id=tutor.getId();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(
-                    new PageInfo<StudentsHoursInfoDto>(service.queryStudentsHoursInfo(tuId)));
+                    new PageInfo<StudentsHoursInfoDto>(service.queryStudentsHoursInfo(id)));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -252,8 +261,10 @@ public class TutorController {
 
     @GetMapping("/queryStuHoursByKey")
     public JsonData queryStuHoursByKey(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
-                                       @RequestParam("tu_id") Integer id,
+                                       HttpServletRequest request,
                                        @RequestParam("key") String key){
+        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
+        int id=tutor.getId();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(
@@ -267,8 +278,14 @@ public class TutorController {
 
 
     @PostMapping("/editHours")
-    public JsonData editHours(@RequestBody History h){
+    public JsonData editHours(@RequestBody History h,
+                              HttpServletRequest request){
+        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
+        int id=tutor.getId();
+        String name=tutor.getName();
         try {
+            h.setTuId(id);
+            h.setTuName(name);
             h.setEditTime(new Date());
             service.updateClassHours(h);
             return JsonData.buildSuccess(0);
@@ -278,12 +295,14 @@ public class TutorController {
             return JsonData.buildError(e);
         }
     }
-
+    
 
     @GetMapping("/getHistory")
     public JsonData getHistory(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
-                               @RequestParam("tu_id")Integer id,
+                               HttpServletRequest request,
                                @RequestParam("key") String key){
+        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
+        int id=tutor.getId();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(
