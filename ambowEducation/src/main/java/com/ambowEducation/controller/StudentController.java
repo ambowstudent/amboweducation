@@ -62,7 +62,7 @@ public class StudentController {
     }
 
     //学生报名对应的职位
-    @PostMapping("studentSignupPosition")
+    @PostMapping("/studentSignupPosition")
     public JsonData studentSignupPosition(@RequestParam("s_id") int sId, @RequestParam("p_id") int pId){
         try {
             signupPositionService.IsHasPosition(sId, pId);
@@ -75,7 +75,7 @@ public class StudentController {
     }
 
     //学生查看个人信息
-    @GetMapping("findMyInfo")
+    @GetMapping("/findMyInfo")
     public JsonData findMyInfo(@RequestParam("s_no") String sNo){
         return JsonData.buildSuccess(studentService.findBySno(sNo));
     }
