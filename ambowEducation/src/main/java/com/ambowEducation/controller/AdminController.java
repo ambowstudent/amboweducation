@@ -251,7 +251,7 @@ public class AdminController {
     }
 
     //查询课程信息
-    @GetMapping("/insert_course_list")
+    @GetMapping("/select_course_list")
     public JsonData selectCourse(){
         try {
             List<Course> list = adminClassCourseService.selectCourse();
