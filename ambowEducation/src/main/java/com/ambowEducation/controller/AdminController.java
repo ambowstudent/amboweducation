@@ -355,7 +355,7 @@ public class AdminController {
     @DeleteMapping("/delete_classroom")
     public JsonData deleteClassroom(@RequestBody ClassroomDto classroomDto){
         try {
-            adminOtherService.insertClassroom(classroomDto);
+            adminOtherService.deleteClassroom(classroomDto);
             return JsonData.buildSuccess("教室信息删除成功");
         }catch (TutorException te){
             return JsonData.buildError(te.getMessage());

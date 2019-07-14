@@ -27,7 +27,7 @@ public interface ClassroomMapper {
     @Delete("delete from t_classroom where id = #{arg0}")
     int delete(int id);
 
-    @Select("select * from t_classroom where id = {arg0}")
+    @Select("select * from t_classroom where id = #{arg0}")
     Classroom selectById(int id);
 
 }
