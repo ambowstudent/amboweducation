@@ -92,6 +92,14 @@ public class AdminTeacherTeacherServiceImpl implements AdminTeacherService {
         return teacherMapper.selectTechnicalTeacherList();
     }
 
+    @Override
+    public TechnicalTeacher selectTechnicalTeacherById(TechnicalTeacherInfoDto teacherInfoDto) {
+        if(teacherInfoDto==null){
+            throw new TechnicalTeacherException(-1,"对象不存在");
+        }
+        return teacherMapper.selectTechnicalTeacher(teacherInfoDto.getId());
+    }
+
     /**
      * 学业导师
      * @param tutorInfoDto
@@ -102,7 +110,7 @@ public class AdminTeacherTeacherServiceImpl implements AdminTeacherService {
     public void insertTutor(TutorInfoDto tutorInfoDto) {
 
         if(tutorInfoDto==null){
-            throw new TechnicalTeacherException(-1,"你对象呢？");
+            throw new TechnicalTeacherException(-1,"对象不存在");
         }
 
         Tutor tu = tutorMapper.selectTutorByEmpNo(tutorInfoDto.getEmpNo());
@@ -159,5 +167,14 @@ public class AdminTeacherTeacherServiceImpl implements AdminTeacherService {
 
         return tutorMapper.selectTutorList();
 
+    }
+
+    @Override
+    public Tutor selectTutorById(TutorInfoDto tutorInfoDto) {
+        if (tutorInfoDto==null){
+            throw new TutorException(-1,"对象不存在");
+        }
+
+        return tutorMapper.selectTutor(tutorInfoDto.getId());
     }
 }

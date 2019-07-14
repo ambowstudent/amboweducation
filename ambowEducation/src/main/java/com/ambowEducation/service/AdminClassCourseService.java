@@ -21,15 +21,18 @@ public interface AdminClassCourseService {
     void deleteClazz(ClassCourseDto classCourseDto);
 //    查询班级
     List<Clazz> selectClazz();
+//    通过ID查询班级
+    Clazz selectClazzById(ClassCourseDto classCourseDto);
 
-
+//    添加课程
     void insertCourse(CourseDto courseDto);
-
+//    修改课程
     void updateCourse(CourseDto courseDto);
-
+//    删除课程
     void deleteCourse(CourseDto courseDto);
-
+//    查询课程
     List<Course> selectCourse();
-
+//    通过ID查询课程
+    Course selectCourseById(CourseDto courseDto);
 
 }

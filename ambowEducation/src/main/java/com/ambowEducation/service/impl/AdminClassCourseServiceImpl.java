@@ -115,6 +115,14 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
         return classMapper.selectClazzList();
     }
 
+    @Override
+    public Clazz selectClazzById(ClassCourseDto classCourseDto) {
+        if (classCourseDto==null){
+            throw new AdminClassCourseException(-1,"对象不存在");
+        }
+        return classMapper.selectClazz(classCourseDto.getId());
+    }
+
     //
 
     @Override
@@ -172,5 +180,13 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
     @Override
     public List<Course> selectCourse() {
         return courseMapper.findAllCourse();
+    }
+
+    @Override
+    public Course selectCourseById(CourseDto courseDto) {
+        if (courseDto==null){
+            throw new AdminClassCourseException(-1,"对象不存在");
+        }
+        return courseMapper.findByCourseId(courseDto.getId());
     }
 }

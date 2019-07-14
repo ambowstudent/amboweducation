@@ -75,7 +75,7 @@ public class AdminOtherServiceImpl implements AdminOtherService {
 
         int result = reduceHoursMapper.delete(reduceHours.getId());
         if (result<1){
-            throw new AdminOtherException(-3,"删除失败");
+            throw new AdminOtherException(-5,"删除失败");
         }
     }
 
@@ -85,7 +85,15 @@ public class AdminOtherServiceImpl implements AdminOtherService {
         return reduceHoursMapper.selectList();
     }
 
-    //
+    @Override
+    public ReduceHours selectReduceHoursById(ReduceHoursDto reduceHoursDto) {
+        if(reduceHoursDto==null){
+            throw new AdminOtherException(-1,"对象不存在");
+        }
+        return reduceHoursMapper.select(reduceHoursDto.getId());
+    }
+
+    //==========================
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
@@ -141,5 +149,13 @@ public class AdminOtherServiceImpl implements AdminOtherService {
     public List<Classroom> selectClassroom() {
 
         return classroomMapper.selectList();
+    }
+
+    @Override
+    public Classroom selectClassroomById(ClassroomDto classroomDto) {
+        if (classroomDto==null){
+            throw new AdminOtherException(-1,"对象不存在");
+        }
+        return classroomMapper.selectById(classroomDto.getId());
     }
 }

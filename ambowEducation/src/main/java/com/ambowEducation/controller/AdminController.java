@@ -89,6 +89,20 @@ public class AdminController {
         }
     }
 
+    //通过ID查询技术老师
+    @GetMapping("/select_technicalTeacher")
+    public JsonData selectTechnicalTeacherById(@RequestParam(value = "id",defaultValue = "null") Integer id ){
+        try {
+            TechnicalTeacherInfoDto technicalTeacherInfoDto = new TechnicalTeacherInfoDto();
+            technicalTeacherInfoDto.setId(id);
+            return JsonData.buildSuccess(adminTeacherService.selectTechnicalTeacherById(technicalTeacherInfoDto));
+        }catch (TechnicalTeacherException tte){
+            return JsonData.buildError(tte.getMessage());
+        }catch (Exception ex) {
+            return JsonData.buildError(ex.getMessage());
+        }
+    }
+
     /**
      * 学业导师部分
      * @param tutorInfoDto
@@ -148,6 +162,20 @@ public class AdminController {
         }
     }
 
+    //通过ID查询学业导师
+    @GetMapping("/select_tutor")
+    public JsonData selectTutorById(@RequestParam(value = "id",defaultValue = "null") Integer id){
+        try {
+            TutorInfoDto tutorInfoDto = new TutorInfoDto();
+            tutorInfoDto.setId(id);
+            return JsonData.buildSuccess(adminTeacherService.selectTutorById(tutorInfoDto));
+        }catch (TutorException te){
+            return JsonData.buildError(te.getMessage());
+        }catch (Exception ex) {
+            return JsonData.buildError(ex.getMessage());
+        }
+    }
+
     /**
      * 班级管理
      * @param classCourseDto
@@ -198,6 +226,20 @@ public class AdminController {
         try {
             List<Clazz> list = adminClassCourseService.selectClazz();
             return JsonData.buildSuccess(list);
+        }catch (TutorException te){
+            return JsonData.buildError(te.getMessage());
+        }catch (Exception ex) {
+            return JsonData.buildError(ex.getMessage());
+        }
+    }
+
+    //通过ID查询班级信息
+    @GetMapping("/select_class")
+    public JsonData selectClazzById(@RequestParam(value = "id",defaultValue = "null") Integer id){
+        try {
+            ClassCourseDto classCourseDto = new ClassCourseDto();
+            classCourseDto.setId(id);
+            return JsonData.buildSuccess(adminClassCourseService.selectClazzById(classCourseDto));
         }catch (TutorException te){
             return JsonData.buildError(te.getMessage());
         }catch (Exception ex) {
@@ -263,6 +305,20 @@ public class AdminController {
         }
     }
 
+    //通过ID查询课程信息
+    @GetMapping("/select_course")
+    public JsonData selectCourseById(@RequestParam(value = "id",defaultValue = "null") Integer id){
+        try {
+            CourseDto courseDto = new CourseDto();
+            courseDto.setId(id);
+            return JsonData.buildSuccess(adminClassCourseService.selectCourseById(courseDto));
+        }catch (TutorException te){
+            return JsonData.buildError(te.getMessage());
+        }catch (Exception ex) {
+            return JsonData.buildError(ex.getMessage());
+        }
+    }
+
     /**
      * 教室信息管理
      * @param classroomDto
@@ -321,6 +377,20 @@ public class AdminController {
         }
     }
 
+ //    通过ID查询教室信息
+    @GetMapping("/select_classroom")
+    public JsonData selectClassroomById(@RequestParam(value = "id",defaultValue = "null") Integer id){
+        try {
+            ClassroomDto classroomDto = new ClassroomDto();
+            classroomDto.setId(id);
+            return JsonData.buildSuccess(adminOtherService.selectClassroomById(classroomDto));
+        }catch (TutorException te){
+            return JsonData.buildError(te.getMessage());
+        }catch (Exception ex) {
+            return JsonData.buildError(ex.getMessage());
+        }
+    }
+
     /**
      * 扣分项管理
      * @param reduceHoursDto
@@ -372,6 +442,20 @@ public class AdminController {
         try {
             List<ReduceHours> list = adminOtherService.selectReduceHours();
             return JsonData.buildSuccess(list);
+        }catch (TutorException te){
+            return JsonData.buildError(te.getMessage());
+        }catch (Exception ex) {
+            return JsonData.buildError(ex.getMessage());
+        }
+    }
+
+    //通过ID查询扣分项信息
+    @GetMapping("/select_reduceHour")
+    public JsonData selectReduceHourById(@RequestParam(value = "id",defaultValue = "null") Integer id){
+        try {
+            ReduceHoursDto reduceHoursDto = new ReduceHoursDto();
+            reduceHoursDto.setId(id);
+            return JsonData.buildSuccess(adminOtherService.selectReduceHoursById(reduceHoursDto));
         }catch (TutorException te){
             return JsonData.buildError(te.getMessage());
         }catch (Exception ex) {
