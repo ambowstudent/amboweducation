@@ -2,10 +2,7 @@ package com.ambowEducation.dao;
 
 
 import com.ambowEducation.po.Work;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +16,15 @@ public interface WorkMapper {
 //    查询各个工作类型对应是数量
     @Select("select type , count(*) as num from t_work group by type")
     public List<Map<String,Object>> selectEveryTypeCount();
+
+    //查询老师管理下工作类型对应的数量
+    @Select("select type,count(*) num from t_technical_teacher tech left join t_clazz  clazz\n" +
+            "on tech.id=clazz.te_id left join t_student s on clazz.id=s.c_id left join t_work w on w.s_id=s.id\n" +
+            "where tech.id=#{techId} group by type")
+    public List<Map<String,Object>> selectEveryTypeCountByTechId(@Param("techId") int techId);
+
+
+
 
 //    查询有多少个学生S_ID
     @Select("select COUNT(DISTINCT s_id) from t_work ;")

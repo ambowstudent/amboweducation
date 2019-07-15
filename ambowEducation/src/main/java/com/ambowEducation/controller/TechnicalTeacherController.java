@@ -5,10 +5,10 @@ import com.ambowEducation.dto.StudentGradeDto;
 import com.ambowEducation.service.StudentCourseGradeService;
 import com.ambowEducation.utils.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/technical_teacher")
@@ -40,6 +40,29 @@ public class TechnicalTeacherController {
             return JsonData.buildError(e.getMessage());
         } catch (Exception e) {
             return JsonData.buildError(e.getMessage());
+        }
+    }
+    //根据学号跟课程id查询学生信息以及分数
+
+    @GetMapping("/get_grade_info")
+    public JsonData getGradeInfo(StudentGradeDto studentGradeDto){
+        try {
+            return JsonData.buildSuccess(studentCourseGradeService.findAllByManyCondition(studentGradeDto));
+        } catch (Exception e){
+            return JsonData.buildSuccess(e.getMessage());
+        }
+    }
+    //查看学生就业率
+    @GetMapping("get_student_pre_work")
+    public JsonData getStudentPreWork(int teachId){
+        //从session获取技术老师的id
+        try {
+            List<Map<String, Object>> studentWorkRateOfEmployment = studentCourseGradeService.findStudentWorkRateOfEmployment(teachId);
+            return JsonData.buildSuccess(studentWorkRateOfEmployment);
+        }catch (StudentGradeException e){
+            return JsonData.buildError(e.getMessage());
+        }catch (Exception e) {
+         return JsonData.buildError(e.getMessage());
         }
     }
 }
