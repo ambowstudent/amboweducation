@@ -103,7 +103,14 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
         }
         Clazz clazz = new Clazz();
         BeanUtils.copyProperties(classCourseDto,clazz);
+//        获取这个班里是否还有学生，如果有，不能删除班级，抛出异常。
+        List<Integer> stuNumInClass = classMapper.queryStudentByClassId(classCourseDto.getId());
+        if (stuNumInClass.size()<1){
+            throw new AdminClassCourseException(-8,"该班级内还有学生没有被安置，不能删除此班级");
+        }
+//        删除班级--班级表
         int result1 = classMapper.deleteClazz(classCourseDto.getId());
+//        删除 该班级对应的课程
         int result2 = classCourseMapper.deleteClassCourse(classCourseDto.getId());
         if(result1<1||result2<1){
             throw new AdminClassCourseException(-5,"删除失败");
@@ -131,6 +138,7 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
         if (courseDto==null){
             throw new AdminClassCourseException(-1,"对象不存在");
         }
+//        根据课程名查询是否存在该课程
         Course cou = courseMapper.selectByName(courseDto.getName());
         if(cou!=null){
             throw new AdminClassCourseException(-2,"该课程已存在");

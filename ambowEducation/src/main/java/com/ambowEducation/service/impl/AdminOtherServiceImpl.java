@@ -1,11 +1,13 @@
 package com.ambowEducation.service.impl;
 
 import com.ambowEducation.Exception.AdminOtherException;
+import com.ambowEducation.dao.ClassMapper;
 import com.ambowEducation.dao.ClassroomMapper;
 import com.ambowEducation.dao.ReduceHoursMapper;
 import com.ambowEducation.dto.ClassroomDto;
 import com.ambowEducation.dto.ReduceHoursDto;
 import com.ambowEducation.po.Classroom;
+import com.ambowEducation.po.Clazz;
 import com.ambowEducation.po.ReduceHours;
 import com.ambowEducation.service.AdminOtherService;
 import org.springframework.beans.BeanUtils;
@@ -24,6 +26,9 @@ public class AdminOtherServiceImpl implements AdminOtherService {
 
     @Autowired
     private ClassroomMapper classroomMapper;
+
+    @Autowired
+    private ClassMapper classMapper;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
@@ -136,6 +141,11 @@ public class AdminOtherServiceImpl implements AdminOtherService {
     public void deleteClassroom(ClassroomDto classroomDto) {
         if (classroomDto==null){
             throw new AdminOtherException(-1,"对象不存在");
+        }
+//        根据教室教室号，看看是否能查到对应的班级
+        Clazz clarm = classMapper.selectByRoomId(classroomDto.getId());
+        if (clarm!=null){
+            throw new AdminOtherException(-2,"该教室有班级正在使用");
         }
         Classroom classroom = new Classroom();
         BeanUtils.copyProperties(classroomDto,classroom);
