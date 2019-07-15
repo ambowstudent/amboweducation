@@ -1,5 +1,6 @@
 package com.ambowEducation.po;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ public class User implements Serializable{
 //  User Id
   private Integer id;
 //  用户名
+  @JsonIgnore
   private String username;
 //  密码
   private String password;

@@ -2,10 +2,7 @@ package com.ambowEducation.dao;
 
 
 import com.ambowEducation.po.TechnicalTeacher;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -38,4 +35,13 @@ public interface TechnicalTeacherMapper {
 //    查询老师编号是否存在
     @Select("select * FROM t_technical_teacher where emp_no = #{arg0 }")
     public TechnicalTeacher selectTeacherByEmpNo(String emp_no);
+
+    //孙 添加的
+    //根据技术老师id查询技术老师管理所有学生个数
+
+    @Select("select count(*) from t_technical_teacher tech left join t_clazz  clazz\n" +
+            "on tech.id=clazz.te_id left join t_student s on clazz.id=s.c_id\n" +
+            "where tech.id=#{techId}")
+     int findTechnicalTeacherInStudentCount(@Param("techId") int techId);
+
 }

@@ -31,7 +31,7 @@ public interface StudentCourseGradeService {
     /**
      * 查询学生就业情况，根据工作类型分组
      */
-    List<Map<String,Object >> findStudentWorkRateOfEmployment()throws Exception;
+    List<Map<String,Object >> findStudentWorkRateOfEmployment(int teachId)throws Exception;
 
     //根据学号查询学生的考试成绩
     public List<StudentCourseGrade> findMyGrade(int sId);

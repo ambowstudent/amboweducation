@@ -45,5 +45,5 @@ public interface StudentCourseGradeMapper {
     /**
      * 老师根据学生学号，姓名，班级，学校，课程名
      */
-    List<StudentCourseGrade> findAllByManyCondition(@Param("sNo") String sNo,@Param("studentName")String studentName,@Param("school")String school,@Param("courseName")String courseName);
+    List<StudentCourseGrade> findAllByManyCondition(@Param("sNo") String sNo,@Param("studentName")String studentName,@Param("school")String school,@Param("courseName")String courseName,@Param("clazzId")int clazzId);
 }
