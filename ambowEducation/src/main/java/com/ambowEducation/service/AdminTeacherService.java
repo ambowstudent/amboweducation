@@ -26,6 +26,8 @@ public interface AdminTeacherService {
 
     List<TechnicalTeacher> selectTechnicalTeacher();
 
+    TechnicalTeacher selectTechnicalTeacherById(TechnicalTeacherInfoDto teacherInfoDto);
+
     /**
      * 教师管理--学业导师
      */
@@ -39,8 +41,6 @@ public interface AdminTeacherService {
 
     List<Tutor> selectTutors();
 
-    /**
-     * 信息管理
-     */
+    Tutor selectTutorById(TutorInfoDto tutorInfoDto);
 
 }

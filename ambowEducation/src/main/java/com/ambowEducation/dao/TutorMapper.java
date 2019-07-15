@@ -25,7 +25,7 @@ public interface TutorMapper {
     public int insertTutor(Tutor tutor);
 
 //    修改学业导师
-    @Update("update t_tutor set emp_no = #{empNo},name=#{name},sex=#{sex},working_seniority=#{workingSeniority} where id = #{id}")
+    @Update("update t_tutor set name=#{name},sex=#{sex},working_seniority=#{workingSeniority} where id = #{id}")
     public int updateTutor(Tutor tutor);
 
 //    删除学业导师
