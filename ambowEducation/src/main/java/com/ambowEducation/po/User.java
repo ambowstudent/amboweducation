@@ -26,4 +26,10 @@ public class User implements Serializable{
 
 //  角色
   private List<Role> roles;
+  //学生
+  private Student student;
+  //技术老师
+  private TechnicalTeacher technicalTeacher;
+  //班主任
+  private Tutor tutor;
 }
