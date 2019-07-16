@@ -2,10 +2,9 @@ package com.ambowEducation.controller;
 
 import com.ambowEducation.dto.UserDto;
 import com.ambowEducation.enumStatus.RbacStatus;
-import com.ambowEducation.po.Role;
-import com.ambowEducation.po.Student;
-import com.ambowEducation.po.User;
+import com.ambowEducation.po.*;
 import com.ambowEducation.service.StudentService;
+import com.ambowEducation.service.TeacherService;
 import com.ambowEducation.service.TutorService;
 import com.ambowEducation.service.UserService;
 import com.ambowEducation.utils.JsonData;
@@ -40,6 +39,9 @@ public class publicController {
     @Autowired
     private TutorService tutorService;
 
+    @Autowired
+    private TeacherService teacherService;
+
     //没有登录
     @RequestMapping("need_login")
     public JsonData needLogin(){
@@ -68,12 +70,15 @@ public class publicController {
             for(Role role:user.getRoles()){
                 if("student".equals(role.getName())){
                     Student student = studentService.findBySno(userDto.getUsername());
-                    user.setStudent(student);
+                    request.getSession().setAttribute("student", student);
+                }else if("tutor".equals(role.getName())){
+                    Tutor tutor = tutorService.queryTutorByEmpNo(userDto.getUsername());
+                    request.getSession().setAttribute("tutor", tutor);
                 }else if("teacher".equals(role.getName())){
-
+                    TechnicalTeacher technicalTeacher = teacherService.selectTeacherByEmpNo(userDto.getUsername());
+                    request.getSession().setAttribute("teacher", technicalTeacher);
                 }
             }
-            request.getSession().setAttribute("user", userDto);
             return JsonData.buildSuccess(map);
         }catch (Exception e){
             map.put("message", RbacStatus.ERROR_IN.getMessage());
