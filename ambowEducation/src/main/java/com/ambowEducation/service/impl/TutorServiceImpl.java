@@ -42,6 +42,15 @@ public class TutorServiceImpl implements TutorService {
     @Autowired
     private ClassMapper classMapper;
 
+    @Autowired
+    private TutorMapper tutorMapper;
+
+
+    @Override
+    public Tutor queryTutorByEmpNo(String EmpNo) {
+        return tutorMapper.queryTutorByEmpNo(EmpNo);
+    }
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void addStudents(List<StudentBaseInfoDto> list) throws Exception {

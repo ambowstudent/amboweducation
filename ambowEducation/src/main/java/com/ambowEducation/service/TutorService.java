@@ -2,15 +2,17 @@ package com.ambowEducation.service;
 
 
 import com.ambowEducation.dto.*;
-import com.ambowEducation.po.History;
-import com.ambowEducation.po.Position;
-import com.ambowEducation.po.Student;
-import com.ambowEducation.po.Work;
+import com.ambowEducation.po.*;
 
 import java.util.List;
 
 //学业导师
 public interface TutorService {
+
+    //通过导师编号 查询导师
+    public Tutor queryTutorByEmpNo(String EmpNo);
+
+
     /**
      * 学生管理
      */

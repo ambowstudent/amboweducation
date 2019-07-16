@@ -20,6 +20,10 @@ public interface TutorMapper {
     @Select("select * from t_tutor where id = #{arg0}")
     public Tutor selectTutor(int tutorId);
 
+    //    根据ID查询单个学业导师
+    @Select("select * from t_tutor where emp_no = #{empNo}")
+    public Tutor queryTutorByEmpNo(String empNo);
+
 //    添加新的学业导师
     @Insert("insert into t_tutor values(null,#{empNo},#{name},#{sex},#{workingSeniority})")
     public int insertTutor(Tutor tutor);
