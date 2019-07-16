@@ -1,5 +1,7 @@
 package com.ambowEducation.configuration;
 
+import com.ambowEducation.po.Permission;
+import com.ambowEducation.po.Role;
 import com.ambowEducation.po.User;
 import com.ambowEducation.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
@@ -12,6 +14,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomRealm extends AuthorizingRealm {
 
     @Autowired
@@ -19,23 +24,23 @@ public class CustomRealm extends AuthorizingRealm {
     //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-//        User userNew =(User) principalCollection.getPrimaryPrincipal();
-//        User user = service.findAllUserAndRoleAndPer(userNew.getUsername());
-//        List<String> stringRole=new ArrayList<>();
-//        List<String> stringPermission=new ArrayList<>();
-//        for(Role role:user.getRoleList()){
-//            if(role!=null){
-//                stringRole.add(role.getName());
-//                for(Permission permission:role.getPermissionList()){
-//                    if(permission!=null){
-//                        stringPermission.add(permission.getName());
-//                    }
-//                }
-//            }
-//        }
+        User userNew =(User) principalCollection.getPrimaryPrincipal();
+        User user = service.findByUsernameBasicInfo(userNew.getUsername());
+        List<String> stringRole=new ArrayList<>();
+        List<String> stringPermission=new ArrayList<>();
+        for(Role role:user.getRoles()){
+            if(role!=null){
+                stringRole.add(role.getName());
+                for(Permission permission:role.getPermissions()){
+                    if(permission!=null){
+                        stringPermission.add(permission.getName());
+                    }
+                }
+            }
+        }
         SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
-//        info.addStringPermissions(stringPermission);
-//        info.addRoles(stringRole);
+        info.addStringPermissions(stringPermission);
+        info.addRoles(stringRole);
         return info;
     }
 
