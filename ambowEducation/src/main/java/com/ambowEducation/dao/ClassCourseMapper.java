@@ -16,6 +16,7 @@ public interface ClassCourseMapper {
     @Select("select cr_id from t_class_course where c_id=#{id}")
     public List<Integer> queryCourseIdByClassId(Integer id);
 
+//    当删除班级时，把这个表中的这个班的课程也一并删掉
     @Delete("delete from t_class_course where c_id=#{cId}")
     public int deleteClassCourse(Integer cId);
 
