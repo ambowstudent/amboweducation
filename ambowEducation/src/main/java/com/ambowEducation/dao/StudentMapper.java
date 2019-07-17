@@ -106,5 +106,9 @@ public interface StudentMapper {
     @Select("select resume from t_student where s_no=#{sNo}")
     public String queryResumeUrlBySNo(String sNo);//查询简历的url
 
+    //学生修改自己的图片
+    @Update("update t_student set photo=#{arg0} where id=#{arg1}")
+    public int updStudentPhoto(String path, int id);
+
 
 }

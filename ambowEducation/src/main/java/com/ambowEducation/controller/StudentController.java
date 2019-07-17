@@ -1,15 +1,16 @@
 package com.ambowEducation.controller;
 
 import com.ambowEducation.Exception.SignupPositionException;
-import com.ambowEducation.po.History;
-import com.ambowEducation.po.Position;
-import com.ambowEducation.po.Student;
-import com.ambowEducation.po.StudentCourseGrade;
+import com.ambowEducation.Exception.StudentException;
+import com.ambowEducation.po.*;
 import com.ambowEducation.service.*;
 import com.ambowEducation.utils.JsonData;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -29,6 +30,8 @@ public class StudentController {
     private StudentCourseGradeService studentCourseGradeService;
     @Resource
     private SignupPositionService signupPositionService;
+    @Resource
+    private  UserService userService;
 
 
     //历史表t_history 增、根据学生id查所有的记录(学生查自己的),id+关键字(原因)查询记录(学生查自己的)
@@ -96,6 +99,24 @@ public class StudentController {
     public JsonData findMyInfo(HttpSession session){
         Student s = (Student)session.getAttribute("user");
         return JsonData.buildSuccess(studentService.findBySno(s.getSNo()));
+    }
+
+    //学生修改自己的图片
+    @PostMapping("/uploadStudent")
+    public JsonData uploadStudent(HttpSession session, MultipartFile multipartFile){
+        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
+        User user=(User)principals.getPrimaryPrincipal();
+        int id=user.getStudent().getId();
+        System.out.println(id);
+        try {
+            studentService.updStudentPhoto(multipartFile, id);
+            return JsonData.buildSuccess("上传成功");
+        } catch (StudentException e) {
+            return JsonData.buildError(e.getMessage());
+        } catch (Exception e){
+            e.printStackTrace();
+            return JsonData.buildError(e.getMessage());
+        }
     }
 
 }
