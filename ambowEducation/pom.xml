@@ -161,8 +161,20 @@
       <artifactId>commons-beanutils</artifactId>
       <version>1.9.3</version>
     </dependency>
-    <!--跨域jar-->
+
+    <!--读取excel信息-->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>3.17</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>3.17</version>
+    </dependency>
   </dependencies>
+
 
   <build>
     <finalName>ambowEducation</finalName>
