@@ -95,7 +95,6 @@ public class StudentController {
     @GetMapping("/findMyInfo")
     public JsonData findMyInfo(HttpSession session){
         User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
-
         return JsonData.buildSuccess(studentService.findBySno(user.getStudent().getSNo()));
     }
 
