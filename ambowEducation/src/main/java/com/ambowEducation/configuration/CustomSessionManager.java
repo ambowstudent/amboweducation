@@ -22,7 +22,6 @@ public class CustomSessionManager extends DefaultWebSessionManager {
 
 
         String sessionId= WebUtils.toHttp(request).getHeader(AUTHORIZATION);
-       System.out.println(sessionId);
         //HttpServletRequest request1=(HttpServletRequest)request;
         if(sessionId!=null){
 

@@ -44,13 +44,11 @@ public class ShiroConfiguration {
        filterMap.put("/logout", "logout");
         //匿名访问，也就是说无需的登录即可访问
         filterMap.put("/api/pub/**", "anon");
-        filterMap.put("/index.jsp", "anon");
-        //需要登录才能访问的
-        filterMap.put("/api/v1/**", "authc");
         //有相应角色才能访问的,例如管理员才能访问
-        filterMap.put("/api/v1/tutor/**", "customRoles[tutor]");
-        //有相应权限才能访问的，例如有
-       // filterMap.put("/video/update", "perms[video_update]");
+        filterMap.put("/api/v1/tutor/**", "customRoles[tutor,admin]");
+        filterMap.put("/api/v1/student/**", "customRoles[student,admin]");
+        filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher,admin]");
+        //需要登录才能访问的
         //全局拦截，避免遗漏哪些路径，放到最下面
         filterMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
@@ -63,9 +61,10 @@ public class ShiroConfiguration {
         //设置回话管理
         manager.setSessionManager(customSessionManager());
         //设置realm
-        manager.setRealm(customRealm());
         //设置缓存
         manager.setCacheManager(redisCacheManager);
+
+        manager.setRealm(customRealm());
         return manager;
     }
 //自定义realm

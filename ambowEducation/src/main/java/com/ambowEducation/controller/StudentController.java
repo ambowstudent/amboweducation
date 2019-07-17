@@ -1,16 +1,13 @@
 package com.ambowEducation.controller;
 
 import com.ambowEducation.Exception.SignupPositionException;
-import com.ambowEducation.Exception.StudentException;
 import com.ambowEducation.po.*;
 import com.ambowEducation.service.*;
 import com.ambowEducation.utils.JsonData;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -30,16 +27,14 @@ public class StudentController {
     private StudentCourseGradeService studentCourseGradeService;
     @Resource
     private SignupPositionService signupPositionService;
-    @Resource
-    private  UserService userService;
 
 
     //历史表t_history 增、根据学生id查所有的记录(学生查自己的),id+关键字(原因)查询记录(学生查自己的)
     @GetMapping("/findStuHistory")
     public JsonData findStuHistory(HttpSession session, @RequestParam(defaultValue = "") String key, @RequestParam(defaultValue = "1") int pageNum){
-        Student s = (Student)session.getAttribute("user");
+        User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         PageHelper.startPage(pageNum, 2);
-        List<History> list = historyService.findMyHistory(key, s.getSNo());
+        List<History> list = historyService.findMyHistory(key, user.getStudent().getSNo());
         PageInfo<History> pageInfo = new PageInfo<>(list);
         return JsonData.buildSuccess(pageInfo);
     }
@@ -48,8 +43,8 @@ public class StudentController {
     @GetMapping("/findStudentGrade")
     public JsonData findStudentGrade(HttpSession session, @RequestParam(defaultValue = "1") int pageNum){
             PageHelper.startPage(pageNum, 2);
-            Student s = (Student)session.getAttribute("user");
-            List<StudentCourseGrade> list = studentCourseGradeService.findMyGrade(s.getId());
+            User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+            List<StudentCourseGrade> list = studentCourseGradeService.findMyGrade(user.getStudent().getId());
             PageInfo<StudentCourseGrade> pageInfo = new PageInfo<>(list);
             return JsonData.buildSuccess(pageInfo);
     }
@@ -57,8 +52,9 @@ public class StudentController {
     //涉及到课程表t_course 查询课程名称 id+关键字（课程名）查询
     @GetMapping("/findStudentGradeByCid")
     public JsonData findStudentGradeByCid(HttpSession session, @RequestParam("c_id") int cId){
-        Student s = (Student)session.getAttribute("user");
-        StudentCourseGrade studentCourseGrade = studentCourseGradeService.findMyGradeByKey(s.getId(), cId);
+        User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+
+        StudentCourseGrade studentCourseGrade = studentCourseGradeService.findMyGradeByKey(user.getStudent().getId(), cId);
         return JsonData.buildSuccess(studentCourseGrade);
     }
 
@@ -83,9 +79,10 @@ public class StudentController {
     //学生报名对应的职位
     @PostMapping("/studentSignupPosition")
     public JsonData studentSignupPosition(HttpSession session, @RequestParam("p_id") int pId){
-        Student s = (Student)session.getAttribute("user");
+        User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+
         try {
-            signupPositionService.IsHasPosition(s.getId(), pId);
+            signupPositionService.IsHasPosition(user.getStudent().getId(), pId);
             return JsonData.buildSuccess("已报名");
         } catch (SignupPositionException e) {
             return JsonData.buildError(e.getMessage());
@@ -97,26 +94,9 @@ public class StudentController {
     //学生查看个人信息
     @GetMapping("/findMyInfo")
     public JsonData findMyInfo(HttpSession session){
-        Student s = (Student)session.getAttribute("user");
-        return JsonData.buildSuccess(studentService.findBySno(s.getSNo()));
-    }
+        User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
 
-    //学生修改自己的图片
-    @PostMapping("/uploadStudent")
-    public JsonData uploadStudent(HttpSession session, MultipartFile multipartFile){
-        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
-        User user=(User)principals.getPrimaryPrincipal();
-        int id=user.getStudent().getId();
-        System.out.println(id);
-        try {
-            studentService.updStudentPhoto(multipartFile, id);
-            return JsonData.buildSuccess("上传成功");
-        } catch (StudentException e) {
-            return JsonData.buildError(e.getMessage());
-        } catch (Exception e){
-            e.printStackTrace();
-            return JsonData.buildError(e.getMessage());
-        }
+        return JsonData.buildSuccess(studentService.findBySno(user.getStudent().getSNo()));
     }
 
 }
