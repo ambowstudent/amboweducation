@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ambowEducation.dao.RoleMapper">
-  <resultMap id="BaseResultMap" type="Role">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
-  </resultMap>
+  <!--<select id="findByUserId" resultMap="findByUserIdMap">-->
+    <!--SELECT t_r.id id,t_r.name name,t_r.description description-->
+            <!--from t_user_role t_ur LEFT JOIN t_role t_r ON t_ur.role_id=t_r.id-->
+             <!--where t_ur.user_id=#{userId}-->
+  <!--</select>-->
+  <!--<resultMap id="findByUserIdMap" type="Role">-->
+    <!--<id column="id" property="id"></id>-->
+    <!--<collection property="permissions" column="id" ofType="Permission" fetchType="eager" select="com.ambowEducation.dao.PermissionMapper.findByRoleId">-->
+    <!--</collection>-->
+  <!--</resultMap>-->
 
 </mapper>

@@ -10,6 +10,8 @@ import com.ambowEducation.utils.JsonData;
 import com.ambowEducation.utils.PageUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/api/v1/tutor")
+@CrossOrigin(origins="*",maxAge = 3600)
 public class TutorController {
 
     @Autowired
@@ -30,8 +33,10 @@ public class TutorController {
     @GetMapping("/toStuIndex")//学生管理界面
     public JsonData toStuIndex(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
                                HttpServletRequest request){
-        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
-        int id=tutor.getId();
+       // Tutor tutor= (Tutor) request.getSession().getAttribute("user");
+        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
+        User user=(User)principals.getPrimaryPrincipal();
+        int id=user.getTutor().getId();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(new PageInfo<Student>(service.queryAllStudent(id)));
@@ -58,8 +63,9 @@ public class TutorController {
     public JsonData getStuBySNo(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
                                 @RequestParam("key") String key,
                                 HttpServletRequest request){
-        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
-        int id=tutor.getId();
+        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
+        User user=(User)principals.getPrimaryPrincipal();
+        int id=user.getTutor().getId();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(new PageInfo<Student>(service.queryStudentBysNo(key,id)));
@@ -128,8 +134,10 @@ public class TutorController {
     @GetMapping("/toPositionIndex")//招聘信息管理首页
     public JsonData toPositionIndex(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
                                     HttpServletRequest request){
-        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
-        String empNo=tutor.getEmpNo();
+        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
+        User user=(User)principals.getPrimaryPrincipal();
+        //int id=user.getTutor().getId();
+        String empNo=user.getTutor().getEmpNo();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(new PageInfo<Position>(service.queryAllPositions(empNo)));
@@ -144,8 +152,9 @@ public class TutorController {
     public JsonData queryPositionByKey(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
                                        @RequestParam("key") String key,
                                        HttpServletRequest request){
-        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
-        String empNo=tutor.getEmpNo();
+        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
+        User user=(User)principals.getPrimaryPrincipal();
+        String empNo=user.getTutor().getEmpNo();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(
@@ -160,8 +169,8 @@ public class TutorController {
     @PostMapping("/addPosition")//添加职位
     public JsonData addPosition(@RequestBody Position p,
                                 HttpServletRequest request){
-        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
-        String empNo=tutor.getEmpNo();
+        User user= (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+        String empNo=user.getTutor().getEmpNo();
         try {
             p.setTuEmpNo(empNo);
             p.setCreatetime(new Date());
@@ -245,8 +254,8 @@ public class TutorController {
     @GetMapping("/toHoursIndex")//所有学生的学时信息
     public JsonData toHoursIndex(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
                                  HttpServletRequest request){
-        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
-        int id=tutor.getId();
+        User user= (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+        int id=user.getTutor().getId();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(
@@ -263,8 +272,8 @@ public class TutorController {
     public JsonData queryStuHoursByKey(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
                                        HttpServletRequest request,
                                        @RequestParam("key") String key){
-        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
-        int id=tutor.getId();
+        User user= (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+        int id=user.getTutor().getId();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(
@@ -280,9 +289,9 @@ public class TutorController {
     @PostMapping("/editHours")
     public JsonData editHours(@RequestBody History h,
                               HttpServletRequest request){
-        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
-        int id=tutor.getId();
-        String name=tutor.getName();
+        User user= (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+        int id=user.getTutor().getId();
+        String name=user.getTutor().getName();
         try {
             h.setTuId(id);
             h.setTuName(name);
@@ -301,8 +310,8 @@ public class TutorController {
     public JsonData getHistory(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
                                HttpServletRequest request,
                                @RequestParam("key") String key){
-        Tutor tutor= (Tutor) request.getSession().getAttribute("user");
-        int id=tutor.getId();
+        User user= (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+        int id=user.getTutor().getId();
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(

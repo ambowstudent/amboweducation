@@ -2,20 +2,13 @@ package com.ambowEducation.controller;
 
 import com.ambowEducation.dto.UserDto;
 import com.ambowEducation.enumStatus.RbacStatus;
-import com.ambowEducation.po.*;
-import com.ambowEducation.service.StudentService;
-import com.ambowEducation.service.TeacherService;
-import com.ambowEducation.service.TutorService;
 import com.ambowEducation.service.UserService;
 import com.ambowEducation.utils.JsonData;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,21 +19,14 @@ import java.util.Map;
 /**
  *  用于处理，登录，权限，等验证
  */
+@CrossOrigin(origins="*",maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/pub")
+@RequestMapping("/api/pub")
 public class publicController {
 
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private StudentService studentService;
-
-    @Autowired
-    private TutorService tutorService;
-
-    @Autowired
-    private TeacherService teacherService;
 
     //没有登录
     @RequestMapping("need_login")
@@ -66,21 +52,10 @@ public class publicController {
             map.put("message", RbacStatus.SUCCESS_IN.getMessage());
             map.put("session_id", sessionId);
             map.put("code", RbacStatus.SUCCESS_IN.getCode());
-            User user = userService.findByUsernameBasicInfo(userDto.getUsername());
-            for(Role role:user.getRoles()){
-                if("student".equals(role.getName())){
-                    Student student = studentService.findBySno(userDto.getUsername());
-                    request.getSession().setAttribute("student", student);
-                }else if("tutor".equals(role.getName())){
-                    Tutor tutor = tutorService.queryTutorByEmpNo(userDto.getUsername());
-                    request.getSession().setAttribute("tutor", tutor);
-                }else if("teacher".equals(role.getName())){
-                    TechnicalTeacher technicalTeacher = teacherService.selectTeacherByEmpNo(userDto.getUsername());
-                    request.getSession().setAttribute("teacher", technicalTeacher);
-                }
-            }
             return JsonData.buildSuccess(map);
         }catch (Exception e){
+            map.clear();
+            e.printStackTrace();
             map.put("message", RbacStatus.ERROR_IN.getMessage());
             map.put("code", RbacStatus.ERROR_IN.getCode());
             return JsonData.buildError(map);

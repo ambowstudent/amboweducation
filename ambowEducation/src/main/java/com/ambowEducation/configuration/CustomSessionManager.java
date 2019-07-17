@@ -12,10 +12,18 @@ public class CustomSessionManager extends DefaultWebSessionManager {
 
     private static final  String AUTHORIZATION="token";
 
+    public CustomSessionManager(){
+        super();
+    }
+
     @Override
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
 
+
+
         String sessionId= WebUtils.toHttp(request).getHeader(AUTHORIZATION);
+       System.out.println(sessionId);
+        //HttpServletRequest request1=(HttpServletRequest)request;
         if(sessionId!=null){
 
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE,

@@ -21,12 +21,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsernameBasicInfo(String username) {
+       return userMapper.findByName(username);
+
+    }
+
+    @Override
+    public User findAllUserAndRoleAndPer(String username) {
         User user = userMapper.findByName(username);
         if(user==null){
             return null;
         }
-        List<Role> roles = roleMapper.findByUserId(user.getId());
-        user.setRoles(roles);
+        List<Role> roleList = roleMapper.findByUserId(user.getId());
+        user.setRoles(roleList);
         return user;
     }
 }

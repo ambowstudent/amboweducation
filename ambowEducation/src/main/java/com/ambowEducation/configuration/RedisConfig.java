@@ -2,11 +2,11 @@ package com.ambowEducation.configuration;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 @Data
-@Configuration
+@Component
 @PropertySource("classpath:redis.properties")
 public class RedisConfig {
 

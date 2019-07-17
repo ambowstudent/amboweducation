@@ -2,8 +2,10 @@ package com.ambowEducation.dao;
 
 
 import com.ambowEducation.po.Role;
-import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.mapping.FetchType;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ public interface RoleMapper {
             " where t_ur.user_id=#{userId}"))
     @Results({
             @Result(id = true,column = "id",property = "id"),
-            @Result(column = "id",property = "permissions" ,many = @Many(select = "package com.ambowEducation.dao.PermissionMapper.findByRoleId",fetchType = FetchType.DEFAULT))
+          //  @Result(column = "id",property = "permissions",javaType = List.class ,many = @Many(select = "com.ambowEducation.dao.PermissionMapper.findByRoleId",fetchType = FetchType.EAGER))
     })
     List<Role> findByUserId(@Param("userId") int userId);
 }

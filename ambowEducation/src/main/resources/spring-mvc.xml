@@ -18,13 +18,6 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <mvc:cors>
-        <mvc:mapping path="/**"
-                     allowed-origins="*"
-                     allowed-methods="POST, GET, OPTIONS, DELETE, PUT"
-                     allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-                     allow-credentials="true" />
-    </mvc:cors>
 
     <context:component-scan base-package="com.ambowEducation.controller"/>
     <!--配置文件上传解析器-->

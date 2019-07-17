@@ -12,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/technical_teacher")
+@CrossOrigin(origins="*",maxAge = 3600)
 public class TechnicalTeacherController {
 
     @Autowired
