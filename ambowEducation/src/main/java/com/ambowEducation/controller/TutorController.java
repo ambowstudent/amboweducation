@@ -2,21 +2,28 @@ package com.ambowEducation.controller;
 
 import com.ambowEducation.Exception.TutorException;
 import com.ambowEducation.dto.HoursHistoryDto;
+import com.ambowEducation.dto.StudentBaseInfoDto;
 import com.ambowEducation.dto.StudentsHoursInfoDto;
 import com.ambowEducation.dto.UpdateStudentInfoDto;
 import com.ambowEducation.po.*;
 import com.ambowEducation.service.TutorService;
+import com.ambowEducation.utils.ExcelUtil;
+import com.ambowEducation.utils.FileSuffixUtil;
 import com.ambowEducation.utils.JsonData;
 import com.ambowEducation.utils.PageUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.io.FileUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/tutor")
@@ -29,6 +36,36 @@ public class TutorController {
     /**
      * 学生管理
      */
+
+    //文件上传 批量添加学生信息
+    @PostMapping("/addStudents")
+    public JsonData addStudents(@RequestParam("uploadfile") MultipartFile file
+                                /*HttpServletRequest request*/){
+        /*String contextPath = request.getServletContext().getContextPath();
+        System.out.println(contextPath);*/
+        try {
+            String name = file.getOriginalFilename();
+            String[] split = name.split("\\.");
+            boolean flag = FileSuffixUtil.checkFile(name);
+            if(flag!=true){
+                return JsonData.buildError("不支持的文件类型");
+            }
+            System.out.println(name);
+            String path="tempFile/"+name;
+            System.out.println(path);
+            File excel=new File(path);
+            FileUtils.copyInputStreamToFile(file.getInputStream(),excel);
+            List<StudentBaseInfoDto> list = ExcelUtil.getStudentsFromExcel(excel);
+            service.addStudents(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonData.buildError("文件解析失败");
+        }
+        return JsonData.buildSuccess("导入信息成功");
+    }
+
+
+
 
     @GetMapping("/toStuIndex")//学生管理界面
     public JsonData toStuIndex(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,

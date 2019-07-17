@@ -13,10 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 @Service
@@ -45,6 +42,12 @@ public class TutorServiceImpl implements TutorService {
     @Autowired
     private TutorMapper tutorMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private RoleMapper roleMapper;
+
 
     @Override
     public Tutor queryTutorByEmpNo(String EmpNo) {
@@ -55,6 +58,15 @@ public class TutorServiceImpl implements TutorService {
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void addStudents(List<StudentBaseInfoDto> list) throws Exception {
         int i = studentMapper.insertStudents(list);
+        for(StudentBaseInfoDto s:list){
+            User user=new User();
+            user.setUsername(s.getSNo());
+            user.setPassword(s.getIdNumber().substring(12,18));
+            user.setCreatetime(new Date());
+            userMapper.insertUser(user);
+            int userId=userMapper.findByName(s.getSNo()).getId();
+            roleMapper.insertUserRole(userId,4,"学生");
+        }
         if(i!=list.size()){
             throw new TutorServiceException(-1,"批量添加失败");
         }
