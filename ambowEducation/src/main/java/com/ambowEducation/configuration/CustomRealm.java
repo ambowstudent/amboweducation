@@ -37,7 +37,6 @@ public class CustomRealm extends AuthorizingRealm {
     //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("我进来了");
         User userNew =(User) principalCollection.getPrimaryPrincipal();
         User user = service.findAllUserAndRoleAndPer(userNew.getUsername());
         List<String> stringRole=new ArrayList<>();
@@ -47,7 +46,6 @@ public class CustomRealm extends AuthorizingRealm {
                 stringRole.add(role.getName());
             }
         }
-        System.out.println("数据库查询的"+stringRole);
         SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
         info.addStringPermissions(stringPermission);
         info.addRoles(stringRole);

@@ -27,7 +27,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/tutor")
-@CrossOrigin(origins="*",maxAge = 3600)
 public class TutorController {
 
     @Autowired
