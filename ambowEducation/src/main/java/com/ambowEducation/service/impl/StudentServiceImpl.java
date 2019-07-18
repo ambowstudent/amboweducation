@@ -31,13 +31,16 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public int updStudentPhoto(MultipartFile multipartFile, int id) throws Exception {
         int flag = 0;
-        if (!multipartFile.isEmpty()){
+        if (multipartFile != null){
             String fileName = multipartFile.getOriginalFilename();
             System.out.println(fileName + "---------" + id);
             String suffix = fileName.substring(fileName.lastIndexOf("."));
+            if (multipartFile.getSize() > 10000000){
+                throw new StudentException(3, "图片不能大于10M");
+            }
             if (suffix.equalsIgnoreCase(".png") || suffix.equalsIgnoreCase(".jpg")){
                 String uuid = UUID.randomUUID().toString();
-                FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), new File("G:\\学习资料" + uuid + suffix));
+                FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), new File("G:\\学习资料\\" + uuid + suffix));
                 flag = studentMapper.updStudentPhoto(uuid + suffix, id);
             }else {
                 throw new StudentException(1, "上传格式错误");

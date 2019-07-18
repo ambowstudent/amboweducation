@@ -105,7 +105,7 @@ public class StudentController {
 
     //学生修改自己的图片
     @PostMapping("/uploadStudent")
-    public JsonData uploadStudent(HttpSession session, MultipartFile multipartFile){
+    public JsonData uploadStudent(HttpSession session, @RequestParam("file") MultipartFile multipartFile){
         User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         System.out.println(user);
         System.out.println(user.getStudent());
