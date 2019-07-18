@@ -19,4 +19,9 @@ public class UserTest {
       //  User user = userService.findAllUserAndRoleAndPer("201901002");
         System.out.println(user);
     }
+
+    @Test
+    public void test12(){
+        System.out.println(System.getProperties().getProperty("os.name"));
+    }
 }
