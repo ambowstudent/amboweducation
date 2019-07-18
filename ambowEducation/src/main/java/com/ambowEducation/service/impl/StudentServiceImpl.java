@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.io.IOException;
 import java.util.UUID;
 
 @Service
@@ -26,7 +25,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student findBySno(String sno) {
-        return studentMapper.findStudentBySno(sno);
+        return studentMapper.findStudentBySnoOnlyStudent(sno);
     }
 
     @Override

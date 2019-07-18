@@ -2,13 +2,15 @@ package com.ambowEducation.controller;
 
 import com.ambowEducation.Exception.SignupPositionException;
 import com.ambowEducation.Exception.StudentException;
-import com.ambowEducation.po.*;
+import com.ambowEducation.po.History;
+import com.ambowEducation.po.Position;
+import com.ambowEducation.po.StudentCourseGrade;
+import com.ambowEducation.po.User;
 import com.ambowEducation.service.*;
 import com.ambowEducation.utils.JsonData;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -104,10 +106,11 @@ public class StudentController {
     //学生修改自己的图片
     @PostMapping("/uploadStudent")
     public JsonData uploadStudent(HttpSession session, MultipartFile multipartFile){
-        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
-        User user=(User)principals.getPrimaryPrincipal();
+        User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+        System.out.println(user);
+        System.out.println(user.getStudent());
         int id=user.getStudent().getId();
-        System.out.println(id);
+       // System.out.println(id);
         try {
             studentService.updStudentPhoto(multipartFile, id);
             return JsonData.buildSuccess("上传成功");
