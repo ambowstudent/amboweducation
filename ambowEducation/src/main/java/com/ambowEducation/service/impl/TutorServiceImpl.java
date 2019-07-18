@@ -6,13 +6,24 @@ import com.ambowEducation.dao.*;
 import com.ambowEducation.dto.*;
 import com.ambowEducation.po.*;
 import com.ambowEducation.service.TutorService;
+import javafx.geometry.Pos;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.util.*;
 
 //@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
@@ -347,6 +358,82 @@ public class TutorServiceImpl implements TutorService {
             list.add(dto);
         }
         return list;
+    }
+
+    @Override
+    public String downloadSignupInfo(int pId, HttpServletResponse response, HttpServletRequest request) {
+        Position position = positionMapper.queryPositionById(pId);
+        response.setContentType("application/vnd.ms-excel");
+        String filname = position.getCompanyName() + "报名表.xlsx";
+        try {
+            filname = URLEncoder.encode(filname,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        response.setHeader("Content-Disposition", "attachment;filename=" + filname);
+        List<SignupPosition> signupPositionList = signupPositionMapper.queryStudentsBypId(pId);
+        List<StudentSignupInfo> studentSignupInfoList = new ArrayList<>();
+        //将信息存入到studentSignupInfoList
+        for (SignupPosition signupPosition:signupPositionList){
+            StudentSignupInfo studentSignupInfo = new StudentSignupInfo();
+            studentSignupInfo.setCompanyName(position.getCompanyName());
+            Student student = studentMapper.queryStudentById(signupPosition.getSId());
+            studentSignupInfo.setLocation(student.getNativePlace());
+            studentSignupInfo.setName(student.getName());
+            studentSignupInfo.setPhone(student.getPhone());
+            studentSignupInfo.setPosition(position.getPosition());
+            studentSignupInfo.setSchool(student.getSchool());
+            if(student.getSex() == 0){
+                studentSignupInfo.setSex("男");
+            }else {
+                studentSignupInfo.setSex("女");
+            }
+            studentSignupInfoList.add(studentSignupInfo);
+        }
+        // 创建excel工作薄
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        // 创建一个工作表sheet
+        XSSFSheet sheet = workbook.createSheet();
+        XSSFRow row = sheet.createRow(0);
+        XSSFCell cell = null;
+        String[] title = {"姓名", "联系方式", "性别", "籍贯", "学校", "职位", "公司名"};
+        // 插入第一行数据
+        for (int i = 0; i < title.length; i++){
+            cell = row.createCell(i);
+            cell.setCellValue(title[i]);
+        }
+        //追加行
+        for (int i = 0; i < studentSignupInfoList.size(); i++ ){
+            StudentSignupInfo studentSignupInfo = studentSignupInfoList.get(i);
+            XSSFRow nextRow = sheet.createRow(i + 1);
+            cell = nextRow.createCell(0);
+            cell.setCellValue(studentSignupInfo.getName());
+            cell = nextRow.createCell(1);
+            cell.setCellValue(studentSignupInfo.getPhone());
+            cell = nextRow.createCell(2);
+            cell.setCellValue(studentSignupInfo.getSex());
+            cell = nextRow.createCell(3);
+            cell.setCellValue(studentSignupInfo.getLocation());
+            cell = nextRow.createCell(4);
+            cell.setCellValue(studentSignupInfo.getSchool());
+            cell = nextRow.createCell(5);
+            cell.setCellValue(studentSignupInfo.getPosition());
+            cell = nextRow.createCell(6);
+            cell.setCellValue(studentSignupInfo.getCompanyName());
+        }
+
+        OutputStream outputStream = null;
+        try {
+            outputStream = response.getOutputStream();
+            workbook.write(outputStream);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "导出失败";
+        }
+
+        return "导出成功";
     }
 }
 

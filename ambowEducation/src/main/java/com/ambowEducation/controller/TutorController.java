@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
@@ -358,6 +359,11 @@ public class TutorController {
         } catch (Exception e) {
             return JsonData.buildError(e);
         }
+    }
+
+    @GetMapping("/downloadSignupInfo")
+    public void downloadSignupInfo(@RequestParam("p_id") int pId, HttpServletResponse response, HttpServletRequest request){
+        service.downloadSignupInfo(pId, response, request);
     }
 
 

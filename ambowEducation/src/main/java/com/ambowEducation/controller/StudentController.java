@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 @CrossOrigin(origins="*",maxAge = 3600)
@@ -105,14 +106,14 @@ public class StudentController {
 
     //学生修改自己的图片
     @PostMapping("/uploadStudent")
-    public JsonData uploadStudent(HttpSession session, @RequestParam("file") MultipartFile multipartFile){
+    public JsonData uploadStudent(HttpSession session, @RequestParam("file") MultipartFile multipartFile, HttpServletRequest request){
         User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         System.out.println(user);
         System.out.println(user.getStudent());
         int id=user.getStudent().getId();
        // System.out.println(id);
         try {
-            studentService.updStudentPhoto(multipartFile, id);
+            studentService.updStudentPhoto(multipartFile, id, request);
             return JsonData.buildSuccess("上传成功");
         } catch (StudentException e) {
             return JsonData.buildError(e.getMessage());

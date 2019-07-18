@@ -4,6 +4,8 @@ package com.ambowEducation.service;
 import com.ambowEducation.dto.*;
 import com.ambowEducation.po.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 //学业导师
@@ -84,4 +86,7 @@ public interface TutorService {
     public void updateClassHours(History history) throws Exception;
 
     public List<StudentsHoursInfoDto> queryStudentsHoursInfoByKey(Integer id, String key);
+
+    //将报名信息导出
+    public String downloadSignupInfo(int pId,HttpServletResponse response, HttpServletRequest request);
 }
