@@ -18,7 +18,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-@CrossOrigin(origins="*",maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/student")
 public class StudentController {

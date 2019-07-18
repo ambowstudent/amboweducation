@@ -35,16 +35,20 @@ public class ShiroConfiguration {
         Map<String , Filter> map = new LinkedHashMap<>();
         //这里配置好角色过滤器时，拦截路径时的前缀要写成key的值
         map.put("customRoles", new CustomAuthorizationFilter());
+        //自定义的过滤器解决跨域
+        map.put("corsFilter", new AuthorizationInterceptor());
         //将自定义的角色过滤器放到shiroFilterFactoryBean里面去
         shiroFilterFactoryBean.setFilters(map);
         //拦截器路径，同一拦截，注意要使用linkedHashMap保证过滤器的顺序
         Map<String,String > filterMap=new LinkedHashMap<>();
         //key是需要拦截的路径，value采用哪种过滤器，或者那种角色或权限
+        //处理跨域的路径
         //登出过滤器
        filterMap.put("/logout", "logout");
         //匿名访问，也就是说无需的登录即可访问
         filterMap.put("/api/pub/**", "anon");
         //有相应角色才能访问的,例如管理员才能访问
+        filterMap.put("/api/v1/*/**", "corsFilter");
         filterMap.put("/api/v1/tutor/**", "customRoles[tutor,admin]");
         filterMap.put("/api/v1/student/**", "customRoles[student,admin]");
         filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher,admin]");
