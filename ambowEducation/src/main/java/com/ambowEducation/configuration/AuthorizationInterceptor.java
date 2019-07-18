@@ -16,7 +16,6 @@ public class AuthorizationInterceptor extends UserFilter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setHeader("Access-control-Allow-Origin", "*");
         httpResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT");
-        httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
         httpResponse.setHeader("Access-Control-Max-Age", "3600");
         httpResponse.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type,device,token");
         //防止乱码，适用于传输JSON数据
