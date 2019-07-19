@@ -10,8 +10,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,8 +38,7 @@ public class publicController {
     }
     //登录
     @PostMapping("login")
-    public JsonData login(@RequestBody()UserDto userDto, HttpServletRequest request, HttpServletResponse response){
-
+    public JsonData login(@RequestBody UserDto userDto){
         Map<String,Object> map = new HashMap<>();
         Subject subject= SecurityUtils.getSubject();
         UsernamePasswordToken token=new UsernamePasswordToken(userDto.getUsername(), userDto.getPassword());

@@ -14,12 +14,12 @@ public class AuthorizationInterceptor extends UserFilter {
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        httpResponse.setHeader("Access-control-Allow-Origin", "*");
-        httpResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT");
+        httpResponse.setHeader("Access-control-Allow-Origin", httpRequest.getHeader("origin"));
+        httpResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT,OPTIONS");
         httpResponse.setHeader("Access-Control-Max-Age", "3600");
         httpResponse.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type,device,token");
+        httpResponse.setHeader("Access-Control-Allow-Credentials", "false");
         //防止乱码，适用于传输JSON数据
-        httpResponse.setHeader("Content-Type","application/json;charset=UTF-8");
         return true;
     }
 
