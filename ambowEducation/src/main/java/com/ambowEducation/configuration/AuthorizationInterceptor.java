@@ -19,8 +19,10 @@ public class AuthorizationInterceptor extends UserFilter {
         if (httpRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
             setHeader(httpRequest,httpResponse);
             return true;
+        }else{
+            setHeader(httpRequest,httpResponse);
+            return true;
         }
-        return super.preHandle(request,response);
     }
 
 
