@@ -75,8 +75,9 @@ public class TutorController {
         User user=(User)principals.getPrimaryPrincipal();
         int id=user.getTutor().getId();
         try {
+            List<Student> list = service.queryAllStudent(id);
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
-            return JsonData.buildSuccess(new PageInfo<Student>(service.queryAllStudent(id)));
+            return JsonData.buildSuccess(new PageInfo<Student>(list));
         }catch (TutorException e){
             return JsonData.buildError(e);
         }catch (Exception e) {
@@ -104,8 +105,9 @@ public class TutorController {
         User user=(User)principals.getPrimaryPrincipal();
         int id=user.getTutor().getId();
         try {
+            List<Student> list = service.queryStudentBysNo(key, id);
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
-            return JsonData.buildSuccess(new PageInfo<Student>(service.queryStudentBysNo(key,id)));
+            return JsonData.buildSuccess(new PageInfo<Student>(list));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -142,8 +144,9 @@ public class TutorController {
     public JsonData getWorkInfo(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
                                 @RequestParam("s_id") Integer id){
         try {
+            List<Work> list = service.queryWorks(id);
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
-            return JsonData.buildSuccess(new PageInfo<Work>(service.queryWorks(id)));
+            return JsonData.buildSuccess(new PageInfo<Work>(list));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -176,8 +179,9 @@ public class TutorController {
         //int id=user.getTutor().getId();
         String empNo=user.getTutor().getEmpNo();
         try {
+            List<Position> list = service.queryAllPositions(empNo);
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
-            return JsonData.buildSuccess(new PageInfo<Position>(service.queryAllPositions(empNo)));
+            return JsonData.buildSuccess(new PageInfo<Position>(list));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -193,9 +197,10 @@ public class TutorController {
         User user=(User)principals.getPrimaryPrincipal();
         String empNo=user.getTutor().getEmpNo();
         try {
+            List<Position> list = service.queryPositionsByKeyAndTuEmpNo(key, empNo);
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(
-                    new PageInfo<Position>(service.queryPositionsByKeyAndTuEmpNo(key,empNo)));
+                    new PageInfo<Position>(list));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -275,8 +280,9 @@ public class TutorController {
     public JsonData getSignupStus(@RequestParam(value = "page_no",defaultValue = "1") Integer pageNo,
                                   @RequestParam("p_id") Integer id){
         try {
+            List<Student> list = service.queryStudentSignup(id);
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
-            return JsonData.buildSuccess(new PageInfo<Student>(service.queryStudentSignup(id)));
+            return JsonData.buildSuccess(new PageInfo<Student>(list));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -294,9 +300,10 @@ public class TutorController {
         User user= (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         int id=user.getTutor().getId();
         try {
+            List<StudentsHoursInfoDto> list = service.queryStudentsHoursInfo(id);
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(
-                    new PageInfo<StudentsHoursInfoDto>(service.queryStudentsHoursInfo(id)));
+                    new PageInfo<StudentsHoursInfoDto>(list));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -312,9 +319,10 @@ public class TutorController {
         User user= (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         int id=user.getTutor().getId();
         try {
+            List<StudentsHoursInfoDto> list = service.queryStudentsHoursInfoByKey(id, key);
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(
-                    new PageInfo<StudentsHoursInfoDto>(service.queryStudentsHoursInfoByKey(id,key)));
+                    new PageInfo<StudentsHoursInfoDto>(list));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -350,9 +358,10 @@ public class TutorController {
         User user= (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         int id=user.getTutor().getId();
         try {
+            List<HoursHistoryDto> list = service.queryHourHistory(id, key);
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             return JsonData.buildSuccess(
-                    new PageInfo<HoursHistoryDto>(service.queryHourHistory(id, key)));
+                    new PageInfo<HoursHistoryDto>(list));
         }catch (TutorException e){
             return JsonData.buildError(e);
         } catch (Exception e) {
