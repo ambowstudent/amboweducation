@@ -45,10 +45,10 @@ public class ShiroConfiguration {
         //处理跨域的路径
         //登出过滤器
        filterMap.put("/logout", "logout");
-        filterMap.put("/api/*/**", "corsFilter");
         //匿名访问，也就是说无需的登录即可访问
         filterMap.put("/api/pub/**", "anon");
         //有相应角色才能访问的,例如管理员才能访问
+        filterMap.put("/api/v1/**", "corsFilter");
         filterMap.put("/api/v1/tutor/**", "customRoles[tutor,admin]");
         filterMap.put("/api/v1/student/**", "customRoles[student,admin]");
         filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher,admin]");

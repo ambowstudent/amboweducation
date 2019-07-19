@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  *  用于处理，登录，权限，等验证
  */
-
+@CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 @RequestMapping("/api/pub")
 public class publicController {
