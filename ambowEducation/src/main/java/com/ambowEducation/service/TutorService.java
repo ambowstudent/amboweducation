@@ -3,6 +3,7 @@ package com.ambowEducation.service;
 
 import com.ambowEducation.dto.*;
 import com.ambowEducation.po.*;
+import com.github.pagehelper.PageInfo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +42,8 @@ public interface TutorService {
 
     //给学生添加宿舍
     public void addDormitory(List<StudentDormitoryDto> list) throws Exception;
+
+    public void addClazz(List<StudentClassDto> list) throws Exception;
 
     //查看就业追踪
     public List<Work> queryWorks(Integer sId) throws Exception;
@@ -89,4 +92,5 @@ public interface TutorService {
 
     //将报名信息导出
     public String downloadSignupInfo(int pId,HttpServletResponse response, HttpServletRequest request);
+
 }

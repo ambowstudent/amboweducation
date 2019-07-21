@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 public interface StudentMapper {
@@ -49,7 +51,6 @@ public interface StudentMapper {
     @Update("update t_student set c_id=#{cId} where s_no=#{sNo}")
     public int updateStudentClassBySno(@Param("sNo") String sNo,
                                        @Param("cId") Integer cId);
-
     //批量插入学生的班级
     public int updateAllStudentClassBySno(@Param("list") List<StudentClassDto> list);
 
@@ -111,4 +112,7 @@ public interface StudentMapper {
     public int updStudentPhoto(String path, int id);
 
 
+    @Select("select s_no from t_student where name=#{name} and phone=#{phone}")
+    String querySNoByPhoneAndName(@Param("name") String name,
+                                  @Param("phone") String phone);
 }

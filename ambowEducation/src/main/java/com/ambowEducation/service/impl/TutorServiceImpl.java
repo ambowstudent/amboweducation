@@ -1,4 +1,8 @@
 package com.ambowEducation.service.impl;
+import com.ambowEducation.Exception.TutorException;
+import com.ambowEducation.utils.PageUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 
 import com.ambowEducation.Exception.TutorServiceException;
@@ -19,10 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -113,6 +117,7 @@ public class TutorServiceImpl implements TutorService {
         int i2 = dormitoryMapper.updateDormitoryBySNo(dto);
         int i3 = studentMapper.updateStudentClassBySno(student.getSNo(),classMapper.
                 selectByClassname(student.getCName()).getId());
+
         if(i1 != 1 || i2 != 1 || i3!=1){
             throw new TutorServiceException(-1,"修改学生信息失败");
         }
@@ -149,6 +154,10 @@ public class TutorServiceImpl implements TutorService {
         if(list == null){
             throw new TutorServiceException(-1,"加载学生信息失败！");
         }
+        for(Student s:list){
+            s.setClazz(classMapper.selectClazz(s.getCId()));
+            s.setDormitoryNo(dormitoryMapper.selectBySNo(s.getSNo()));
+        }
         return list;
     }
 
@@ -159,6 +168,20 @@ public class TutorServiceImpl implements TutorService {
             throw new TutorServiceException(-1,"导入宿舍信息失败");
         }
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    public void addClazz(List<StudentClassDto> list) throws Exception {
+        int i = studentMapper.updateAllStudentClassBySno(list);
+        for(StudentClassDto dto:list){
+            System.out.println(dto);
+        }
+        if(i!=1){
+            throw new TutorException(-1,"未知错误");
+        }
+    }
+
+
     @Override
     public List<Work> queryWorks(Integer sId)  throws Exception {
         List<Work> list = workMapper.selectListBySId(sId);

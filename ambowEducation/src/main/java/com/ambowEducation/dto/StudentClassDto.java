@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class StudentClassDto {
     private String sNo;
     private Integer cId;
+    private String name;
+    private String phone;
 }

@@ -21,8 +21,5 @@ public class UpdateStudentInfoDto {
     private String dNumber;
     private String cName;
 
-
-
-
     private List<Clazz> allClazzes;
 }

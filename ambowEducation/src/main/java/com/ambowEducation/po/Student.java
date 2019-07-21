@@ -47,6 +47,7 @@ public class Student implements Serializable{
   private Integer classHour;
   private Integer status;
 
+  private String dormitoryNo;
   //班级id
   private Integer cId;
 
