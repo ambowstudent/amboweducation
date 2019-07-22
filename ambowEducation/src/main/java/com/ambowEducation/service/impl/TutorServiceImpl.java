@@ -329,12 +329,12 @@ public class TutorServiceImpl implements TutorService {
             throw new TutorServiceException(-1,"加载学时记录失败");
         }else {
             for(History history:histories){
-                Student student = studentMapper.findStudentBySno(history.getStudent().getSNo());
+                Student student = studentMapper.findStudentBySnoOnlyStudent(history.getStudent().getSNo());
                 HoursHistoryDto h=new HoursHistoryDto();
                 h.setSName(student.getName());
                 h.setSchool(student.getSchool());
                 h.setEditDate(history.getEditTime());
-                h.setCName(history.getClazz().getName());
+                h.setCName(classMapper.selectClazz(student.getCId()).getName());
                 if(Integer.parseInt(history.getDetail())<0){
                     h.setDetail("扣除");
                     h.setHours(Math.abs(Integer.parseInt(history.getDetail())));

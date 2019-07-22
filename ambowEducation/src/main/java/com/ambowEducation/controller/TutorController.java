@@ -319,9 +319,8 @@ public class TutorController {
     public JsonData getSignupStus(@RequestParam(value = "page_no", defaultValue = "1") Integer pageNo,
                                   @RequestParam("p_id") Integer id) {
         try {
-            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             List<Student> list = service.queryStudentSignup(id);
-            return JsonData.buildSuccess(new PageInfo<Student>(list));
+            return JsonData.buildSuccess(list);
         } catch (TutorException e) {
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -375,8 +374,7 @@ public class TutorController {
 
 
     @PostMapping("/editHours")
-    public JsonData editHours(@RequestBody History h,
-                              HttpServletRequest request) {
+    public JsonData editHours(@RequestBody History h) {
         User user = (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         int id = user.getTutor().getId();
         String name = user.getTutor().getName();
@@ -396,18 +394,19 @@ public class TutorController {
 
     @GetMapping("/getHistory")
     public JsonData getHistory(@RequestParam(value = "page_no", defaultValue = "1") Integer pageNo,
-                               HttpServletRequest request,
                                @RequestParam("key") String key) {
         User user = (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         int id = user.getTutor().getId();
         try {
-            List<HoursHistoryDto> list = service.queryHourHistory(id, key);
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
+            List<HoursHistoryDto> list = service.queryHourHistory(id, key);
             return JsonData.buildSuccess(
                     new PageInfo<HoursHistoryDto>(list));
         } catch (TutorException e) {
+            e.printStackTrace();
             return JsonData.buildError(e);
         } catch (Exception e) {
+            e.printStackTrace();
             return JsonData.buildError(e);
         }
     }
