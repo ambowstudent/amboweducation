@@ -63,8 +63,10 @@ public class AdminController {
 
     //    删除技术教师
     @DeleteMapping("/delete_technicalTeacher")
-    public JsonData deleteTechnicalTeacher(@RequestBody TechnicalTeacherInfoDto technicalTeacherInfoDto){
+    public JsonData deleteTechnicalTeacher(@RequestParam("id") Integer id){
          try {
+             TechnicalTeacherInfoDto technicalTeacherInfoDto = new TechnicalTeacherInfoDto();
+             technicalTeacherInfoDto.setId(id);
              adminTeacherService.deleteTechnicalTeacher(technicalTeacherInfoDto);
              return JsonData.buildSuccess("技术教师删除成功");
          }catch (TechnicalTeacherException tte){
@@ -137,8 +139,10 @@ public class AdminController {
 
     //删除学业导师
     @DeleteMapping("/delete_tutor")
-    public JsonData deleteTutor(@RequestBody TutorInfoDto tutorInfoDto){
+    public JsonData deleteTutor(@RequestParam("id") Integer id){
         try {
+            TutorInfoDto tutorInfoDto = new TutorInfoDto();
+            tutorInfoDto.setId(id);
             adminTeacherService.deleteTutor(tutorInfoDto);
             return JsonData.buildSuccess("学业导师删除成功");
         }catch (TutorException te){
@@ -210,8 +214,11 @@ public class AdminController {
 
     //删除班级信息
     @DeleteMapping("/delete_class")
-    public JsonData deleteClazz(@RequestBody ClassCourseDto classCourseDto){
+    public JsonData deleteClazz(@RequestParam("id") Integer id){
         try {
+            ClassCourseDto classCourseDto = new ClassCourseDto();
+            classCourseDto.setId(id);
+            adminClassCourseService.deleteClazz(classCourseDto);
             return JsonData.buildSuccess("班级信息删除成功");
         }catch (TutorException te){
             return JsonData.buildError(te.getMessage());
@@ -281,8 +288,10 @@ public class AdminController {
 
     //删除课程信息
     @DeleteMapping("/delete_course")
-    public JsonData deleteCourse(@RequestBody CourseDto courseDto){
+    public JsonData deleteCourse(@RequestParam("id") Integer id){
         try {
+            CourseDto courseDto = new CourseDto();
+            courseDto.setId(id);
             adminClassCourseService.deleteCourse(courseDto);
             return JsonData.buildSuccess("课程信息删除成功");
         }catch (TutorException te){
@@ -353,8 +362,10 @@ public class AdminController {
 
 //    删除教室信息
     @DeleteMapping("/delete_classroom")
-    public JsonData deleteClassroom(@RequestBody ClassroomDto classroomDto){
+    public JsonData deleteClassroom(@RequestParam("id") Integer id){
         try {
+            ClassroomDto classroomDto = new ClassroomDto();
+            classroomDto.setId(id);
             adminOtherService.deleteClassroom(classroomDto);
             return JsonData.buildSuccess("教室信息删除成功");
         }catch (TutorException te){
@@ -425,8 +436,10 @@ public class AdminController {
 
     //删除扣分项信息
     @DeleteMapping("/delete_reduceHour")
-    public JsonData deletetReduceHour(@RequestBody ReduceHoursDto reduceHoursDto){
+    public JsonData deletetReduceHour(@RequestParam("id") Integer id){
         try {
+            ReduceHoursDto reduceHoursDto = new ReduceHoursDto();
+            reduceHoursDto.setId(id);
             adminOtherService.deleteReduceHours(reduceHoursDto);
             return JsonData.buildSuccess("扣分项信息删除成功");
         }catch (TutorException te){
