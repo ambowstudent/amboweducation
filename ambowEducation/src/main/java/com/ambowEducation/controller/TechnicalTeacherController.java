@@ -2,8 +2,11 @@ package com.ambowEducation.controller;
 
 import com.ambowEducation.Exception.StudentGradeException;
 import com.ambowEducation.dto.StudentGradeDto;
+import com.ambowEducation.po.Student;
+import com.ambowEducation.po.User;
 import com.ambowEducation.service.StudentCourseGradeService;
 import com.ambowEducation.utils.JsonData;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +47,7 @@ public class TechnicalTeacherController {
     }
     //根据学号跟课程id查询学生信息以及分数
 
-    @GetMapping("/get_grade_info")
+    @PostMapping("/get_grade_info")
     public JsonData getGradeInfo(StudentGradeDto studentGradeDto){
         try {
             return JsonData.buildSuccess(studentCourseGradeService.findAllByManyCondition(studentGradeDto));
@@ -54,15 +57,26 @@ public class TechnicalTeacherController {
     }
     //查看学生就业率
     @GetMapping("get_student_pre_work")
-    public JsonData getStudentPreWork(int teachId){
+    public JsonData getStudentPreWork(){
         //从session获取技术老师的id
+        User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         try {
-            List<Map<String, Object>> studentWorkRateOfEmployment = studentCourseGradeService.findStudentWorkRateOfEmployment(teachId);
+            List<Map<String, Object>> studentWorkRateOfEmployment = studentCourseGradeService.findStudentWorkRateOfEmployment(user.getTechnicalTeacher().getId());
             return JsonData.buildSuccess(studentWorkRateOfEmployment);
         }catch (StudentGradeException e){
             return JsonData.buildError(e.getMessage());
         }catch (Exception e) {
          return JsonData.buildError(e.getMessage());
+        }
+    }
+    //查询学生的基本信息
+    @GetMapping("get_basic_student")
+    public JsonData getBasicStudent(String stuNo){
+        try {
+            Student student = studentCourseGradeService.findStudentByStudentNo(stuNo);
+            return JsonData.buildSuccess(student);
+        } catch (Exception e) {
+            return JsonData.buildError(e.getMessage());
         }
     }
 }

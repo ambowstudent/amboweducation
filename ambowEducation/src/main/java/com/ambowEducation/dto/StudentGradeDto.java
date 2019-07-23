@@ -20,7 +20,7 @@ public class StudentGradeDto {
     private String school; //学校
     private String stuName; //学生名字
     private String courseName;//课程名字
-    private int clazzId;//班级id
+    private Integer clazzId;//班级id
 
 
 
