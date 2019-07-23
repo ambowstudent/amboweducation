@@ -2,6 +2,7 @@ package com.ambowEducation.controller;
 
 import com.ambowEducation.Exception.TutorException;
 import com.ambowEducation.dao.ClassMapper;
+import com.ambowEducation.dao.ReduceHoursMapper;
 import com.ambowEducation.dao.StudentMapper;
 import com.ambowEducation.dto.*;
 import com.ambowEducation.po.*;
@@ -414,6 +415,19 @@ public class TutorController {
     @GetMapping("/downloadSignupInfo")
     public void downloadSignupInfo(@RequestParam("p_id") int pId, HttpServletResponse response, HttpServletRequest request) {
         service.downloadSignupInfo(pId, response, request);
+    }
+
+
+    @GetMapping("/getReduceHours")
+    public JsonData getReduceHours(){
+        List<ReduceHours> list=service.getReduceHours();
+        try {
+            return JsonData.buildSuccess(list);
+        } catch (TutorException e) {
+            return JsonData.buildError(e);
+        } catch (Exception e) {
+            return JsonData.buildError(e);
+        }
     }
 
 

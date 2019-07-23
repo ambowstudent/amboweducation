@@ -30,7 +30,7 @@ public class AuthorizationInterceptor extends UserFilter {
     private void setHeader(HttpServletRequest request,HttpServletResponse response){
         //跨域的header设置
         response.setHeader("Access-control-Allow-Origin", request.getHeader("Origin"));
-        response.setHeader("Access-Control-Allow-Methods", request.getMethod()+",PUT");
+        response.setHeader("Access-Control-Allow-Methods", request.getMethod()+",PUT,OPTIONS,DELETE");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
         //防止乱码，适用于传输JSON数据

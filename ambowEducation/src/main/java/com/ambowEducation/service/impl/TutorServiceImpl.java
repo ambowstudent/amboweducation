@@ -63,6 +63,9 @@ public class TutorServiceImpl implements TutorService {
     @Autowired
     private RoleMapper roleMapper;
 
+    @Autowired
+    ReduceHoursMapper reduceHoursMapper;
+
 
     @Override
     public Tutor queryTutorByEmpNo(String EmpNo) {
@@ -458,6 +461,13 @@ public class TutorServiceImpl implements TutorService {
 
         return "导出成功";
     }
+
+    @Override
+    public List<ReduceHours> getReduceHours() {
+        return reduceHoursMapper.selectList();
+    }
+
+
 }
 
 
