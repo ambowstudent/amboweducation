@@ -63,6 +63,9 @@ public class TutorServiceImpl implements TutorService {
     @Autowired
     private RoleMapper roleMapper;
 
+    @Autowired
+    ReduceHoursMapper reduceHoursMapper;
+
 
     @Override
     public Tutor queryTutorByEmpNo(String EmpNo) {
@@ -245,8 +248,7 @@ public class TutorServiceImpl implements TutorService {
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void deletePosition(Integer id) throws Exception {
         int i1=positionMapper.deletePosition(id);
-        int i2=signupPositionMapper.deleteSignupInfo(id);
-        if(i1 != 1 || i2 == 0){
+        if(i1 != 1){
             throw new TutorServiceException(-1,"删除职位失败");
         }
     }
@@ -458,6 +460,13 @@ public class TutorServiceImpl implements TutorService {
 
         return "导出成功";
     }
+
+    @Override
+    public List<ReduceHours> getReduceHours() {
+        return reduceHoursMapper.selectList();
+    }
+
+
 }
 
 

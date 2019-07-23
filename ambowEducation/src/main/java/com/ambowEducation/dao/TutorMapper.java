@@ -24,6 +24,10 @@ public interface TutorMapper {
     @Select("select * from t_tutor where emp_no = #{empNo}")
     public Tutor queryTutorByEmpNo(String empNo);
 
+    //    根据关键字进行查询，关键字empNo
+    @Select("select * from t_tutor where emp_no like  concat('%' ,#{arg0 },'%')")
+    public List<Tutor> selectTutorListByKey(String empNo);
+
 //    添加新的学业导师
     @Insert("insert into t_tutor values(null,#{empNo},#{name},#{sex},#{workingSeniority})")
     public int insertTutor(Tutor tutor);

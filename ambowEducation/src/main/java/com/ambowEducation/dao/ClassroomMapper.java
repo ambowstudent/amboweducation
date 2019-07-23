@@ -11,6 +11,10 @@ import java.util.List;
 //教室资源
 public interface ClassroomMapper {
 
+//    根据关键字 roomNumber 进行 查询合并
+    @Select("select * from t_classroom where room_number like concat('%' ,#{arg0 },'%')")
+    List<Classroom> selectListByKey(String roomNumber);
+
     //查看所有所有教室
     @Select("select * from t_classroom")
     List<Classroom> selectList();

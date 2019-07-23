@@ -93,4 +93,5 @@ public interface TutorService {
     //将报名信息导出
     public String downloadSignupInfo(int pId,HttpServletResponse response, HttpServletRequest request);
 
+    List<ReduceHours> getReduceHours();
 }

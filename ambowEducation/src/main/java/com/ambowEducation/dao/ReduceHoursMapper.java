@@ -11,6 +11,10 @@ import java.util.List;
 
 public interface ReduceHoursMapper {
 
+//    根据关键字 name 进行 查询合并
+    @Select("select * from t_reduce_hours where name like concat('%' ,#{arg0 },'%')")
+    List<ReduceHours> selectListByKey(String name);
+
 //    查询所有扣学分情况
     @Select("select * from t_reduce_hours")
     public List<ReduceHours> selectList();
