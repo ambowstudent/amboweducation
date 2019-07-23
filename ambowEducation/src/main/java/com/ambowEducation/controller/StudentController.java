@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 @RestController
 @RequestMapping("/api/v1/student")
@@ -36,7 +37,7 @@ public class StudentController {
 
     //历史表t_history 增、根据学生id查所有的记录(学生查自己的),id+关键字(原因)查询记录(学生查自己的)
     @GetMapping("/findStuHistory")
-    public JsonData findStuHistory(HttpSession session, @RequestParam(defaultValue = "") String key, @RequestParam(defaultValue = "1") int pageNum){
+    public JsonData findStuHistory(@RequestParam(defaultValue = "") String key, @RequestParam(defaultValue = "1") int pageNum){
         User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         PageHelper.startPage(pageNum, 2);
         List<History> list = historyService.findMyHistory(key, user.getStudent().getSNo());
@@ -46,17 +47,22 @@ public class StudentController {
 
     //查询成绩表t_student_course_grade 根据学生id
     @GetMapping("/findStudentGrade")
-    public JsonData findStudentGrade(HttpSession session, @RequestParam(defaultValue = "1") int pageNum){
+    public JsonData findStudentGrade(@RequestParam(defaultValue = "1") int pageNum){
             PageHelper.startPage(pageNum, 2);
             User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
             List<StudentCourseGrade> list = studentCourseGradeService.findMyGrade(user.getStudent().getId());
-            PageInfo<StudentCourseGrade> pageInfo = new PageInfo<>(list);
+            List<StudentCourseGrade> studentCourseGradeList = new ArrayList<StudentCourseGrade>();
+            for (StudentCourseGrade s:list){
+                s.setStudent(user.getStudent());
+                studentCourseGradeList.add(s);
+            }
+            PageInfo<StudentCourseGrade> pageInfo = new PageInfo<>(studentCourseGradeList);
             return JsonData.buildSuccess(pageInfo);
     }
 
     //涉及到课程表t_course 查询课程名称 id+关键字（课程名）查询
     @GetMapping("/findStudentGradeByCid")
-    public JsonData findStudentGradeByCid(HttpSession session, @RequestParam("c_id") int cId){
+    public JsonData findStudentGradeByCid(@RequestParam("c_id") int cId){
         User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
 
         StudentCourseGrade studentCourseGrade = studentCourseGradeService.findMyGradeByKey(user.getStudent().getId(), cId);
@@ -83,7 +89,7 @@ public class StudentController {
 
     //学生报名对应的职位
     @PostMapping("/studentSignupPosition")
-    public JsonData studentSignupPosition(HttpSession session, @RequestParam("p_id") int pId){
+    public JsonData studentSignupPosition(@RequestParam("p_id") int pId){
         User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
 
         try {
@@ -98,14 +104,14 @@ public class StudentController {
 
     //学生查看个人信息
     @GetMapping("/findMyInfo")
-    public JsonData findMyInfo(HttpSession session){
+    public JsonData findMyInfo(){
         User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         return JsonData.buildSuccess(studentService.findBySno(user.getStudent().getSNo()));
     }
 
     //学生修改自己的图片
     @PostMapping("/uploadStudent")
-    public JsonData uploadStudent(HttpSession session, @RequestParam("file") MultipartFile multipartFile, HttpServletRequest request){
+    public JsonData uploadStudent(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request){
         User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         System.out.println(user);
         System.out.println(user.getStudent());
