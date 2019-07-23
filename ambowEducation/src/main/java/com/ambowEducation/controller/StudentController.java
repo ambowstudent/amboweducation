@@ -87,6 +87,13 @@ public class StudentController {
         return JsonData.buildSuccess(pageInfo);
     }
 
+    //通过pid查询岗位详情信息
+    @GetMapping("/findPositionInfoByPid")
+    public JsonData findPositionInfoByPid(@RequestParam("p_id") int pId){
+        Position position = positionService.findById(pId);
+        return JsonData.buildSuccess(position);
+    }
+
     //学生报名对应的职位
     @PostMapping("/studentSignupPosition")
     public JsonData studentSignupPosition(@RequestParam("p_id") int pId){
