@@ -118,8 +118,10 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
     }
 
     @Override
-    public List<Clazz> selectClazz() {
-        return classMapper.selectClazzList();
+    public List<Clazz> selectClazz(String name) {
+
+//        return classMapper.selectClazzList();
+        return classMapper.selectClazzListByKey(name);
     }
 
     @Override
@@ -186,8 +188,10 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
     }
 
     @Override
-    public List<Course> selectCourse() {
-        return courseMapper.findAllCourse();
+    public List<Course> selectCourse(String name) {
+
+//        return courseMapper.findAllCourse();
+        return courseMapper.selectListByKey(name);
     }
 
     @Override

@@ -20,7 +20,7 @@ public interface AdminOtherService {
 //    删除扣除学时项
     void deleteReduceHours(ReduceHoursDto reduceHoursDto);
 //    查询扣除学时项
-    List<ReduceHours> selectReduceHours();
+    List<ReduceHours> selectReduceHours(String name);
 //    通过ID查询扣除学时项
     ReduceHours selectReduceHoursById(ReduceHoursDto reduceHoursDto);
 
@@ -35,7 +35,7 @@ public interface AdminOtherService {
 //    删除教室信息
     void deleteClassroom(ClassroomDto classroomDto);
 //    查询教室信息
-    List<Classroom> selectClassroom();
+    List<Classroom> selectClassroom(String roomNumber);
 //    通过ID查询教室信息
     Classroom selectClassroomById(ClassroomDto classroomDto);
 

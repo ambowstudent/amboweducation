@@ -20,7 +20,7 @@ public interface AdminClassCourseService {
 //    删除班级
     void deleteClazz(ClassCourseDto classCourseDto);
 //    查询班级
-    List<Clazz> selectClazz();
+    List<Clazz> selectClazz(String name);
 //    通过ID查询班级
     Clazz selectClazzById(ClassCourseDto classCourseDto);
 
@@ -31,7 +31,7 @@ public interface AdminClassCourseService {
 //    删除课程
     void deleteCourse(CourseDto courseDto);
 //    查询课程
-    List<Course> selectCourse();
+    List<Course> selectCourse(String name);
 //    通过ID查询课程
     Course selectCourseById(CourseDto courseDto);
 

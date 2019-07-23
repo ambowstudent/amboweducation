@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface CourseMapper {
+//    根据关键字 name 进行 查询合并
+    @Select("select * from t_course where name like concat('%' ,#{arg0 },'%')")
+    List<Course> selectListByKey(String name);
 
 //    查询所有课程
     @Select("select * from t_course")

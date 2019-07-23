@@ -24,7 +24,8 @@ public interface AdminTeacherService {
 
     void deleteTechnicalTeacher(TechnicalTeacherInfoDto teacherInfoDto);
 
-    List<TechnicalTeacher> selectTechnicalTeacher();
+//    根据关键字 empNo 进行查询实现 单个，多个查询方法合并
+    List<TechnicalTeacher> selectTechnicalTeacher(String empNo);
 
     TechnicalTeacher selectTechnicalTeacherById(TechnicalTeacherInfoDto teacherInfoDto);
 
@@ -39,7 +40,8 @@ public interface AdminTeacherService {
 
     void deleteTutor(TutorInfoDto tutorInfoDto);
 
-    List<Tutor> selectTutors();
+    //    根据关键字 empNo 进行查询实现 单个，多个查询方法合并
+    List<Tutor> selectTutors(String empNo);
 
     Tutor selectTutorById(TutorInfoDto tutorInfoDto);
 

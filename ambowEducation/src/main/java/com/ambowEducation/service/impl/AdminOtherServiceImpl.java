@@ -85,9 +85,10 @@ public class AdminOtherServiceImpl implements AdminOtherService {
     }
 
     @Override
-    public List<ReduceHours> selectReduceHours() {
+    public List<ReduceHours> selectReduceHours(String name) {
 
-        return reduceHoursMapper.selectList();
+//        return reduceHoursMapper.selectList();
+        return reduceHoursMapper.selectListByKey(name);
     }
 
     @Override
@@ -156,9 +157,10 @@ public class AdminOtherServiceImpl implements AdminOtherService {
     }
 
     @Override
-    public List<Classroom> selectClassroom() {
+    public List<Classroom> selectClassroom(String roomNumber) {
 
-        return classroomMapper.selectList();
+//        return classroomMapper.selectList();
+        return classroomMapper.selectListByKey(roomNumber);
     }
 
     @Override
