@@ -39,7 +39,7 @@
     </association>
   </resultMap>
   <select id="findAll" resultMap="BaseResultMap">
-    SELECT s.id sid,s.`name`,s.s_no,s.school,h.*,c.`name` cname FROM t_history h LEFT JOIN t_student s ON s.id=h.s_id LEFT JOIN t_clazz c ON s.c_id = c.id WHERE CONCAT(s.s_no,s.`name`) LIKE "%"#{arg1}"%"and tu_id=#{arg0}
+    SELECT s.id sid,s.`name`,s.s_no,s.school,h.*,c.`name` cname FROM t_history h LEFT JOIN t_student s ON s.id=h.s_id LEFT JOIN t_clazz c ON s.c_id = c.id WHERE CONCAT(s.s_no,s.`name`) LIKE "%"#{arg1}"%"and c.tu_id=#{arg0}
   </select>
   <select id="findMyHistory" resultMap="BaseResultMap">
     SELECT s.id sid,s.`name`,s.s_no,s.school,h.*,c.`name` cname FROM t_history h LEFT JOIN t_student s ON s.id=h.s_id LEFT JOIN t_clazz c ON s.c_id = c.id WHERE h.reason LIKE "%"#{arg0}"%" and s.s_no=#{arg1}
