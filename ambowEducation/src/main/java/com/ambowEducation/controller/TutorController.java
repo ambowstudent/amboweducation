@@ -156,7 +156,7 @@ public class TutorController {
     @GetMapping("/toUpdateStu") //去到更新界面
     public JsonData toUpdateStu() {
         try {
-            List<Clazz> list = classService.selectClazz();
+            List<Clazz> list = classService.selectClazz("");
             return JsonData.buildSuccess(list);
         } catch (TutorException e) {
             return JsonData.buildError(e);

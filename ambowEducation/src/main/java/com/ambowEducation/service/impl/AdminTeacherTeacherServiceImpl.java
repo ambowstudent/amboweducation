@@ -88,8 +88,9 @@ public class AdminTeacherTeacherServiceImpl implements AdminTeacherService {
     }
 
     @Override
-    public List<TechnicalTeacher> selectTechnicalTeacher() {
-        return teacherMapper.selectTechnicalTeacherList();
+    public List<TechnicalTeacher> selectTechnicalTeacher(String empNo) {
+//        return teacherMapper.selectTechnicalTeacherList();
+        return teacherMapper.selectTechnicalTeacherListByKey(empNo);
     }
 
     @Override
@@ -132,7 +133,7 @@ public class AdminTeacherTeacherServiceImpl implements AdminTeacherService {
     public void updateTutor(TutorInfoDto tutorInfoDto) {
 
         if (tutorInfoDto==null){
-            throw new TechnicalTeacherException(-1,"你对象怎么没带来？");
+            throw new TechnicalTeacherException(-1,"对象不存在");
         }
 
         Tutor tutor = new Tutor();
@@ -163,10 +164,10 @@ public class AdminTeacherTeacherServiceImpl implements AdminTeacherService {
 
     @Override
 
-    public List<Tutor> selectTutors() {
+    public List<Tutor> selectTutors(String empNo) {
 
-        return tutorMapper.selectTutorList();
-
+//        return tutorMapper.selectTutorList();
+        return tutorMapper.selectTutorListByKey(empNo);
     }
 
     @Override

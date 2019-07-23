@@ -77,10 +77,10 @@ public class AdminController {
 
     //查询技术老师
     @GetMapping("/select_technicalTeacher_list")
-    public JsonData selectTechnicalTeacher(@RequestParam(value = "pageNo",defaultValue = "1") Integer page ){
+    public JsonData selectTechnicalTeacher(@RequestParam(value = "page_no",defaultValue = "1") Integer page,@RequestParam(value = "key",defaultValue = "") String empNo ){
         try {
             PageHelper.startPage(page,9);
-            List<TechnicalTeacher> list = adminTeacherService.selectTechnicalTeacher();
+            List<TechnicalTeacher> list = adminTeacherService.selectTechnicalTeacher(empNo);
             return JsonData.buildSuccess(new PageInfo<>(list));
         }catch (TechnicalTeacherException tte){
             return JsonData.buildError(tte.getMessage());
@@ -150,10 +150,10 @@ public class AdminController {
 
     //查询学业导师
     @GetMapping("/select_tutor_list")
-    public JsonData selectTutor(@RequestParam(value = "pageNo",defaultValue = "1") Integer page){
+    public JsonData selectTutor(@RequestParam(value = "page_no",defaultValue = "1") Integer page,@RequestParam(value = "key",defaultValue = "") String empNo){
         try {
             PageHelper.startPage(page,9);
-            List<Tutor> list = adminTeacherService.selectTutors();
+            List<Tutor> list = adminTeacherService.selectTutors(empNo);
             return JsonData.buildSuccess(new PageInfo<>(list));
         }catch (TutorException te){
             return JsonData.buildError(te.getMessage());
@@ -222,9 +222,9 @@ public class AdminController {
 
     //查询班级信息
     @GetMapping("/select_class_list")
-    public JsonData selectClazz(){
+    public JsonData selectClazz(@RequestParam(value = "key",defaultValue = "") String name){
         try {
-            List<Clazz> list = adminClassCourseService.selectClazz();
+            List<Clazz> list = adminClassCourseService.selectClazz(name);
             return JsonData.buildSuccess(list);
         }catch (TutorException te){
             return JsonData.buildError(te.getMessage());
@@ -294,9 +294,9 @@ public class AdminController {
 
     //查询课程信息
     @GetMapping("/select_course_list")
-    public JsonData selectCourse(){
+    public JsonData selectCourse(@RequestParam(value = "key",defaultValue = "") String name){
         try {
-            List<Course> list = adminClassCourseService.selectCourse();
+            List<Course> list = adminClassCourseService.selectCourse(name);
             return JsonData.buildSuccess(list);
         }catch (TutorException te){
             return JsonData.buildError(te.getMessage());
@@ -366,9 +366,9 @@ public class AdminController {
 
 //    查询教室信息
     @GetMapping("/select_classroom_list")
-    public JsonData selectClassroom(){
+    public JsonData selectClassroom(@RequestParam(value = "key",defaultValue = "") String name){
         try {
-            List<Classroom> list = adminOtherService.selectClassroom();
+            List<Classroom> list = adminOtherService.selectClassroom(name);
             return JsonData.buildSuccess(list);
         }catch (TutorException te){
             return JsonData.buildError(te.getMessage());
@@ -438,9 +438,9 @@ public class AdminController {
 
     //查询扣分项信息
     @GetMapping("/select_reduceHour_list")
-    public JsonData selectReduceHour(){
+    public JsonData selectReduceHour(@RequestParam(value = "key",defaultValue = "") String name){
         try {
-            List<ReduceHours> list = adminOtherService.selectReduceHours();
+            List<ReduceHours> list = adminOtherService.selectReduceHours(name);
             return JsonData.buildSuccess(list);
         }catch (TutorException te){
             return JsonData.buildError(te.getMessage());

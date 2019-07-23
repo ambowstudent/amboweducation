@@ -30,11 +30,6 @@ public class HistoryServiceImpl implements HistoryService {
     //学生通过自己的学号查看自己历史（可以模糊查询）
     @Override
     public List<History> findMyHistory(String key, String sno)  {
-        try {
-            key = new String(key.getBytes("iso8859-1"), "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
         return historyMapper.findMyHistory(key, sno);
     }
 }

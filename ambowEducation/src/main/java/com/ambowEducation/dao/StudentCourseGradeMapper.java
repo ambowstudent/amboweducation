@@ -21,7 +21,7 @@ public interface StudentCourseGradeMapper {
      *学生查询自己的全部成绩
      */
     @Select("select t_scg.id,t_scg.grade,t_scg.cr_id cid " +
-            "from t_course t_c left join t_student_course_grade t_scg on t_c.id=t_scg.cr_id  and t_scg.s_id=#{studentId}")
+            "from t_course t_c left join t_student_course_grade t_scg on t_c.id=t_scg.cr_id where t_scg.grade is not null and t_scg.s_id=#{studentId}")
     @Results({
             @Result(id = true,column = "id",property = "id"),
             @Result(column = "cid",property = "course",many = @Many(select = "com.ambowEducation.dao.CourseMapper.findByCourseId"))
@@ -45,5 +45,5 @@ public interface StudentCourseGradeMapper {
     /**
      * 老师根据学生学号，姓名，班级，学校，课程名
      */
-    List<StudentCourseGrade> findAllByManyCondition(@Param("sNo") String sNo,@Param("studentName")String studentName,@Param("school")String school,@Param("courseName")String courseName,@Param("clazzId")int clazzId);
+    List<StudentCourseGrade> findAllByManyCondition(@Param("sNo") String sNo,@Param("studentName")String studentName,@Param("school")String school,@Param("courseName")String courseName,@Param("clazzId")Integer clazzId);
 }

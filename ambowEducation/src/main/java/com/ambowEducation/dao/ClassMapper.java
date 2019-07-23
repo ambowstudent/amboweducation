@@ -11,6 +11,9 @@ import java.util.List;
 
 public interface ClassMapper {
 
+    //    根据关键字 name 进行 查询合并
+    @Select("select * from t_clazz where name like concat('%' ,#{arg0 },'%')")
+    List<Clazz> selectClazzListByKey(String name);
 
 //    查询所有班级
     @Select("select * from t_clazz")
