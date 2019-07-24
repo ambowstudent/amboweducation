@@ -49,9 +49,9 @@ public class ShiroConfiguration {
         filterMap.put("/api/pub/**", "anon");
         //有相应角色才能访问的,例如管理员才能访问
         filterMap.put("/api/v1/**", "corsFilter");
-        filterMap.put("/api/v1/tutor/**", "customRoles[tutor,admin]");
-        filterMap.put("/api/v1/student/**", "customRoles[student,admin]");
-        filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher,admin]");
+        filterMap.put("/api/v1/tutor/**", "customRoles[tutor]");
+        filterMap.put("/api/v1/student/**", "customRoles[student]");
+        filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher]");
         filterMap.put("/api/v1/admin/**", "customRoles[admin]");
 
         //需要登录才能访问的

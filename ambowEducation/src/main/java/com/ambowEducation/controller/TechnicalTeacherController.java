@@ -3,9 +3,13 @@ package com.ambowEducation.controller;
 import com.ambowEducation.Exception.StudentGradeException;
 import com.ambowEducation.dto.StudentGradeDto;
 import com.ambowEducation.po.Student;
+import com.ambowEducation.po.StudentCourseGrade;
 import com.ambowEducation.po.User;
 import com.ambowEducation.service.StudentCourseGradeService;
 import com.ambowEducation.utils.JsonData;
+import com.ambowEducation.utils.PageUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -48,9 +52,12 @@ public class TechnicalTeacherController {
     //根据学号跟课程id查询学生信息以及分数
 
     @PostMapping("/get_grade_info")
-    public JsonData getGradeInfo(StudentGradeDto studentGradeDto){
+    public JsonData getGradeInfo(StudentGradeDto studentGradeDto,@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
         try {
-            return JsonData.buildSuccess(studentCourseGradeService.findAllByManyCondition(studentGradeDto));
+            PageHelper.startPage(pageNum, PageUtil.PAGE_SIZE_GRADE);
+            List<StudentCourseGrade> studentCourseGrades = studentCourseGradeService.findAllByManyCondition(studentGradeDto);
+            PageInfo<StudentCourseGrade> pageInfo=new PageInfo<>(studentCourseGrades);
+            return JsonData.buildSuccess(pageInfo);
         } catch (Exception e){
             return JsonData.buildSuccess(e.getMessage());
         }

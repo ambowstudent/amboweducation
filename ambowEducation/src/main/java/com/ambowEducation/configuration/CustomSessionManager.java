@@ -23,6 +23,7 @@ public class CustomSessionManager extends DefaultWebSessionManager {
 
         String sessionId= WebUtils.toHttp(request).getHeader(AUTHORIZATION);
         //HttpServletRequest request1=(HttpServletRequest)request;
+
         if(sessionId!=null){
 
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE,
