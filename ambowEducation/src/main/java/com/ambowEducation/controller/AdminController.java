@@ -231,8 +231,7 @@ public class AdminController {
     @GetMapping("/select_class_list")
     public JsonData selectClazz(@RequestParam(value = "key",defaultValue = "") String name){
         try {
-            List<Clazz> list = adminClassCourseService.selectClazz(name);
-            return JsonData.buildSuccess(list);
+            return JsonData.buildSuccess(adminClassCourseService.selectClazz(name));
         }catch (TutorException te){
             return JsonData.buildError(te.getMessage());
         }catch (Exception ex) {

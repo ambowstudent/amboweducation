@@ -2,11 +2,8 @@ package com.ambowEducation.service.impl;
 
 import com.ambowEducation.Exception.AdminClassCourseException;
 import com.ambowEducation.dao.*;
-import com.ambowEducation.dto.ClassCourseDto;
-import com.ambowEducation.dto.CourseDto;
-import com.ambowEducation.po.Classroom;
-import com.ambowEducation.po.Clazz;
-import com.ambowEducation.po.Course;
+import com.ambowEducation.dto.*;
+import com.ambowEducation.po.*;
 import com.ambowEducation.service.AdminClassCourseService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,6 +29,12 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
 
     @Autowired
     private ClassroomMapper classroomMapper;
+
+    @Autowired
+    private TechnicalTeacherMapper teacherMapper;
+
+    @Autowired
+    private TutorMapper tutorMapper;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
@@ -118,9 +122,51 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
     }
 
     @Override
-    public List<Clazz> selectClazz(String name) {
+    public List<ClassCourseDto> selectClazz(String name) {
 
 //        return classMapper.selectClazzList();
+//        获取初始的班级列表
+        List<Clazz> list_init = classMapper.selectClazzListByKey(name);
+        List<ClassCourseDto> list_final = new ArrayList<>();
+//        将班级列表的内容转化[将ID转换成名字]
+        for (Clazz clazz:list_init) {
+            ClassCourseDto classCourseDto = new ClassCourseDto();
+            TechnicalTeacherInfoDto technicalTeacherInfoDto = new TechnicalTeacherInfoDto();
+            TutorInfoDto tutorInfoDto = new TutorInfoDto();
+            ClassroomDto classroomDto = new ClassroomDto();
+
+//            根据班级里的各个ID 分别获取各个对象
+            technicalTeacherInfoDto.setId(clazz.getTeId());
+            tutorInfoDto.setId(clazz.getTuId());
+            classroomDto.setId(clazz.getRoomId());
+            TechnicalTeacher technicalTeacher = teacherMapper.selectTechnicalTeacher(clazz.getTeId());
+            Tutor tutor = tutorMapper.selectTutor(clazz.getTuId());
+            Classroom classroom = classroomMapper.selectById(clazz.getRoomId());
+//            获取该班级已选课程
+            String[] crids = this.selectClazzCourseById(clazz.getId());
+//            封装classCourseDto 进行前台展示
+            if (clazz!=null) {
+                classCourseDto.setId(clazz.getId());
+                classCourseDto.setName(clazz.getName());
+            }
+            if(classroom!=null) {
+                classCourseDto.setRoomName(classroom.getRoomNumber());
+            }
+            if(technicalTeacher!=null) {
+                classCourseDto.setTeaName(technicalTeacher.getName());
+            }
+            if (tutor!=null){
+                classCourseDto.setTuName(tutor.getName());
+            }
+            classCourseDto.setCrId(crids);
+            list_final.add(classCourseDto);
+        }
+
+        return list_final;
+    }
+
+    @Override
+    public List<Clazz> selectClazzSmart(String name) {
         return classMapper.selectClazzListByKey(name);
     }
 

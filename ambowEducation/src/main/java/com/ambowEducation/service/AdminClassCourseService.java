@@ -20,11 +20,13 @@ public interface AdminClassCourseService {
 //    删除班级
     void deleteClazz(ClassCourseDto classCourseDto);
 //    查询班级
-    List<Clazz> selectClazz(String name);
+    List<ClassCourseDto> selectClazz(String name);
+//    查询班级简化版
+    List<Clazz> selectClazzSmart(String name);
 //    通过ID查询班级
     Clazz selectClazzById(ClassCourseDto classCourseDto);
 //    查询该班级已选的课程
-    String[] selectClazzCourseById(Integer cid);
+    String[] selectClazzCourseById(Integer id);
 
 //    添加课程
     void insertCourse(CourseDto courseDto);
