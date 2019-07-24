@@ -9,8 +9,10 @@ public class RealNameUtils {
             return user.getStudent().getName();
         }else if(user.getTechnicalTeacher()!=null){
             return user.getTechnicalTeacher().getName();
-        }else{
+        }else if(user.getTutor()!=null){
             return user.getTutor().getName();
+        }else {
+            return "admin";
         }
     }
 }

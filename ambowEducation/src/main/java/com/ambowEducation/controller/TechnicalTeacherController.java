@@ -71,7 +71,7 @@ public class TechnicalTeacherController {
     }
     //查询学生的基本信息
     @GetMapping("get_basic_student")
-    public JsonData getBasicStudent(String stuNo){
+    public JsonData getBasicStudent(@RequestParam("stuNo") String stuNo){
         try {
             Student student = studentCourseGradeService.findStudentByStudentNo(stuNo);
             return JsonData.buildSuccess(student);

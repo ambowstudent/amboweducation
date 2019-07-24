@@ -52,6 +52,8 @@ public class ShiroConfiguration {
         filterMap.put("/api/v1/tutor/**", "customRoles[tutor,admin]");
         filterMap.put("/api/v1/student/**", "customRoles[student,admin]");
         filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher,admin]");
+        filterMap.put("/api/v1/admin/**", "customRoles[admin]");
+
         //需要登录才能访问的
         //全局拦截，避免遗漏哪些路径，放到最下面
         filterMap.put("/**", "authc");
