@@ -284,50 +284,6 @@ public class AdminController {
         }
     }
 
-//    //通过 班级名 查询班级信息
-//    @GetMapping("/select_class_key")
-//    public JsonData selectClazzByName(@RequestParam(value = "key",defaultValue = "") String name){
-//        try {
-//            //创建 Dto 封装数据
-//            ClassCourseDto classCourseDto = new ClassCourseDto();
-//            classCourseDto.setId(id);
-//            TechnicalTeacherInfoDto technicalTeacherInfoDto = new TechnicalTeacherInfoDto();
-//            TutorInfoDto tutorInfoDto = new TutorInfoDto();
-//            ClassroomDto classroomDto = new ClassroomDto();
-////            classCourseDto.setId(id);
-////            获取要查询的班级
-//            Clazz clazz = adminClassCourseService.selectClazzById(classCourseDto);
-////            根据班级里的各个ID 分别获取各个对象
-//            technicalTeacherInfoDto.setId(clazz.getTeId());
-//            tutorInfoDto.setId(clazz.getTuId());
-//            classroomDto.setId(clazz.getRoomId());
-//            TechnicalTeacher technicalTeacher = adminTeacherService.selectTechnicalTeacherById(technicalTeacherInfoDto);
-//            Tutor tutor = adminTeacherService.selectTutorById(tutorInfoDto);
-//            Classroom classroom = adminOtherService.selectClassroomById(classroomDto);
-////            获取该班级已选课程
-//            String[] crids = adminClassCourseService.selectClazzCourseById(clazz.getId());
-////            封装classCourseDto 进行前台展示
-//            if (clazz!=null) {
-//                classCourseDto.setId(clazz.getId());
-//                classCourseDto.setName(clazz.getName());
-//            }
-//            if(classroom!=null) {
-//                classCourseDto.setRoomName(classroom.getRoomNumber());
-//            }
-//            if(technicalTeacher!=null) {
-//                classCourseDto.setTeaName(technicalTeacher.getName());
-//            }
-//            if (tutor!=null){
-//                classCourseDto.setTuName(tutor.getName());
-//            }
-//            classCourseDto.setCrId(crids);
-//            return JsonData.buildSuccess(classCourseDto);
-//        }catch (TutorException te){
-//            return JsonData.buildError(te.getMessage());
-//        }catch (Exception ex) {
-//            return JsonData.buildError(ex.getMessage());
-//        }
-//    }
 
     /**
      * 课程信息管理
