@@ -132,6 +132,19 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
         return classMapper.selectClazz(classCourseDto.getId());
     }
 
+    @Override
+    public String[] selectClazzCourseById(Integer id) {
+        List<Integer> list = classCourseMapper.queryCourseIdByClassId(id);
+        String[] crIds = {};
+        if (list!=null) {
+            crIds = new String[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                crIds[i] = list.get(i).toString();
+            }
+        }
+        return crIds;
+    }
+
     //
 
     @Override

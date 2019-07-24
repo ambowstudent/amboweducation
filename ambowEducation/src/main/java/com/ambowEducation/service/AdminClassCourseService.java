@@ -23,6 +23,8 @@ public interface AdminClassCourseService {
     List<Clazz> selectClazz(String name);
 //    通过ID查询班级
     Clazz selectClazzById(ClassCourseDto classCourseDto);
+//    查询该班级已选的课程
+    String[] selectClazzCourseById(Integer cid);
 
 //    添加课程
     void insertCourse(CourseDto courseDto);
