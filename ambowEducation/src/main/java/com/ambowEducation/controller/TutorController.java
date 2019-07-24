@@ -125,7 +125,8 @@ public class TutorController {
             } else {
                 list = service.queryStudentBysNo(key, id);
             }
-            return JsonData.buildSuccess(new PageInfo<Student>(list));
+            PageInfo<Student> page = new PageInfo<>(list);
+            return JsonData.buildSuccess(page);
         } catch (TutorException e) {
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -221,7 +222,8 @@ public class TutorController {
             }else {
                 list = service.queryPositionsByKeyAndTuEmpNo(key, empNo);
             }
-            return JsonData.buildSuccess(new PageInfo<Position>(list));
+            PageInfo<Position> page = new PageInfo<>(list);
+            return JsonData.buildSuccess(page);
         } catch (TutorException e) {
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -346,7 +348,8 @@ public class TutorController {
             }else {
                 list = service.queryStudentsHoursInfoByKey(id, key);
             }
-            return JsonData.buildSuccess(new PageInfo<>(list));
+            PageInfo<StudentsHoursInfoDto> page = new PageInfo<>(list);
+            return JsonData.buildSuccess(page);
         } catch (TutorException e) {
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -401,8 +404,8 @@ public class TutorController {
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             List<HoursHistoryDto> list = service.queryHourHistory(id, key);
-            return JsonData.buildSuccess(
-                    new PageInfo<HoursHistoryDto>(list));
+            PageInfo<HoursHistoryDto> page = new PageInfo<>(list);
+            return JsonData.buildSuccess(page);
         } catch (TutorException e) {
             e.printStackTrace();
             return JsonData.buildError(e);
