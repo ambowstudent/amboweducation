@@ -5,7 +5,6 @@ import com.ambowEducation.enumStatus.RbacStatus;
 import com.ambowEducation.po.User;
 import com.ambowEducation.service.UserService;
 import com.ambowEducation.utils.JsonData;
-import com.ambowEducation.utils.RealNameUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -51,7 +50,7 @@ public class publicController {
             map.put("message", RbacStatus.SUCCESS_IN.getMessage());
             map.put("session_id", sessionId);
             map.put("code", RbacStatus.SUCCESS_IN.getCode());
-            map.put("name", RealNameUtils.getRealName(user));
+            map.put("user", user);
             return JsonData.buildSuccess(map);
         }catch (Exception e){
             map.clear();
