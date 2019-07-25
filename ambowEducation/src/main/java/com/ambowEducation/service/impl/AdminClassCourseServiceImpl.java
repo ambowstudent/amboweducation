@@ -186,7 +186,7 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
         if (list!=null) {
             crIds = new String[list.size()];
             for (int i = 0; i < list.size(); i++) {
-                crIds[i] = list.get(i).toString();
+                crIds[i] = courseMapper.select(list.get(i)).getName();
             }
         }
         return crIds;
