@@ -25,37 +25,26 @@ public class ShiroConfiguration {
         ShiroFilterFactoryBean shiroFilterFactoryBean=new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-        //设置如果未登录时需要跳转的url
+
         shiroFilterFactoryBean.setLoginUrl("/api/pub/need_login");
-        //设置登陆成功后跳转的界面或者url，如果是前后端分离，则可以不写该选项
-        //shiroFilterFactoryBean.setSuccessUrl("/");
-        //登录成功后，但是未授权，则调到未授权的url
+
         shiroFilterFactoryBean.setUnauthorizedUrl("/api/pub/no_permission");
-        //将自定义的角色过滤器放到map里面
         Map<String , Filter> map = new LinkedHashMap<>();
-        //这里配置好角色过滤器时，拦截路径时的前缀要写成key的值
         map.put("customRoles", new CustomAuthorizationFilter());
         //自定义的过滤器解决跨域
-        map.put("corsFilter", new AuthorizationInterceptor());
-        //将自定义的角色过滤器放到shiroFilterFactoryBean里面去
+        //map.put("corsFilter", new AuthorizationInterceptor());
+
         shiroFilterFactoryBean.setFilters(map);
-        //拦截器路径，同一拦截，注意要使用linkedHashMap保证过滤器的顺序
+
         Map<String,String > filterMap=new LinkedHashMap<>();
-        //key是需要拦截的路径，value采用哪种过滤器，或者那种角色或权限
-        //处理跨域的路径
-        //登出过滤器
        filterMap.put("/logout", "logout");
-        //匿名访问，也就是说无需的登录即可访问
+
         filterMap.put("/api/pub/**", "anon");
-        //有相应角色才能访问的,例如管理员才能访问
-        filterMap.put("/api/v1/**", "corsFilter");
+
         filterMap.put("/api/v1/tutor/**", "customRoles[tutor]");
         filterMap.put("/api/v1/student/**", "customRoles[student]");
         filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher]");
         filterMap.put("/api/v1/admin/**", "customRoles[admin]");
-
-        //需要登录才能访问的
-        //全局拦截，避免遗漏哪些路径，放到最下面
         filterMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         return shiroFilterFactoryBean;
@@ -86,16 +75,7 @@ public class ShiroConfiguration {
         CustomSessionManager customSessionManager=new CustomSessionManager();
         return customSessionManager;
     }
-    //密码匹配器
-//    @Bean
-//    public HashedCredentialsMatcher hashedCredentialsMatcher(){
-//        HashedCredentialsMatcher hashedCredentialsMatcher=new HashedCredentialsMatcher();
-//        hashedCredentialsMatcher.setHashAlgorithmName("md5");
-//        hashedCredentialsMatcher.setHashIterations(2);
-//        return hashedCredentialsMatcher;
-//    }
-    //redis管理器,这个redis是跟shiro整合的，对于权限来说查询后会自动放入缓存，不需要在service层
-    //手动放入
+
 
     @Bean
     public RedisManager redisManager(){

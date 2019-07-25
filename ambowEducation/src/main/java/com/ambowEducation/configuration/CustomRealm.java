@@ -46,7 +46,6 @@ public class CustomRealm extends AuthorizingRealm {
                 stringRole.add(role.getName());
             }
         }
-        System.out.println("111111111111111"+stringRole.size());
         SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
         info.addStringPermissions(stringPermission);
         info.addRoles(stringRole);

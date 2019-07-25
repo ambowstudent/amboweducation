@@ -21,8 +21,6 @@ public class CustomAuthorizationFilter extends AuthorizationFilter {
             return true;
         }
         Set<String> roles = CollectionUtils.asSet(rolesArray);
-
-        System.out.println("自定的角色:"+roles);
         //当前subject是roles 中的任意一个，则有权限访问
         for(String role : roles){
             if(subject.hasRole(role)){
