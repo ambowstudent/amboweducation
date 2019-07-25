@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -115,4 +114,8 @@ public interface StudentMapper {
     @Select("select s_no from t_student where name=#{name} and phone=#{phone}")
     String querySNoByPhoneAndName(@Param("name") String name,
                                   @Param("phone") String phone);
+
+    //查询学生所有的个数
+    @Select("select count(*) from t_student")
+    int findAllStudentCount();
 }

@@ -97,6 +97,7 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly = true)
     public List<Map<String,Object>> findStudentWorkRateOfEmployment(int teachId) throws Exception{
 
         //查询出所有的类型的人数
@@ -128,6 +129,26 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
     @Override
     public StudentCourseGrade findMyGradeByKey(int sid, int cid) {
         return studentCourseGradeMapper.findOneStudentOneGrade(sid, cid);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,readOnly = true)
+    public List<Map<String, Object>> findAllStudentWorkPercent() throws Exception {
+        //查询所有学生的个数
+        int count = studentMapper.findAllStudentCount();
+        if(count==0){
+            throw new StudentGradeException(-5,"没有任何学生");
+        }
+        //查询所有就业学生个数
+        List<Map<String, Object>> maps = workMapper.selectEveryTypeCount();
+        for (Map map:
+                maps) {
+            long num = (long) map.get("num");
+            String pre=new Double(num)/count+"";
+            String subString = StringOfSubtringUtil.customSubString(pre);
+            map.put("num", subString);
+        }
+        return maps;
     }
 
 
