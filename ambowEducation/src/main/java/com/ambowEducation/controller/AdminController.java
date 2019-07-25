@@ -91,6 +91,13 @@ public class AdminController {
         }
     }
 
+//    查询所有技术老师供人选择
+    @GetMapping("/select_technicalTeacher_all")
+    public JsonData selectTechnicalTeacherAll(){
+            List<TechnicalTeacher> list = adminTeacherService.selectTechnicalTeacher("");
+            return JsonData.buildSuccess(list);
+    }
+
     //通过ID查询技术老师
     @GetMapping("/select_technicalTeacher")
     public JsonData selectTechnicalTeacherById(@RequestParam(value = "id",defaultValue = "null") Integer id ){
@@ -164,6 +171,12 @@ public class AdminController {
         }catch (Exception ex) {
             return JsonData.buildError(ex.getMessage());
         }
+    }
+
+    @GetMapping("/select_tutor_all")
+    public JsonData selectTutorAll(){
+            List<Tutor> list = adminTeacherService.selectTutors("");
+            return JsonData.buildSuccess(list);
     }
 
     //通过ID查询学业导师
