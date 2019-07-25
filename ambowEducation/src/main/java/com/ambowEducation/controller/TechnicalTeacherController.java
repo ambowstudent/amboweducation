@@ -62,7 +62,7 @@ public class TechnicalTeacherController {
             return JsonData.buildSuccess(e.getMessage());
         }
     }
-    //查看学生就业率
+    //老师带领下查看学生就业率
     @GetMapping("get_student_pre_work")
     public JsonData getStudentPreWork(){
         //从session获取技术老师的id
@@ -86,4 +86,18 @@ public class TechnicalTeacherController {
             return JsonData.buildError(e.getMessage());
         }
     }
+    //查看所有学生就业率
+@GetMapping("get_all_student_pre_work")
+public JsonData getAllStudentPreWork(){
+    //从session获取技术老师的id
+    try {
+        List<Map<String, Object>> percent = studentCourseGradeService.findAllStudentWorkPercent();
+        return JsonData.buildSuccess(percent);
+    }catch (StudentGradeException e){
+        return JsonData.buildError(e.getMessage());
+    }catch (Exception e) {
+        return JsonData.buildError(e.getMessage());
+    }
+}
+
 }

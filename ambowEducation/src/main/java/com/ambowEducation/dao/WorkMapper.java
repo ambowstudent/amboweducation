@@ -18,9 +18,8 @@ public interface WorkMapper {
     public List<Map<String,Object>> selectEveryTypeCount();
 
     //查询老师管理下工作类型对应的数量
-    @Select("select type,count(*) num from t_technical_teacher tech left join t_clazz  clazz\n" +
-            "on tech.id=clazz.te_id left join t_student s on clazz.id=s.c_id left join t_work w on w.s_id=s.id\n" +
-            "where tech.id=#{techId} group by type")
+    @Select("select type,count(*) num from t_technical_teacher tech,t_clazz clazz,t_student s,t_work w \n" +
+            "    where tech.id=clazz.te_id and  clazz.id=s.c_id and w.s_id=s.id and tech.id=#{techId} GROUP BY type;")
     public List<Map<String,Object>> selectEveryTypeCountByTechId(@Param("techId") int techId);
 
 

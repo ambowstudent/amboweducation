@@ -5,6 +5,4 @@
 
   <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
-
-
 </beans>
