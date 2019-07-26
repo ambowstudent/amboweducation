@@ -30,10 +30,10 @@ public class ShiroConfiguration {
 
         shiroFilterFactoryBean.setUnauthorizedUrl("/api/pub/no_permission");
         Map<String , Filter> map = new LinkedHashMap<>();
+
+        map.put("corsFilter", new AuthorizationInterceptor());
         map.put("customRoles", new CustomAuthorizationFilter());
         //自定义的过滤器解决跨域
-        map.put("corsFilter", new AuthorizationInterceptor());
-
         shiroFilterFactoryBean.setFilters(map);
 
         Map<String,String > filterMap=new LinkedHashMap<>();
