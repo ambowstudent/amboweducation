@@ -102,10 +102,7 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
             cour_list_new = Arrays.asList(classCourseDto.getCrId());
         List cour_list_old = classCourseMapper.queryCourseIdByClassId(classCourseDto.getId());
         //list进行排序
-        List cour_new = new ArrayList();
-        for (String str:cour_list_new) {
-            cour_new.add(new Integer(str));
-        }
+        List cour_new = courseMapper.selectCourseIdListByCourseName(cour_list_new);
         //将两个list中的元素升序排列
         Collections.sort(cour_list_old);
         Collections.sort(cour_new);
@@ -212,11 +209,9 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
     public String[] selectClazzCourseById(Integer id) {
         List<Integer> list = classCourseMapper.queryCourseIdByClassId(id);
         String[] crIds = {};
+
         if (list!=null) {
-            crIds = new String[list.size()];
-            for (int i = 0; i < list.size(); i++) {
-                crIds[i] = courseMapper.select(list.get(i)).getName();
-            }
+            crIds = courseMapper.selectCourseNameListByCourseId(list).toArray(new String[list.size()]);
         }
         return crIds;
     }
