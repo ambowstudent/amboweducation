@@ -41,11 +41,12 @@ public class ShiroConfiguration {
 
         filterMap.put("/api/pub/**", "anon");
 
+        filterMap.put("/api/v1/**", "corsFilter");
         filterMap.put("/api/v1/tutor/**", "customRoles[tutor,admin]");
         filterMap.put("/api/v1/student/**", "customRoles[student,admin]");
         filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher,admin]");
         filterMap.put("/api/v1/admin/**", "customRoles[admin]");
-        filterMap.put("/**", "corsFilter");
+        filterMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         return shiroFilterFactoryBean;
     }
