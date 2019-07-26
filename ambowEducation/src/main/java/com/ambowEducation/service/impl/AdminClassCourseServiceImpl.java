@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -93,10 +94,38 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
 //        获取教室Id并赋值
         classCourseDto.setRoomId(cr.getId());
         BeanUtils.copyProperties(classCourseDto,clazz);
+//        修改班级信息
         int result_cla = classMapper.updateClazz(clazz);
+//        修改班级课程信息
+        List<String> cour_list_new = null;
+        if (classCourseDto.getCrId()!=null)
+            cour_list_new = Arrays.asList(classCourseDto.getCrId());
+        List cour_list_old = classCourseMapper.queryCourseIdByClassId(classCourseDto.getId());
+        //list进行排序
+        List cour_new = new ArrayList();
+        for (String str:cour_list_new) {
+            cour_new.add(new Integer(str));
+        }
+        //将两个list中的元素升序排列
+        Collections.sort(cour_list_old);
+        Collections.sort(cour_new);
+        //比较课表是否发生变化 true 是 ， false 否
+        boolean changeif = !cour_new.equals(cour_list_old);
+//        throw new AdminClassCourseException(-10,"修改失败");
+//        如果发生了变化则对班级课程表进行操作
+        if (changeif) {
+            int result_clacouDelete = classCourseMapper.deleteClassCourse(classCourseDto.getId());
+            int result_clacouInsert = classCourseMapper.insertClassCourse(classCourseDto.getId(), cour_new);
+//        判断对班级课程的修改情况
+            if (result_clacouDelete<1&&result_clacouInsert<1){
+                throw new AdminClassCourseException(-4,"修改失败");
+            }
+        }
+//        判断对班级信息的修改情况
         if(result_cla<1){
             throw new AdminClassCourseException(-4,"修改失败");
         }
+
     }
 
     @Override
