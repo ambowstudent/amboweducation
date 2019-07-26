@@ -31,21 +31,23 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setUnauthorizedUrl("/api/pub/no_permission");
         Map<String , Filter> map = new LinkedHashMap<>();
 
-        map.put("corsFilter", new AuthorizationInterceptor());
+
         map.put("customRoles", new CustomAuthorizationFilter());
+        map.put("corsFilter", new AuthorizationInterceptor());
         //自定义的过滤器解决跨域
         shiroFilterFactoryBean.setFilters(map);
 
         Map<String,String > filterMap=new LinkedHashMap<>();
        filterMap.put("/logout", "logout");
-
+        filterMap.put("/api/pub/get_all_student_pre_work","customRoles[student,tutor,teacher,admin]");
         filterMap.put("/api/pub/**", "anon");
-
         filterMap.put("/api/v1/**", "corsFilter");
         filterMap.put("/api/v1/tutor/**", "customRoles[tutor,admin]");
         filterMap.put("/api/v1/student/**", "customRoles[student,admin]");
         filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher,admin]");
         filterMap.put("/api/v1/admin/**", "customRoles[admin]");
+
+
         filterMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         return shiroFilterFactoryBean;

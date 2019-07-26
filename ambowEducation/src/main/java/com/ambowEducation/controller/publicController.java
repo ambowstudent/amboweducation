@@ -1,8 +1,10 @@
 package com.ambowEducation.controller;
 
+import com.ambowEducation.Exception.StudentGradeException;
 import com.ambowEducation.dto.UserDto;
 import com.ambowEducation.enumStatus.RbacStatus;
 import com.ambowEducation.po.User;
+import com.ambowEducation.service.StudentCourseGradeService;
 import com.ambowEducation.service.UserService;
 import com.ambowEducation.utils.JsonData;
 import org.apache.shiro.SecurityUtils;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +28,9 @@ public class publicController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private StudentCourseGradeService studentCourseGradeService;
 
 
     //没有登录
@@ -60,5 +66,19 @@ public class publicController {
             return JsonData.buildError(map);
         }
     }
+    //查看所有学生就业率
+    @GetMapping("get_all_student_pre_work")
+    public JsonData getAllStudentPreWork(){
+        //从session获取技术老师的id
+        try {
+            List<Map<String, Object>> percent = studentCourseGradeService.findAllStudentWorkPercent();
+            return JsonData.buildSuccess(percent);
+        }catch (StudentGradeException e){
+            return JsonData.buildError(e.getMessage());
+        }catch (Exception e) {
+            return JsonData.buildError(e.getMessage());
+        }
+    }
+
 
 }

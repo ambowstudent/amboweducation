@@ -1,7 +1,9 @@
 package com.ambowEducation.controller;
 
 import com.ambowEducation.Exception.StudentGradeException;
+import com.ambowEducation.dao.CourseMapper;
 import com.ambowEducation.dto.StudentGradeDto;
+import com.ambowEducation.po.Course;
 import com.ambowEducation.po.Student;
 import com.ambowEducation.po.StudentCourseGrade;
 import com.ambowEducation.po.User;
@@ -23,6 +25,9 @@ public class TechnicalTeacherController {
 
     @Autowired
     private StudentCourseGradeService studentCourseGradeService;
+
+    @Autowired
+    private CourseMapper courseMapper;
 
     //添加成绩
     @PostMapping("/insert_grade")
@@ -86,18 +91,12 @@ public class TechnicalTeacherController {
             return JsonData.buildError(e.getMessage());
         }
     }
-    //查看所有学生就业率
-@GetMapping("get_all_student_pre_work")
-public JsonData getAllStudentPreWork(){
-    //从session获取技术老师的id
-    try {
-        List<Map<String, Object>> percent = studentCourseGradeService.findAllStudentWorkPercent();
-        return JsonData.buildSuccess(percent);
-    }catch (StudentGradeException e){
-        return JsonData.buildError(e.getMessage());
-    }catch (Exception e) {
-        return JsonData.buildError(e.getMessage());
+
+//获取所有课程
+    @GetMapping("get_all_course")
+    public JsonData getAllCourse(){
+        List<Course> allCourse = courseMapper.findAllCourse();
+        return JsonData.buildSuccess(allCourse);
     }
-}
 
 }
