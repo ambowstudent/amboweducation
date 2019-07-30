@@ -43,7 +43,7 @@ public class ShiroConfiguration {
 
         filterMap.put("/api/v1/**", "corsFilter");
 
-        filterMap.put("api/v1/common/**", "authc");
+        filterMap.put("/api/v1/common/**", "customRoles[tutor,admin,student,teacher]");
         filterMap.put("/api/v1/tutor/**", "customRoles[tutor,admin]");
         filterMap.put("/api/v1/student/**", "customRoles[student,admin]");
         filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher,admin]");
