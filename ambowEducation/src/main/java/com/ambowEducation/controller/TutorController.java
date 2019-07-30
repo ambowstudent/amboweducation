@@ -2,7 +2,6 @@ package com.ambowEducation.controller;
 
 import com.ambowEducation.Exception.TutorException;
 import com.ambowEducation.dao.ClassMapper;
-import com.ambowEducation.dao.ReduceHoursMapper;
 import com.ambowEducation.dao.StudentMapper;
 import com.ambowEducation.dto.*;
 import com.ambowEducation.po.*;
