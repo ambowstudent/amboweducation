@@ -44,14 +44,16 @@ public class TutorController {
 
     //文件上传 批量添加学生信息
     @PostMapping("/addStudents")
-    public JsonData addStudents(@RequestParam("uploadfile") MultipartFile file) {
+    public JsonData addStudents(@RequestParam("file") MultipartFile file) {
         try {
             String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             boolean flag = FileSuffixUtil.checkFile(suffix);
             if (flag != true) {
                 return JsonData.buildError("不支持的文件类型");
             }
-            File excel = File.createTempFile(System.currentTimeMillis()+"",suffix);
+            File tempFile = File.createTempFile(System.currentTimeMillis() + "", suffix);
+            File excel=new File(file.getOriginalFilename());
+            tempFile.renameTo(excel);
             file.transferTo(excel);
             List<StudentBaseInfoDto> list = ExcelUtil.getStudentsFromExcel(excel);
             service.addStudents(list);
@@ -71,7 +73,9 @@ public class TutorController {
             if (flag != true) {
                 return JsonData.buildError("不支持的文件类型");
             }
-            File excel = File.createTempFile(System.currentTimeMillis()+"",suffix);
+            File tempFile = File.createTempFile(System.currentTimeMillis() + "", suffix);
+            File excel=new File(file.getOriginalFilename());
+            tempFile.renameTo(excel);
             file.transferTo(excel);
             String cName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("-") + 1, file.getOriginalFilename().lastIndexOf("."));
             Integer cId = classMapper.selectByClassname(cName).getId();
@@ -95,7 +99,9 @@ public class TutorController {
             if (flag != true) {
                 return JsonData.buildError("不支持的文件类型");
             }
-            File excel = File.createTempFile(System.currentTimeMillis()+"",suffix);
+            File tempFile = File.createTempFile(System.currentTimeMillis() + "", suffix);
+            File excel=new File(file.getOriginalFilename());
+            tempFile.renameTo(excel);
             file.transferTo(excel);
             service.addDormitory(ExcelUtil.getStudentDormitory(excel,studentMapper));
             ExcelUtil.deleteFile(excel);

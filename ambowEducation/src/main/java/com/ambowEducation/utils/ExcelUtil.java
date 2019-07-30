@@ -111,7 +111,7 @@ public class ExcelUtil {
             int year = Calendar.getInstance().get(Calendar.YEAR);
             sNo.append(year);
             String schoolStr = ExcelUtil.getSchool(school);
-            if("".equals(schoolStr)){
+            if("".equals(schoolStr) || "error".equals(schoolStr)){
                 throw new TutorException(-1,"未知学校");
             }else {
                 sNo.append(schoolStr);
@@ -165,7 +165,8 @@ public class ExcelUtil {
                     student.setSex(sex);
                     student.setName(name);
                     list.add(student);
-                    sNo.delete(6, schoolStr.length());
+                    System.out.println(sNo);
+                    sNo.delete(6, sNo.length());
                 }
             }
         }else{
