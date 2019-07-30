@@ -33,17 +33,18 @@ public class ShiroConfiguration {
 
 
         map.put("customRoles", new CustomAuthorizationFilter());
+        //map.put("corsFilter", new CorsFilter());
         map.put("corsFilter", new AuthorizationInterceptor());
-        //自定义的过滤器解决跨域
+
         shiroFilterFactoryBean.setFilters(map);
 
         Map<String,String > filterMap=new LinkedHashMap<>();
+
         filterMap.put("/logout", "logout");
         filterMap.put("/api/pub/**", "anon");
 
         filterMap.put("/api/v1/**", "corsFilter");
-
-        filterMap.put("/api/v1/common/**", "customRoles[tutor,admin,student,teacher]");
+        filterMap.put("/api/v1/common/**", "authc");
         filterMap.put("/api/v1/tutor/**", "customRoles[tutor,admin]");
         filterMap.put("/api/v1/student/**", "customRoles[student,admin]");
         filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher,admin]");
