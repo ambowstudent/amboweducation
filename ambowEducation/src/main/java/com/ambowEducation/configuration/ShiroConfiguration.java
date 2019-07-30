@@ -38,10 +38,12 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setFilters(map);
 
         Map<String,String > filterMap=new LinkedHashMap<>();
-       filterMap.put("/logout", "logout");
-        filterMap.put("/api/pub/get_all_student_pre_work","customRoles[student,tutor,teacher,admin]");
+        filterMap.put("/logout", "logout");
         filterMap.put("/api/pub/**", "anon");
+
         filterMap.put("/api/v1/**", "corsFilter");
+
+        filterMap.put("api/v1/common/**", "authc");
         filterMap.put("/api/v1/tutor/**", "customRoles[tutor,admin]");
         filterMap.put("/api/v1/student/**", "customRoles[student,admin]");
         filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher,admin]");
@@ -65,7 +67,7 @@ public class ShiroConfiguration {
         manager.setRealm(customRealm());
         return manager;
     }
-//自定义realm
+    //自定义realm
     @Bean
     public CustomRealm customRealm(){
         CustomRealm customRealm=new CustomRealm();
@@ -89,7 +91,7 @@ public class ShiroConfiguration {
         redisManager.setPassword(redisConfig.getPassword());
         return redisManager;
     }
-   // cache管理器
+    // cache管理器
     @Bean
     public RedisCacheManager redisCacheManager(RedisManager redisManager){
         RedisCacheManager redisCacheManager=new RedisCacheManager();
