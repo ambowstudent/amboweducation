@@ -62,7 +62,7 @@ public class StudentServiceImpl implements StudentService {
                     }
                     String uuid = UUID.randomUUID().toString();
                     FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), new File(dir + "/" + uuid + suffix));
-                    flag = studentMapper.updStudentPhoto(dir + "/" + uuid + suffix, id);
+                    flag = studentMapper.updStudentPhoto("/" + id + "/" + uuid + suffix, id);
                 }
             }else { //如果文件格式错误
                 throw new StudentException(1, "上传格式错误");
