@@ -20,15 +20,25 @@ public class CommonController {
 
 
     //查看所有学生就业率
-    @GetMapping("get_all_student_pre_work")
+    @GetMapping("get_all_student_per")
     public JsonData getAllStudentPreWork(){
-        //从session获取技术老师的id
         try {
             List<Map<String, Object>> percent = studentCourseGradeService.findAllStudentWorkPercent();
             return JsonData.buildSuccess(percent);
         }catch (StudentGradeException e){
             return JsonData.buildError(e.getMessage());
         }catch (Exception e) {
+            return JsonData.buildError(e.getMessage());
+        }
+    }
+    //查询近三年共工资
+    @GetMapping("get_all_student_sal")
+    public JsonData getThreeYearSal(){
+
+        try {
+            List<Map<String, Object>> maps = studentCourseGradeService.selectThreeYearSal();
+            return JsonData.buildSuccess(maps);
+        } catch (Exception e) {
             return JsonData.buildError(e.getMessage());
         }
     }
