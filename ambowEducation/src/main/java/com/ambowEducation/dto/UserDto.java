@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDto {
 
-    private String username;
-    private String password;
+    private String oldPassword;//旧密码
+    private String username; //用户名
+    private String password; //新密码
 }

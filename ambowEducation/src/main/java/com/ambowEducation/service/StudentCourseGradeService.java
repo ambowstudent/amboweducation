@@ -41,4 +41,9 @@ public interface StudentCourseGradeService {
 
      //查询所有学生的就业情况
     List<Map<String,Object >> findAllStudentWorkPercent() throws Exception;
+
+    //查询近三年工资情况
+    List<Map<String,Object >> selectThreeYearSal() throws Exception;
+
+
 }

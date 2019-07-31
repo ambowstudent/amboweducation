@@ -32,7 +32,7 @@ public class ShiroConfiguration {
         Map<String , Filter> map = new LinkedHashMap<>();
 
 
-        map.put("customRoles", new CustomAuthorizationFilter());
+        //map.put("customRoles", new CustomAuthorizationFilter());
         //map.put("corsFilter", new CorsFilter());
         map.put("corsFilter", new AuthorizationInterceptor());
 
@@ -40,16 +40,17 @@ public class ShiroConfiguration {
 
         Map<String,String > filterMap=new LinkedHashMap<>();
 
-        filterMap.put("/logout", "logout");
         filterMap.put("/api/pub/**", "anon");
 
         filterMap.put("/api/v1/**", "corsFilter");
-        filterMap.put("/api/v1/common/**", "authc");
-        filterMap.put("/api/v1/tutor/**", "customRoles[tutor,admin]");
-        filterMap.put("/api/v1/student/**", "customRoles[student,admin]");
-        filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher,admin]");
-        filterMap.put("/api/v1/admin/**", "customRoles[admin]");
 
+        filterMap.put("/api/v1/common/**", "authc");
+        filterMap.put("/api/v1/user/**", "authc");
+        filterMap.put("/api/v1/tutor/**", "roles[tutor]");
+        filterMap.put("/api/v1/student/**", "roles[student]");
+        filterMap.put("/api/v1/technical_teacher/**", "roles[teacher]");
+        filterMap.put("/api/v1/admin/**", "roles[admin]");
+        filterMap.put("/api/v1/logout", "logout");
 
         filterMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);

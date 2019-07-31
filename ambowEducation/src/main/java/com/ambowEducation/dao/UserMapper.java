@@ -1,6 +1,7 @@
 package com.ambowEducation.dao;
 
 
+import com.ambowEducation.dto.UserDto;
 import com.ambowEducation.po.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -36,6 +37,10 @@ public interface UserMapper {
      * 根据用户名修改密码
      */
     @Update("update t_user set password=#{password} where username=#{username}")
-    void updatePasswordByUsername(@Param("username") String username,@Param("password") String password);
-
+    void updatePasswordByUsername(UserDto userDto);
+    /**
+     * 查询旧密码
+     */
+    @Select("select * from t_user where username=#{username} and password=#{oldPassword}")
+    User findByUserByOldPassword(UserDto userDto);
 }

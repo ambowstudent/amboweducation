@@ -151,5 +151,12 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
         return maps;
     }
 
+    @Override
+    public List<Map<String, Object>> selectThreeYearSal() throws Exception {
+
+        List<Map<String, Object>> maps = workMapper.selectThreeYearSal();
+        return maps;
+    }
+
 
 }
