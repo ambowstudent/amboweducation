@@ -11,6 +11,7 @@ import com.ambowEducation.dto.*;
 import com.ambowEducation.po.*;
 import com.ambowEducation.service.TutorService;
 import javafx.geometry.Pos;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -21,12 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -388,14 +387,15 @@ public class TutorServiceImpl implements TutorService {
     @Override
     public String downloadSignupInfo(int pId, HttpServletResponse response, HttpServletRequest request) {
         Position position = positionMapper.queryPositionById(pId);
-        response.setContentType("application/vnd.ms-excel");
-        String filname = position.getCompanyName() + "报名表.xlsx";
+
+        String file = position.getCompanyName() + "报名表.xlsx";
         try {
-            filname = URLEncoder.encode(filname,"utf-8");
+            file=new String(file.getBytes("utf-8"),"iso8859-1");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        response.setHeader("Content-Disposition", "attachment;filename=" + filname);
+        response.setHeader("Content-Disposition", "attachment; filename=" + file);
+        response.setContentType("application/vnd.ms-excel;charset=utf-8");
         List<SignupPosition> signupPositionList = signupPositionMapper.queryStudentsBypId(pId);
         List<StudentSignupInfo> studentSignupInfoList = new ArrayList<>();
         //将信息存入到studentSignupInfoList
@@ -447,7 +447,8 @@ public class TutorServiceImpl implements TutorService {
             cell.setCellValue(studentSignupInfo.getCompanyName());
         }
 
-        OutputStream outputStream = null;
+//        OutputStream outputStream = null;
+        ServletOutputStream outputStream = null;
         try {
             outputStream = response.getOutputStream();
             workbook.write(outputStream);
@@ -456,9 +457,16 @@ public class TutorServiceImpl implements TutorService {
         } catch (IOException e) {
             e.printStackTrace();
             return "导出失败";
+        }finally {
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return "导出成功";
+
     }
 
     @Override

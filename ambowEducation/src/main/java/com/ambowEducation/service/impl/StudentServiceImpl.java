@@ -54,7 +54,7 @@ public class StudentServiceImpl implements StudentService {
                     FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), new File(dir + "\\" + uuid + suffix));
                     flag = studentMapper.updStudentPhoto(dir + "\\" + uuid + suffix, id);
                 }else { //如果是Linux系统
-                    String path = "/user/student/head_img";
+                    String path = "/usr/local/static/student/head_img";
                     File dir = new File(path + "/" + id);
                     //如果不存在就创建一个
                     if (!dir.exists()){
