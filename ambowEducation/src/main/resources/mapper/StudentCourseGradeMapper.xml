@@ -42,7 +42,7 @@
     <select id="findAllByManyCondition" resultMap="findAllByManyConditionMap">
         select scg.id id,scg.grade grade, c.id cid,c.name cname,s.id sid,s.s_no sno,s.name sname,s.school school,s.grade sgrade,clz.id clazzid,clz.name claname
         from t_clazz clz right join   t_student s on clz.id=s.c_id left join t_student_course_grade scg on
-        s.id=scg.s_id left join  t_course c  on c.id=scg.cr_id where scg.grade is not null
+        s.id=scg.s_id left join  t_course c  on c.id=scg.cr_id
         <where>
             <if test="sNo!=null and sNo!='' ">
                 s.s_no=#{sNo}
@@ -59,6 +59,7 @@
             <if test="clazzId!=null and clazzId!='' ">
                 and clz.id=#{clazzId}
             </if>
+            and scg.grade is not null
         </where>
         order by sid asc
     </select>

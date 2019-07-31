@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -141,21 +143,45 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
         }
         //查询所有就业学生个数
         List<Map<String, Object>> maps = workMapper.selectEveryTypeCount();
+        int num=0;
         for (Map map:
                 maps) {
-            long num = (long) map.get("num");
-            String pre=new Double(num)/count+"";
-            String subString = StringOfSubtringUtil.customSubString(pre);
-            map.put("num", subString);
+           num+= new Integer(map.get("num").toString()) ;
+
         }
+        Map<String,Object> newMap=new HashMap<>();
+        newMap.put("type", "未就业");
+        newMap.put("num", count-num);
+        maps.add(newMap);
         return maps;
     }
 
     @Override
-    public List<Map<String, Object>> selectThreeYearSal() throws Exception {
+    public Map<String,List<Map<String,Object>>> selectThreeYearSal() throws Exception {
 
         List<Map<String, Object>> maps = workMapper.selectThreeYearSal();
-        return maps;
+        Map<String,List<Map<String,Object>>> newmap=new HashMap<>();
+        for(Map<String, Object> map:maps){
+            String year = map.get("year").toString();
+            List<Map<String,Object>> list = null;
+            if(!newmap.containsKey(year)){
+                list=new ArrayList<>();
+                Map<String,Object> objectMap=new HashMap<>();
+                objectMap.put("type", map.get("type"));
+                objectMap.put("avg_sal", map.get("avg_sal"));
+                list.add(objectMap);
+                newmap.put(year, list);
+            }else{
+                list=newmap.get(year);
+                Map<String,Object> objectMap=new HashMap<>();
+                objectMap.put("type", map.get("type"));
+                objectMap.put("avg_sal", map.get("avg_sal"));
+                list.add(objectMap);
+            }
+
+
+        }
+        return newmap;
     }
 
 

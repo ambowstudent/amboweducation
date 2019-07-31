@@ -57,13 +57,15 @@ public class TechnicalTeacherController {
     //根据学号跟课程id查询学生信息以及分数
 
     @PostMapping("/get_grade_info")
-    public JsonData getGradeInfo(StudentGradeDto studentGradeDto,@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
+    public JsonData getGradeInfo(@RequestBody StudentGradeDto studentGradeDto,@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
         try {
             PageHelper.startPage(pageNum, PageUtil.PAGE_SIZE_GRADE);
+            System.out.println(studentGradeDto);
             List<StudentCourseGrade> studentCourseGrades = studentCourseGradeService.findAllByManyCondition(studentGradeDto);
             PageInfo<StudentCourseGrade> pageInfo=new PageInfo<>(studentCourseGrades);
             return JsonData.buildSuccess(pageInfo);
         } catch (Exception e){
+            e.printStackTrace();
             return JsonData.buildSuccess(e.getMessage());
         }
     }

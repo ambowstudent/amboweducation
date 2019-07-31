@@ -18,8 +18,8 @@ public interface WorkMapper {
     public List<Map<String,Object>> selectEveryTypeCount();
 
     //求出近三年平均工资就业学生
-    @Select("select w.type,avg(w.salary) avg_sal,u.createtime from t_work w,t_student s,t_user u where\n" +
-            "             w.s_id=s.id and s.s_no=u.username and u.createtime>DATE_SUB(NOW(),INTERVAL  3 YEAR) group by w.type,u.createtime;")
+    @Select("select w.type,avg(w.salary) avg_sal,year(u.createtime) as year from t_work w,t_student s,t_user u where\n" +
+            "            w.s_id=s.id and s.s_no=u.username and u.createtime>DATE_SUB(NOW(),INTERVAL  3 YEAR) group by w.type,year;")
     public List<Map<String,Object>> selectThreeYearSal();
     //查询老师管理下工作类型对应的数量
     @Select("select type,count(*) num,avg(salary) from t_technical_teacher tech,t_clazz clazz,t_student s,t_work w,t_user u\n" +
