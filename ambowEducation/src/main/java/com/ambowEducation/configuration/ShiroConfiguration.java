@@ -50,7 +50,7 @@ public class ShiroConfiguration {
         filterMap.put("/api/v1/student/**", "roles[student]");
         filterMap.put("/api/v1/technical_teacher/**", "roles[teacher]");
         filterMap.put("/api/v1/admin/**", "roles[admin]");
-        filterMap.put("/logout", "logout");
+        filterMap.put("/api/v1/logout", "logout");
 
         filterMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
