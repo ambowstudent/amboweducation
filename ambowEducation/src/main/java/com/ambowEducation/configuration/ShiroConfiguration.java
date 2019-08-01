@@ -38,7 +38,6 @@ public class ShiroConfiguration {
         Map<String,String > filterMap=new LinkedHashMap<>();
 
         filterMap.put("/api/pub/**", "anon");
-
         filterMap.put("/api/v1/common/**", "authc");
         filterMap.put("/api/v1/user/**", "authc");
         filterMap.put("/api/v1/tutor/**", "customRoles[tutor]");
