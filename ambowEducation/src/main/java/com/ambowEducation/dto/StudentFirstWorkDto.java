@@ -10,8 +10,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudentFirstWorkDto {
+
+    private Integer sId;
     private String sNo;
-    private String interviewHistory;
     private String firstEmployment;
     private BigDecimal firstSalary;
 }

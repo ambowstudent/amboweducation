@@ -22,7 +22,7 @@ public interface ClassroomMapper {
     @Select("select * from t_classroom where room_number = #{arg0 }")
     Classroom selectByRoomNumber(String roomNunber);
 //    添加教室
-    @Insert("insert into t_classroom values(null,#{roomNumber },#{roomCapacity})")
+    @Insert("insert into t_classroom values(default,#{roomNumber },#{roomCapacity})")
     int insert(Classroom classroom);
 //    修改教室
     @Update("update t_classroom set room_number = #{roomNumber },room_capacity = #{roomCapacity} where id = #{id}")

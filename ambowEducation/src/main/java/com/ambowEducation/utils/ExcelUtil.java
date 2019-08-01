@@ -165,7 +165,9 @@ public class ExcelUtil {
                     student.setSex(sex);
                     student.setName(name);
                     list.add(student);
-                    System.out.println(sNo);
+                    System.out.println("sNo======"+sNo);
+                    System.out.println("RowIndex======"+rowIndex);
+
                     sNo.delete(6, sNo.length());
                 }
             }

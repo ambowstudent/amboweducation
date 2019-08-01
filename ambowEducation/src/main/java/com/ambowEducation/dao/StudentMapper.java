@@ -17,8 +17,7 @@ public interface StudentMapper {
 
     public int insertStudents(List<StudentBaseInfoDto> list);//批量增加学生信息
 
-    @Update("update t_student set name=#{name}, school=#{school}, " +
-            "first_employment=#{firstEmployment}, first_salary=#{firstSalary}, " +
+    @Update("update t_student set name=#{name}, school=#{school}," +
             "status=#{status}  where s_no=#{sNo}")
     public int updateStudentAllInfo(UpdateStudentInfoDto student);
 
@@ -28,9 +27,13 @@ public interface StudentMapper {
     @Update("update t_student set class_hour=class_hour-#{classHour} where id=#{sId}")
     public int updateStudentHoursReduce(StudentHoursDto student);//扣学时
 
-    @Update("update t_student set interview_history=#{interviewHistory},first_employment=#{firstEmployment}," +
-            "first_salary=#{firstSalary} where s_no=#{sNo}")
+    @Update("update t_student set first_employment=#{firstEmployment}," +
+            "first_salary=#{firstSalary} where id=#{sId}")
     public int updateStudentFirstWork(StudentFirstWorkDto student);//添加学生第一次的就业信息
+
+    @Select("select first_employment,first_salary from t_student where id=#{id}")
+    public StudentFirstWorkDto queryStudentFirstWork(Integer id);
+
 
     @Update("update t_student set status=#{status} where s_no=#{sNo}")
     public int updateStudentStatus(@Param("sNo") String sNo,
