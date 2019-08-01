@@ -31,7 +31,7 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setUnauthorizedUrl("/api/pub/no_permission");
         Map<String , Filter> map = new LinkedHashMap<>();
 
-        map.put("customeRoles", new CustomAuthorizationFilter());
+        map.put("customRoles", new CustomAuthorizationFilter());
 
         shiroFilterFactoryBean.setFilters(map);
 
@@ -41,10 +41,11 @@ public class ShiroConfiguration {
 
         filterMap.put("/api/v1/common/**", "authc");
         filterMap.put("/api/v1/user/**", "authc");
-        filterMap.put("/api/v1/tutor/**", "customeRoles[tutor]");
-        filterMap.put("/api/v1/student/**", "customeRoles[student]");
-        filterMap.put("/api/v1/technical_teacher/**", "customeRoles[teacher]");
-        filterMap.put("/api/v1/admin/**", "customeRoles[admin]");
+        filterMap.put("/api/v1/tutor/**", "customRoles[tutor]");
+        filterMap.put("/api/v1/student/**", "customRoles[student]");
+        filterMap.put("/api/v1/technical_teacher/**", "customRoles[teacher]");
+        filterMap.put("/api/v1/admin/**", "customRoles[admin]");
+        filterMap.put("/logout", "logout");
         filterMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         return shiroFilterFactoryBean;
