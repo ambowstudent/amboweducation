@@ -30,7 +30,7 @@ public class TechnicalTeacherController {
     private CourseMapper courseMapper;
 
     //添加成绩
-    @PostMapping("/insert_grade")
+    @PostMapping("insert_grade")
     public JsonData insertStudentGrade(@RequestBody StudentGradeDto studentGradeDto){
         try {
             studentCourseGradeService.insertStudentCourse(studentGradeDto);
@@ -42,7 +42,7 @@ public class TechnicalTeacherController {
         }
     }
     //修改学生成绩
-    @PostMapping("/modify_grade")
+    @PostMapping("modify_grade")
     public JsonData updateStudentGrade(@RequestBody StudentGradeDto studentGradeDto){
 
         try {
@@ -56,7 +56,7 @@ public class TechnicalTeacherController {
     }
     //根据学号跟课程id查询学生信息以及分数
 
-    @PostMapping("/get_grade_info")
+    @GetMapping("get_grade_info")
     public JsonData getGradeInfo(@RequestBody StudentGradeDto studentGradeDto,@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
         try {
             PageHelper.startPage(pageNum, PageUtil.PAGE_SIZE_GRADE);
