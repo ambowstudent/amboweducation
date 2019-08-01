@@ -23,7 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/tutor")
@@ -52,8 +54,8 @@ public class TutorController {
                 return JsonData.buildError("不支持的文件类型");
             }
 
-            File excel=new File(file.getOriginalFilename());
-            if(excel.exists()){
+            File excel = new File(file.getOriginalFilename());
+            if (excel.exists()) {
                 excel.delete();
             }
             file.transferTo(excel);
@@ -69,25 +71,25 @@ public class TutorController {
     }
 
     @PostMapping("/addStuClass")//文件上传 批量给学生添加班级
-    public JsonData addStuClass(@RequestParam("file") MultipartFile file){
+    public JsonData addStuClass(@RequestParam("file") MultipartFile file) {
         try {
             String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             boolean flag = FileSuffixUtil.checkFile(suffix);
             if (flag != true) {
                 return JsonData.buildError("不支持的文件类型");
             }
-            File excel=new File(file.getOriginalFilename());
-            if(excel.exists()){
+            File excel = new File(file.getOriginalFilename());
+            if (excel.exists()) {
                 excel.delete();
             }
             file.transferTo(excel);
             String cName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("-") + 1, file.getOriginalFilename().lastIndexOf("."));
             Integer cId = classMapper.selectByClassname(cName).getId();
-            List<StudentClassDto> list = ExcelUtil.getStudentList(excel,cId);
+            List<StudentClassDto> list = ExcelUtil.getStudentList(excel, cId);
             service.addClazz(list);
             ExcelUtil.deleteFile(excel);
             return JsonData.buildSuccess("导入信息成功");
-        }catch (TutorException e){
+        } catch (TutorException e) {
             return JsonData.buildError(e);
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,29 +98,28 @@ public class TutorController {
     }
 
     @PostMapping("/addStuDormitory")//文件上传 批量给学生添加宿舍
-    public JsonData addStuDormitory(@RequestParam("file") MultipartFile file){
+    public JsonData addStuDormitory(@RequestParam("file") MultipartFile file) {
         try {
             String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             boolean flag = FileSuffixUtil.checkFile(suffix);
             if (flag != true) {
                 return JsonData.buildError("不支持的文件类型");
             }
-            File excel=new File(file.getOriginalFilename());
-            if(excel.exists()){
+            File excel = new File(file.getOriginalFilename());
+            if (excel.exists()) {
                 excel.delete();
             }
             file.transferTo(excel);
-            service.addDormitory(ExcelUtil.getStudentDormitory(excel,studentMapper));
+            service.addDormitory(ExcelUtil.getStudentDormitory(excel, studentMapper));
             ExcelUtil.deleteFile(excel);
             return JsonData.buildSuccess("导入信息成功");
-        }catch (TutorException e){
+        } catch (TutorException e) {
             return JsonData.buildError(e);
         } catch (Exception e) {
             e.printStackTrace();
             return JsonData.buildError("文件解析失败...");
         }
     }
-
 
 
     @GetMapping("/toStuIndex")//学生管理界面
@@ -227,9 +228,9 @@ public class TutorController {
         try {
             PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             List<Position> list;
-            if("".equals(key)){
-                 list = service.queryAllPositions(empNo);
-            }else {
+            if ("".equals(key)) {
+                list = service.queryAllPositions(empNo);
+            } else {
                 list = service.queryPositionsByKeyAndTuEmpNo(key, empNo);
             }
             PageInfo<Position> page = new PageInfo<>(list);
@@ -346,6 +347,15 @@ public class TutorController {
 
     /**
      * 学时管理模块
+     * PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
+     * List<Student> list;
+     * if ("".equals(key)) {
+     *     list = service.queryAllStudent(id);
+     * } else {
+     *     list = service.queryStudentBysNo(key, id);
+     * }
+     * PageInfo<Student> page = new PageInfo<>(list);
+     * return JsonData.buildSuccess(page);
      */
     @GetMapping("/toHoursIndex")//所有学生的学时信息
     public JsonData toHoursIndex(@RequestParam(value = "page_no", defaultValue = "1") Integer pageNo,
@@ -353,15 +363,18 @@ public class TutorController {
         User user = (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         int id = user.getTutor().getId();
         try {
-            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
+            Map<String,Object> map=new HashMap<>();
+            map.put("total",studentMapper.findAllStudentCount());
+            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE,true);
             List<StudentsHoursInfoDto> list;
-            if("".equals(key)){
+            if ("".equals(key)) {
                 list = service.queryStudentsHoursInfo(id);
-            }else {
+            } else {
                 list = service.queryStudentsHoursInfoByKey(id, key);
             }
             PageInfo<StudentsHoursInfoDto> page = new PageInfo<>(list);
-            return JsonData.buildSuccess(page);
+            map.put("stu",page);
+            return JsonData.buildSuccess(map);
         } catch (TutorException e) {
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -434,8 +447,8 @@ public class TutorController {
 
 
     @GetMapping("/getReduceHours")
-    public JsonData getReduceHours(){
-        List<ReduceHours> list=service.getReduceHours();
+    public JsonData getReduceHours() {
+        List<ReduceHours> list = service.getReduceHours();
         try {
             return JsonData.buildSuccess(list);
         } catch (TutorException e) {

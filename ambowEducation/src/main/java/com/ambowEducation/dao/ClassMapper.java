@@ -24,7 +24,7 @@ public interface ClassMapper {
     public Clazz selectClazz(int ClazzId);
 
 //    添加班级
-    @Insert("insert into t_clazz values(null,#{teId},#{tuId},#{roomId},#{name})")
+    @Insert("insert into t_clazz values(default,#{teId},#{tuId},#{roomId},#{name})")
     public int insertClazz(Clazz c);
 
 //    修改班级
