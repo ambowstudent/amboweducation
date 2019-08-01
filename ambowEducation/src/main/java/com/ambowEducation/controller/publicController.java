@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  *  用于处理，登录，权限，等验证
  */
-@CrossOrigin(origins = "*",maxAge = 3600,allowCredentials = "true",methods = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.OPTIONS,RequestMethod.PUT,RequestMethod.POST})
+//@CrossOrigin(origins = "*",maxAge = 3600,allowCredentials = "true",methods = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.OPTIONS,RequestMethod.PUT,RequestMethod.POST})
 @RestController
 @RequestMapping("/api/pub")
 public class publicController {
