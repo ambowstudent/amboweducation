@@ -194,8 +194,19 @@ public class TutorServiceImpl implements TutorService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void addWork(Work work)  throws Exception {
+        System.out.println(work);
         int i = workMapper.insertWork(work);
+        StudentFirstWorkDto dto = studentMapper.queryStudentFirstWork(work.getSId());
+        System.out.println(dto);
+        if(dto==null||dto.getFirstEmployment()==null || "".equals(dto.getFirstEmployment())){
+            StudentFirstWorkDto sFirstwork=new StudentFirstWorkDto();
+            sFirstwork.setFirstEmployment(work.getCompanyName());
+            sFirstwork.setFirstSalary(work.getSalary());
+            sFirstwork.setSId(work.getSId());
+            studentMapper.updateStudentFirstWork(sFirstwork);
+        }
         if(i != 1){
             throw new TutorServiceException(-1,"添加就业追踪信息失败");
         }
