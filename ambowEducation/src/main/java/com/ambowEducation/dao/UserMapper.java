@@ -3,10 +3,7 @@ package com.ambowEducation.dao;
 
 import com.ambowEducation.dto.UserDto;
 import com.ambowEducation.po.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 public interface UserMapper {
 
@@ -17,6 +14,12 @@ public interface UserMapper {
      */
     @Insert("insert into t_user values(default,#{username},#{password},#{createtime})")
     public int insertUser(User user);
+
+    /**
+     * 通过username删除角色
+     */
+    @Delete("delete from t_user where username=#{username}")
+    public int deleteUser(@Param("username") String username);
 
     /**
      * 通过username查询角色

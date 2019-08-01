@@ -16,6 +16,8 @@ public interface RoleMapper {
                               @Param("roleId") Integer roleId,
                               @Param("remark") String remark);
 
+    @Delete("delete from t_user_role where user_id = #{userId }")
+    public int deleteUserRole(@Param("userId") Integer userId);
 
     @Select(("SELECT t_r.id id,t_r.name name,t_r.description description  " +
             "from t_user_role t_ur LEFT JOIN t_role t_r ON t_ur.role_id=t_r.id " +
