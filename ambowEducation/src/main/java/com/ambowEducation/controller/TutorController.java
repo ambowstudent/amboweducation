@@ -51,11 +51,14 @@ public class TutorController {
             if (flag != true) {
                 return JsonData.buildError("不支持的文件类型");
             }
-            File tempFile = File.createTempFile(System.currentTimeMillis() + "", suffix);
+
             File excel=new File(file.getOriginalFilename());
-            tempFile.renameTo(excel);
+            if(excel.exists()){
+                excel.delete();
+            }
             file.transferTo(excel);
             List<StudentBaseInfoDto> list = ExcelUtil.getStudentsFromExcel(excel);
+            System.out.println(list);
             service.addStudents(list);
             ExcelUtil.deleteFile(excel);
             return JsonData.buildSuccess("导入信息成功");
@@ -73,9 +76,10 @@ public class TutorController {
             if (flag != true) {
                 return JsonData.buildError("不支持的文件类型");
             }
-            File tempFile = File.createTempFile(System.currentTimeMillis() + "", suffix);
             File excel=new File(file.getOriginalFilename());
-            tempFile.renameTo(excel);
+            if(excel.exists()){
+                excel.delete();
+            }
             file.transferTo(excel);
             String cName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("-") + 1, file.getOriginalFilename().lastIndexOf("."));
             Integer cId = classMapper.selectByClassname(cName).getId();
@@ -99,9 +103,10 @@ public class TutorController {
             if (flag != true) {
                 return JsonData.buildError("不支持的文件类型");
             }
-            File tempFile = File.createTempFile(System.currentTimeMillis() + "", suffix);
             File excel=new File(file.getOriginalFilename());
-            tempFile.renameTo(excel);
+            if(excel.exists()){
+                excel.delete();
+            }
             file.transferTo(excel);
             service.addDormitory(ExcelUtil.getStudentDormitory(excel,studentMapper));
             ExcelUtil.deleteFile(excel);
@@ -327,8 +332,10 @@ public class TutorController {
     public JsonData getSignupStus(@RequestParam(value = "page_no", defaultValue = "1") Integer pageNo,
                                   @RequestParam("p_id") Integer id) {
         try {
+            PageHelper.startPage(pageNo, PageUtil.PAGE_SIZE);
             List<Student> list = service.queryStudentSignup(id);
-            return JsonData.buildSuccess(list);
+            PageInfo<Student> page = new PageInfo<>(list);
+            return JsonData.buildSuccess(page);
         } catch (TutorException e) {
             return JsonData.buildError(e);
         } catch (Exception e) {
@@ -383,7 +390,8 @@ public class TutorController {
 
 
     @PostMapping("/editHours")
-    public JsonData editHours(@RequestBody History h) {
+    public JsonData editHours(@RequestBody History h,
+                              HttpServletRequest request) {
         User user = (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         int id = user.getTutor().getId();
         String name = user.getTutor().getName();
@@ -403,6 +411,7 @@ public class TutorController {
 
     @GetMapping("/getHistory")
     public JsonData getHistory(@RequestParam(value = "page_no", defaultValue = "1") Integer pageNo,
+                               HttpServletRequest request,
                                @RequestParam("key") String key) {
         User user = (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         int id = user.getTutor().getId();
@@ -412,10 +421,8 @@ public class TutorController {
             PageInfo<HoursHistoryDto> page = new PageInfo<>(list);
             return JsonData.buildSuccess(page);
         } catch (TutorException e) {
-            e.printStackTrace();
             return JsonData.buildError(e);
         } catch (Exception e) {
-            e.printStackTrace();
             return JsonData.buildError(e);
         }
     }

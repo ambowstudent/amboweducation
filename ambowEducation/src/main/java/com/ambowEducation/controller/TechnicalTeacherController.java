@@ -70,7 +70,7 @@ public class TechnicalTeacherController {
         }
     }
     //老师带领下查看学生就业率
-    @GetMapping("get_student_pre_work")
+    @GetMapping("/get_student_pre_work")
     public JsonData getStudentPreWork(){
         //从session获取技术老师的id
         User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
@@ -84,7 +84,7 @@ public class TechnicalTeacherController {
         }
     }
     //查询学生的基本信息
-    @GetMapping("get_basic_student")
+    @GetMapping("/get_basic_student")
     public JsonData getBasicStudent(@RequestParam("stuNo") String stuNo){
         try {
             Student student = studentCourseGradeService.findStudentByStudentNo(stuNo);
@@ -95,7 +95,7 @@ public class TechnicalTeacherController {
     }
 
 //获取所有课程
-    @GetMapping("get_all_course")
+    @GetMapping("/get_all_course")
     public JsonData getAllCourse(){
         List<Course> allCourse = courseMapper.findAllCourse();
         return JsonData.buildSuccess(allCourse);

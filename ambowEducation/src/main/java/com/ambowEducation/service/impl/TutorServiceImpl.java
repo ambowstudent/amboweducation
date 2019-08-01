@@ -330,8 +330,8 @@ public class TutorServiceImpl implements TutorService {
             throw new TutorServiceException(-1,"加载学时记录失败");
         }else {
             for(History history:histories){
-                Student student = studentMapper.findStudentBySnoOnlyStudent(history.getStudent().getSNo());
                 HoursHistoryDto h=new HoursHistoryDto();
+                Student student = studentMapper.findStudentBySnoOnlyStudent(history.getStudent().getSNo());
                 h.setSName(student.getName());
                 h.setSchool(student.getSchool());
                 h.setEditDate(history.getEditTime());
