@@ -21,6 +21,7 @@ public class StudentGradeDto {
     private String stuName; //学生名字
     private String courseName;//课程名字
     private Integer clazzId;//班级id
+    private Integer pageNum; //分页
 
 
 

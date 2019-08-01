@@ -56,7 +56,7 @@
             <if test="courseName!=null and courseName!='' ">
                 and c.name=#{courseName}
             </if>
-            <if test="clazzId!=null and clazzId!='' ">
+            <if test="clazzId!=null and clazzId!=0 ">
                 and clz.id=#{clazzId}
             </if>
             and scg.grade is not null
