@@ -74,8 +74,8 @@ public class TechnicalTeacherController {
         //从session获取技术老师的id
         User user= (User) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         try {
-            List<Map<String, Object>> studentWorkRateOfEmployment = studentCourseGradeService.findStudentWorkRateOfEmployment(user.getTechnicalTeacher().getId());
-            return JsonData.buildSuccess(studentWorkRateOfEmployment);
+            Map<String, Integer> rate = studentCourseGradeService.findStudentWorkRateOfEmployment(user.getTechnicalTeacher().getId());
+            return JsonData.buildSuccess(rate);
         }catch (StudentGradeException e){
             return JsonData.buildError(e.getMessage());
         }catch (Exception e) {

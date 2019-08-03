@@ -9,7 +9,6 @@ import com.ambowEducation.dto.StudentGradeDto;
 import com.ambowEducation.po.Student;
 import com.ambowEducation.po.StudentCourseGrade;
 import com.ambowEducation.service.StudentCourseGradeService;
-import com.ambowEducation.utils.StringOfSubtringUtil;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,27 +99,21 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED,readOnly = true)
-    public List<Map<String,Object>> findStudentWorkRateOfEmployment(int teachId) throws Exception{
+    public Map<String,Integer> findStudentWorkRateOfEmployment(int teachId) throws Exception{
 
         //查询出所有的类型的人数
-        List<Map<String, Object>> maps = workMapper.selectEveryTypeCountByTechId(teachId);
+       int workcount= workMapper.selectEveryTypeCountByTechId(teachId);
 
-
+        Map<String,Integer> map = new HashMap<>();
         //求出总条数
         int count = technicalTeacherMapper.findTechnicalTeacherInStudentCount(teachId);
 
         if(count==0){
             throw new StudentGradeException(-5, "该老师没有管理任何学生");
         }
-
-        for (Map map:
-             maps) {
-            long num = (long) map.get("num");
-            String pre=new Double(num)/count+"";
-            String subString = StringOfSubtringUtil.customSubString(pre);
-            map.put("num", subString);
-        }
-        return maps;
+        map.put("已就业", workcount);
+        map.put("未就业", count-workcount);
+        return map;
     }
 
     @Override

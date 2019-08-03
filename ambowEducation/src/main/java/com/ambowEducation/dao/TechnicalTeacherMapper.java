@@ -41,10 +41,10 @@ public interface TechnicalTeacherMapper {
     public TechnicalTeacher selectTeacherByEmpNo(String emp_no);
 
     //孙 添加的
-    //根据技术老师id查询技术老师管理所有学生个数
+    //根据技术老师id查询技术老师管理近三年所有学生个数
 
-    @Select("select count(*) from t_technical_teacher tech , t_clazz  clazz, t_student s \n" +
-            "   where tech.id=clazz.te_id and clazz.id=s.c_id and tech.id=#{techId}")
+    @Select("select count(*) from t_technical_teacher tech , t_clazz  clazz, t_student s,t_user u\n" +
+            " where tech.id=clazz.te_id and clazz.id=s.c_id and s.s_no=u.username and u.createtime>DATE_SUB(NOW(),INTERVAL  3 YEAR) and tech.id=#{techId}")
      int findTechnicalTeacherInStudentCount(@Param("techId") int techId);
 
 }
