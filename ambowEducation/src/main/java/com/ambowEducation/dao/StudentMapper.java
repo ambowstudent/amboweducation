@@ -121,4 +121,8 @@ public interface StudentMapper {
     //查询学生所有的个数
     @Select("select count(*) from t_student")
     int findAllStudentCount();
+
+    //    查询班级下面还有没有学生。
+    @Select("select id from t_student where c_id=#{cId}")
+    List<Integer> selectStudentByClassId(Integer cId);
 }

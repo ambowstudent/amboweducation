@@ -37,6 +37,9 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
     @Autowired
     private TutorMapper tutorMapper;
 
+    @Autowired
+    private StudentMapper studentMapper;
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void insertClazz(ClassCourseDto classCourseDto) {
@@ -134,7 +137,7 @@ public class AdminClassCourseServiceImpl implements AdminClassCourseService {
         Clazz clazz = new Clazz();
         BeanUtils.copyProperties(classCourseDto,clazz);
 //        获取这个班里是否还有学生，如果有，不能删除班级，抛出异常。
-        List<Integer> stuNumInClass = classMapper.queryStudentByClassId(classCourseDto.getId());
+        List<Integer> stuNumInClass = studentMapper.selectStudentByClassId(classCourseDto.getId());
         System.out.println(stuNumInClass);
         if (stuNumInClass!=null&&stuNumInClass.size()>0){
             throw new AdminClassCourseException(-8,"该班级内还有学生没有被安置，不能删除此班级");
