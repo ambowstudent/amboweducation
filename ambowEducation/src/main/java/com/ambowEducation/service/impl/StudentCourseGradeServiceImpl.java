@@ -92,8 +92,8 @@ public class StudentCourseGradeServiceImpl implements StudentCourseGradeService 
     }
 
     @Override
-    public List<StudentCourseGrade> findAllByManyCondition(StudentGradeDto studentGradeDto) throws Exception{
-        List<StudentCourseGrade> studentCourseGrades = studentCourseGradeMapper.findAllByManyCondition(studentGradeDto.getStuNo(), studentGradeDto.getStuName(), studentGradeDto.getSchool(), studentGradeDto.getCourseName(),studentGradeDto.getClazzId());
+    public List<StudentCourseGrade> findAllByManyCondition(String sNo, String studentName, String school, String courseName, Integer clazzId) throws Exception{
+        List<StudentCourseGrade> studentCourseGrades = studentCourseGradeMapper.findAllByManyCondition(sNo, studentName, school, courseName,clazzId);
         return studentCourseGrades;
     }
 

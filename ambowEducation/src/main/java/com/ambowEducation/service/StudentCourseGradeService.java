@@ -27,7 +27,7 @@ public interface StudentCourseGradeService {
     /**
      * 根据多个条件查询、学校、id、课程名、姓名
      */
-    List<StudentCourseGrade> findAllByManyCondition(StudentGradeDto studentGradeDto)throws Exception;
+    List<StudentCourseGrade> findAllByManyCondition(String sNo, String studentName, String school, String courseName, Integer clazzId)throws Exception;
     /**
      * 查询学生就业情况，根据工作类型分组
      */
